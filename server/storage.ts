@@ -1,38 +1,28 @@
-import { type User, type InsertUser } from "@shared/schema";
-import { randomUUID } from "crypto";
-
-// modify the interface with any CRUD methods
-// you might need
+import { commandHistory, type InsertCommand, type CommandLog } from "@shared/schema";
+import { db } from "./db";
+import { desc } from "drizzle-orm";
 
 export interface IStorage {
-  getUser(id: string): Promise<User | undefined>;
-  getUserByUsername(username: string): Promise<User | undefined>;
-  createUser(user: InsertUser): Promise<User>;
+  logCommand(command: InsertCommand): Promise<CommandLog>;
+  getCommandHistory(): Promise<CommandLog[]>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<string, User>;
-
-  constructor() {
-    this.users = new Map();
+export class DatabaseStorage implements IStorage {
+  async logCommand(insertCommand: InsertCommand): Promise<CommandLog> {
+    const [log] = await db
+      .insert(commandHistory)
+      .values(insertCommand)
+      .returning();
+    return log;
   }
 
-  async getUser(id: string): Promise<User | undefined> {
-    return this.users.get(id);
-  }
-
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
-  }
-
-  async createUser(insertUser: InsertUser): Promise<User> {
-    const id = randomUUID();
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
-    return user;
+  async getCommandHistory(): Promise<CommandLog[]> {
+    return await db
+      .select()
+      .from(commandHistory)
+      .orderBy(desc(commandHistory.createdAt))
+      .limit(100); // Limit to last 100 commands
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
