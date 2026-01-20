@@ -36,7 +36,7 @@
       "Měj připravené doklady, kartičku pojištěnce a info pro záchranáře (diagnózy, alergie)."
     ],
     "dont": [
-      "Neodkládej volání pomoci při těžké dušnosti. Nečekej „až to přejde“. ",
+      "Neodkládej volání pomoci při těžké dušnosti. Nečekej „až to přejde“.",
       "Nevystavuj se kouři a dráždivým aerosolům (svíčky bez větrání, chemie).",
       "Nevynucuj námahu při zhoršování dýchání."
     ],
@@ -50,7 +50,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "astma"
+      "template": "plyn_co"
     }
   },
   {
@@ -170,7 +170,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "elektrina"
+      "template": "elektrina_blackout"
     }
   },
   {
@@ -350,7 +350,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "generic"
+      "template": "sireny_utok"
     }
   },
   {
@@ -1377,7 +1377,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "generic"
+      "template": "plyn_co"
     }
   },
   {
@@ -1760,7 +1760,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "generic"
+      "template": "plyn_co"
     }
   },
   {
@@ -2034,7 +2034,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "generic"
+      "template": "plyn_co"
     }
   },
   {
@@ -2092,7 +2092,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "generic"
+      "template": "plyn_co"
     }
   },
   {
@@ -2148,7 +2148,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "generic"
+      "template": "plyn_co"
     }
   },
   {
@@ -2201,7 +2201,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "generic"
+      "template": "evakuace"
     }
   },
   {
@@ -2259,7 +2259,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "generic"
+      "template": "plyn_co"
     }
   },
   {
@@ -2317,7 +2317,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "generic"
+      "template": "plyn_co"
     }
   },
   {
@@ -2372,7 +2372,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "generic"
+      "template": "plyn_co"
     }
   },
   {
@@ -2424,7 +2424,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "teplo"
+      "template": "plyn_co"
     }
   },
   {
@@ -2589,7 +2589,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "generic"
+      "template": "evakuace"
     }
   },
   {
@@ -2689,7 +2689,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "generic"
+      "template": "evakuace"
     }
   },
   {
@@ -4306,7 +4306,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "generic"
+      "template": "plyn_co"
     }
   },
   {
@@ -4802,7 +4802,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "generic"
+      "template": "plyn_co"
     }
   },
   {
@@ -5458,7 +5458,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "generic"
+      "template": "plyn_co"
     }
   },
   {
@@ -6070,7 +6070,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "generic"
+      "template": "sireny_utok"
     }
   },
   {
@@ -6177,7 +6177,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "generic"
+      "template": "plyn_co"
     }
   },
   {
@@ -6277,7 +6277,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "elektrina"
+      "template": "elektrina_blackout"
     }
   },
   {
@@ -6367,7 +6367,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "generic"
+      "template": "sireny_utok"
     }
   },
   {
@@ -6945,7 +6945,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "generic"
+      "template": "boure_vitr"
     }
   },
   {
@@ -7213,7 +7213,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "pozar"
+      "template": "evakuace"
     }
   },
   {
@@ -7573,7 +7573,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "generic"
+      "template": "plyn_co"
     }
   },
   {
@@ -7961,7 +7961,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "generic"
+      "template": "sireny_utok"
     }
   },
   {
@@ -8051,7 +8051,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "pozar"
+      "template": "evakuace"
     }
   },
   {
@@ -8238,7 +8238,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "generic"
+      "template": "sireny_utok"
     }
   },
   {
@@ -8895,7 +8895,7 @@
     "_meta": {
       "filled_at": "2026-01-20T18:21:47Z",
       "filled_by": "fill_missing_sections.py",
-      "template": "generic"
+      "template": "plyn_co"
     }
   },
   {

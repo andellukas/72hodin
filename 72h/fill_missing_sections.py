@@ -1,15 +1,12 @@
 import json
-import re
 from copy import deepcopy
 from datetime import datetime
 
 def norm(s: str) -> str:
-  s = (s or "").strip().lower()
-  return s
+  return (s or "").strip().lower()
 
 def as_list(v):
-  if v is None:
-    return []
+  if v is None: return []
   if isinstance(v, list):
     return [str(x).strip() for x in v if str(x).strip()]
   if isinstance(v, str):
@@ -17,46 +14,49 @@ def as_list(v):
     return [s] if s else []
   return []
 
-def has_any(v):
-  return len(as_list(v)) > 0
+def has_any(v): return len(as_list(v)) > 0
 
 def tags_set(item):
-  return set([norm(t) for t in as_list(item.get("tags"))])
+  return set(norm(t) for t in as_list(item.get("tags")))
 
-def cat(item):
-  return norm(item.get("category",""))
+def cat(item): return norm(item.get("category",""))
+def qtext(item): return (item.get("q","") or "").strip().lower()
 
-def qtext(item):
-  return (item.get("q","") or "").strip()
-
-# --- GENERIC SAFETY BLOCKS (fallback) ---
+# ------------------------
+# GENERIC (fallback) – kvalitní minimum
+# ------------------------
 GENERIC_NOW = [
-  "Zůstaň v klidu: zkontroluj, jestli nejsi v přímém ohrožení (oheň, plyn, padající věci).",
-  "Zajisti světlo a komunikaci: čelovka/baterka, šetři baterii telefonu (úsporný režim).",
-  "Získej informace: rádio (FM/DAB), obecní hlášení, ověř 2 nezávislé zdroje."
+  "Zajisti bezpečí: oheň/kouř/plyn/CO/padající věci? Pokud ano, okamžitě ven a volej 112/150.",
+  "Světlo a komunikace: čelovka/baterka, telefon úsporný režim, SMS, powerbanka.",
+  "Získej informace: rádio (FM/DAB), obecní hlášení, ověř 2 nezávislé zdroje (ne sdílené fámy).",
+  "Domluv doma plán na papír: kdo je kde, kontakty, místo srazu, pravidlo „jeden hlídá děti/seniory“."
 ]
 GENERIC_NEXT = [
-  "Domluv si doma jednoduchý plán: kdo co dělá, kde je sraz, kontakt na příbuzné.",
-  "Zkontroluj zásoby: voda, jídlo, léky, teplo, hygiena. Sepiš, co chybí.",
-  "Minimalizuj rizika: odpoj zbytečné spotřebiče, připrav si hotovost a doklady."
+  "Zkontroluj zásoby: voda, jídlo, léky, hygiena, teplo. Sepiš chybějící věci a prioritu.",
+  "Minimalizuj rizika: odpoj zbytečné spotřebiče, připrav hotovost, doklady, klíče, základní lékárničku.",
+  "Sousedská kontrola: ověř seniory a zranitelné osoby v okolí.",
+  "Nastav režim šetření: baterie/energie/voda; plánuj krátké intervaly kontroly zpráv."
 ]
 GENERIC_H72 = [
-  "Nastav režim šetření: energie, voda, baterie. Dělej jen nutné činnosti.",
-  "Udržuj teplo/bezpečí: vrstvy oblečení, jedna místnost, větrání krátce a účelně.",
-  "Průběžně aktualizuj informace a přizpůsob plán. Pokud se situace zhoršuje, odejdi včas."
+  "Udržuj bezpečí a teplo: vrstvy oblečení, jedna místnost, izolace od podlahy, větrání krátce a účelně.",
+  "Hygiena a prevence: mytí rukou/dezinfekce, bezpečná voda, šetrné nakládání s odpadem.",
+  "Průběžně aktualizuj plán podle pokynů obce/integrovaného systému. Připrav se na evakuaci, pokud se situace zhoršuje."
 ]
 GENERIC_DONT = [
-  "Nešiř paniku ani neověřené zprávy. Nejednej impulzivně.",
-  "Nehazarduj s ohněm/plynem/elektřinou. Nepřetěžuj prodlužky a zásuvky.",
-  "Nezapomínej na děti/seniory/sousedku – zkontroluj zranitelné osoby."
+  "Nešiř neověřené zprávy, nejednej impulzivně a nevycházej do rizika „jen se podívat“.",
+  "Nehazarduj s ohněm/plynem/elektřinou. Nepřetěžuj prodlužky ani improvizované topení bez větrání.",
+  "Nenechávej děti bez dozoru v krizové situaci; hlídej i domácí zvířata.",
+  "Nezapomeň na léky a zdravotní potřeby – u rizikových osob se situace zhorší rychle."
 ]
 GENERIC_CALL = [
-  "155/112 při ohrožení života nebo vážném zranění.",
-  "150 při požáru nebo zápachu kouře.",
-  "112 při akutním nebezpečí, když nevíš, kam volat."
+  "155/112 při ohrožení života, vážném zranění, bezvědomí, dušnosti, krvácení, podezření na otravu CO.",
+  "150 při požáru nebo silném kouři.",
+  "112 při akutním nebezpečí, kdy nevíš, koho volat, nebo když nejde jiné číslo."
 ]
 
-# --- CATEGORY/TAG TEMPLATES ---
+# ------------------------
+# TEMPLATES – pravidlové doplňování
+# ------------------------
 TEMPLATES = []
 
 def add_template(name, match_fn, now, nxt, h72, dont, call):
@@ -66,158 +66,255 @@ def add_template(name, match_fn, now, nxt, h72, dont, call):
     "now": now, "next": nxt, "h72": h72, "dont": dont, "call": call
   })
 
-# VODA
+# Helper matchers
+def has_tag(it, *tags):
+  ts = tags_set(it)
+  return any(norm(t) in ts for t in tags)
+
+def in_cat(it, *subs):
+  c = cat(it)
+  return any(norm(s) in c for s in subs)
+
+def q_has(it, *subs):
+  q = qtext(it)
+  return any(norm(s) in q for s in subs)
+
+# ------------------------
+# VODA (vylepšené)
+# ------------------------
 add_template(
   "voda",
-  lambda it: "voda" in tags_set(it) or "voda" in cat(it),
+  lambda it: has_tag(it,"voda","netece voda","hygiena") or in_cat(it,"voda"),
   now=[
-    "Ověř rozsah: je voda jen u tebe (stoupačka/uzávěr) nebo v celé ulici? Zeptej se sousedů.",
-    "Pokud hrozí únik (prasklé potrubí): zavři hlavní uzávěr vody v bytě/domu.",
-    "Naplň nádoby, pokud voda krátce teče; vyhraď pitnou vodu zvlášť (čisté lahve)."
+    "Ověř rozsah: je voda jen u tebe (uzávěr/stoupačka), nebo v celé ulici? Zeptej se sousedů.",
+    "Pokud je únik/prasklé potrubí: zavři hlavní uzávěr vody v bytě/domu a chraň elektroinstalaci před vodou.",
+    "Pokud voda krátce teče: naplň čisté lahve/kanystry a vyhraď pitnou vodu zvlášť (uzavíratelně).",
+    "Zapiš stav: kolik máte pitné vody a na kolik dní vystačí."
   ],
   nxt=[
-    "Zaveď hygienický režim: mytí rukou minimalizuj, používej dezinfekci, jednorázové ubrousky.",
-    "Zajisti vodu: rodina/sousedé, veřejné cisterny, obchody (pokud fungují), voda z bojleru jen pokud je bezpečná.",
-    "Šetři splachování: používej kýbl/šedou vodu, pokud je to hygienicky možné."
+    "Zaveď hygienický režim: dezinfekce rukou, ubrousky, šetřit splachování (jen nutně).",
+    "Zajisti zdroj: obecní cisterny/výdej, rodina, sousedé; domluv donášku pro seniory.",
+    "Pokud bereš vodu z alternativy: připrav možnost převaření/ověřené filtrace a čisté nádoby."
   ],
   h72=[
-    "Pitná voda: 2–3 l na osobu/den. Priorita pití, potom vaření, hygiena až nakonec.",
-    "Pokud bereš vodu z alternativních zdrojů: převařit (min. 1 min varu) nebo použít ověřenou filtraci/dezinfekci.",
-    "Sleduj pokyny obce/vodáren: kvalita vody, místa výdeje, zákaz používání."
+    "Pitná voda: cíl 2–3 l/osoba/den. Priorita pití, pak vaření, hygiena až nakonec.",
+    "Bezpečnost vody: u neznámého zdroje raději převařit (min. 1 minuta varu) nebo použít ověřenou úpravu.",
+    "Sleduj pokyny obce/vodáren: místa výdeje, kvalita vody, zákaz používání."
   ],
   dont=[
-    "Nepij neověřenou vodu (studna/řeka) bez úpravy. Riziko infekce.",
-    "Nenechávej vodu v otevřených nádobách bez krytu (kontaminace).",
-    "Neplýtvej pitnou vodou na úklid/splachování."
+    "Nepij neověřenou vodu bez úpravy (studna/řeka). Riziko průjmů a infekcí.",
+    "Nenechávej vodu otevřenou bez krytu (kontaminace). Neplýtvej pitnou vodou na úklid.",
+    "Nepodceň děti a seniory – dehydratace přichází rychleji."
   ],
   call=[
-    "Havarijní služba vodáren/správce domu při prasklém potrubí nebo vytápění vodou v domě.",
-    "155/112 při příznacích těžké dehydratace, kolapsu, u malých dětí/seniorů.",
-    "150 při zaplavení, které ohrožuje elektroinstalaci nebo vzniká riziko požáru."
+    "Havarijní služba/správce domu při prasklém potrubí, zatékání, nebo když voda ohrožuje elektřinu.",
+    "155/112 při kolapsu, příznacích těžké dehydratace, u malých dětí/seniorů.",
+    "150 při riziku požáru/zakouření způsobeném zkratem po zatečení."
   ]
 )
 
-# ELEKTŘINA / BLACKOUT
+# ------------------------
+# ELEKTŘINA / BLACKOUT (vylepšené)
+# ------------------------
 add_template(
-  "elektrina",
-  lambda it: ("elektrina" in tags_set(it)) or ("blackout" in tags_set(it)) or ("elektr" in cat(it)),
+  "elektrina_blackout",
+  lambda it: has_tag(it,"elektrina","blackout","proud","vypadek proudu") or in_cat(it,"elektr") or q_has(it,"nejde proud","vypadek proudu","blackout"),
   now=[
-    "Zkontroluj jističe a chránič. Pokud se hned znovu vypíná, odpoj podezřelý spotřebič.",
-    "Vytáhni citlivou elektroniku ze zásuvek (ochrana před přepětím při návratu proudu).",
-    "Světlo: čelovka/baterka. Svíčky jen s dohledem a stabilním podkladem."
+    "Zkontroluj jističe a proudový chránič. Pokud se hned znovu vypíná, odpoj podezřelý spotřebič.",
+    "Vytáhni citlivou elektroniku ze zásuvek (ochrana proti přepětí při návratu proudu).",
+    "Světlo: čelovka/baterka. Svíčky jen s dohledem a na nehořlavém podkladu.",
+    "Pokud nefunguje celý dům: zjisti info u sousedů/správce/distributora (SMS/rádio)."
   ],
   nxt=[
-    "Teplo: uzavři okna, soustřeď se do jedné místnosti, vrstvi oblečení.",
-    "Jídlo: lednice/mrazák neotvírat zbytečně. Spotřebuj nejdřív to, co se kazí.",
-    "Informace: rádio na baterie/autě, pokyny obce/distributora. Domluv sousedskou výpomoc."
+    "Jídlo: lednici a mrazák neotvírat zbytečně. Seřaď potraviny podle kazivosti a plán spotřeby.",
+    "Teplo: jedna místnost, vrstvy, izolace od podlahy. Připrav deky/spacáky.",
+    "Voda a vaření: pokud máš jen elektrický sporák, připrav studenou variantu jídla.",
+    "Nabíjení: powerbanka, auto adaptér. Domluv časové okno komunikace (šetří baterii)."
   ],
   h72=[
-    "Nabíjení: powerbanka, auto adaptér. Nastav režim komunikace (SMS, krátké hovory).",
-    "Voda/vaření: pokud nefunguje elektrický sporák, připrav alternativu (plyn vařič jen s větráním).",
-    "Bezpečnost: zkontroluj seniory, výtahy nepoužívej, hlídej požární rizika."
+    "Bezpečnost: pozor na výtahy, tmu na schodišti, riziko pádů. Zkontroluj seniory v okolí.",
+    "Po návratu proudu zapínej spotřebiče postupně (nejdřív světla, pak lednice, až pak zbytek).",
+    "Sleduj pokyny obce/distributora a připrav evakuační batoh, pokud se situace protahuje."
   ],
   dont=[
-    "Nezapínej najednou všechny spotřebiče po návratu proudu (může shodit síť/jističe).",
-    "Nezahřívej byt otevřeným plamenem bez větrání (CO, požár).",
-    "Nenechávej svíčky bez dozoru."
+    "Nezapínej najednou všechny spotřebiče po návratu proudu (může to shodit jističe).",
+    "Nezahřívej byt grilem/uhlím uvnitř. Nepřetěžuj prodlužky a improvizované rozvody.",
+    "Nenechávej svíčky bez dozoru; nechoď potmě bez světla."
   ],
   call=[
-    "155/112 při úrazu, ztrátě vědomí, podezření na otravu kouřem/CO.",
-    "150 při požáru nebo zápachu spáleniny z rozvodů.",
-    "Distributora/správce, pokud jde o závadu jen v domě (jističe v rozvaděči, stoupačky)."
+    "150 při požáru/zakouření/hoření kabelů. 155/112 při úrazu, bezvědomí, podezření na otravu kouřem/CO.",
+    "Správce/distributor při lokální závadě v domě (rozvaděč, stoupačky).",
+    "112 při nebezpečí a nejistotě, kam volat."
   ]
 )
 
-# TEplo / chlad / topení
+# ------------------------
+# PLYN / ZÁPACH PLYNU / CO (kritické)
+# ------------------------
 add_template(
-  "teplo",
-  lambda it: ("teplo" in tags_set(it)) or ("zima" in tags_set(it)) or ("topeni" in tags_set(it)) or ("teplo" in cat(it)) or ("topen" in cat(it)),
+  "plyn_co",
+  lambda it: has_tag(it,"plyn","unik plynu","zapach plynu","co","oxid uhelnaty","kotle","karma","topeni plyn") or in_cat(it,"plyn") or q_has(it,"zápach plynu","unik plynu","plyn","oxid uhelnat"),
   now=[
-    "Zkrať prostor: zavři dveře, vyber jednu místnost a izoluj ji (deky, závěsy).",
-    "Vrstvy: čepice, suché ponožky, více tenkých vrstev. Přikrývky a spacáky.",
-    "Bezpečný zdroj tepla jen s větráním a dohledem (riziko CO/požáru)."
+    "Pokud cítíš plyn: NEZAPÍNEJ/VYPÍNEJ elektřinu (žádné vypínače), nezapaluj oheň, nevolej z místnosti.",
+    "Okamžitě otevři okna/dveře a vyvětrej. Zavři hlavní uzávěr plynu, pokud to jde bezpečně.",
+    "Vyveď všechny osoby ven (hlavně děti/seniory).",
+    "Zvenku volej plynárenskou pohotovost nebo 112, uveď adresu a situaci."
   ],
   nxt=[
-    "Ucpěj průvan: utěsni okna/dveře, rohože, textilie. Větrej krátce a intenzivně.",
-    "Teplé nápoje/jídlo, pohyb v bytě. Sleduj děti a seniory (rychleji prochladnou).",
-    "Zajisti alternativní ohřev vody a světlo (baterky, powerbanky)."
+    "Nevracej se dovnitř, dokud to nepovolí odborník. Informuj sousedy, pokud to nezvyšuje riziko.",
+    "Zkontroluj zdroje: sporák, kotel, karma. Nech zařízení zkontrolovat odborně.",
+    "Pokud je podezření na CO (bolest hlavy, nevolnost, ospalost): okamžitě ven a 155/112."
   ],
   h72=[
-    "Hlídej teplotu a příznaky podchlazení (třes, zmatenost, ospalost).",
-    "Spánek: co nejvíc izolace od podlahy (karimatka, deky).",
-    "Pokud teplota dlouhodobě klesá a nejste vybavení, zvaž přesun k rodině/evakuačnímu místu."
+    "Bezpečný provoz: pravidelný servis spotřebičů, CO hlásič, větrání při provozu.",
+    "Měj plán: kde je uzávěr plynu, koho volat, kde se sejdete venku.",
+    "Pokud je plyn odstaven: plán vaření (studené jídlo) a tepla (vrstvy, jedna místnost)."
   ],
   dont=[
-    "Nezahřívej byt grilem/uhlím uvnitř (CO).",
-    "Nenechávej otevřený oheň bez dozoru.",
-    "Nepij alkohol na zahřátí (zhoršuje podchlazení)."
+    "Nevytvářej jiskru: žádné vypínače, zvonky, zapalovače, nabíjení, dokud je plyn v prostoru.",
+    "Neignoruj příznaky CO. CO je bez zápachu a může zabít ve spánku.",
+    "Neřeš to „sám“ opravami – zavolej odborníky."
   ],
   call=[
-    "155/112 při příznacích podchlazení, kolapsu, u dětí/seniorů.",
-    "150 při požáru nebo zakouření.",
-    "Správce/servis při havárii topení/unikající vodě v topném systému."
+    "112 při podezření na únik plynu nebo když je riziko výbuchu.",
+    "155 při příznacích otravy CO (bolest hlavy, zvracení, zmatenost, ospalost).",
+    "Plynárenská pohotovost / hasiči při úniku a nutnosti zajištění prostoru."
   ]
 )
 
-# ZDRAVÍ / DUŠENÍ / ASTMA (bez detailní léčby – bezpečné a obecné)
+# ------------------------
+# SIRÉNY / ÚTOK / OHROŽENÍ (civilní ochrana – bezpečné)
+# ------------------------
 add_template(
-  "astma",
-  lambda it: ("astma" in tags_set(it)) or ("duseni" in tags_set(it)) or ("dech" in tags_set(it)) or ("astma" in qtext(it).lower()),
+  "sireny_utok",
+  lambda it: has_tag(it,"sireny","utok","valka","strelba","ohrozeni","kryt","ukryt") or q_has(it,"siréna","sireny","útok","výbuch","ostřelován","bombard"),
   now=[
-    "Pokud je dušnost těžká, zhoršuje se, nebo je modrání rtů/zmatenost: volej 155/112 hned.",
-    "Posaď se do pohodlné polohy, uvolni těsné oblečení, soustřeď se na pomalý výdech.",
-    "Zajisti čerstvý vzduch, odejdi od kouře, prachu, parfémů a dalších spouštěčů."
+    "Okamžitě vyhledej nejbližší bezpečný úkryt: suterén, vnitřní místnost bez oken, chodba/šachta. Vzdálit se od oken.",
+    "Vypni otevřený oheň, vezmi telefon/powerbanku, doklady, léky, vodu – jen co je po ruce (max 60 sekund).",
+    "Zavři okna, stáhni žaluzie/rolety, zavři dveře. Lehkni/klekněte k nosné zdi, chraň hlavu.",
+    "Získej informace: rádio, oficiální pokyny obce/integrovaného systému. Krátké SMS rodině „jsem v bezpečí“."
   ],
   nxt=[
-    "Zkontroluj zásobu léků/pomůcek, pokud je máš doma. Ulož je na jedno místo a chraň před chladem/teplem.",
-    "Minimalizuj spouštěče: kouř, prach, plísně, zvířecí srst. Krátce vyvětrej a setři prach.",
-    "Domluv plán: kdo volá pomoc, kdo jde pro léky, seznam alergií a diagnóz na papír."
+    "Domluv pravidla: kdo hlídá děti, kde je sraz, co berete při evakuaci (go-bag).",
+    "Připrav úkryt: voda, deky, léky, baterka, nabíjení, základní hygienické věci.",
+    "Omez pohyb venku. Pokud musíš ven, jdi rychle, bez zbytečných zastávek, vyhýbej se otevřeným prostranstvím."
   ],
   h72=[
-    "Sleduj příznaky: zhoršování dušnosti, sípání, únava, neschopnost mluvit v celých větách.",
-    "Zajisti možnost kontaktu s lékařem/lékárnou, jakmile je to možné. Připrav seznam léků a dávek.",
-    "Měj připravené doklady, kartičku pojištěnce a info pro záchranáře (diagnózy, alergie)."
+    "Zaveď režim: kontrola zpráv v intervalech, šetření baterie, udržuj psychickou stabilitu (rutina, spánek).",
+    "Připrav evakuaci: batoh pro každého, kopie dokladů, hotovost, voda/jídlo na cestu, léky na několik dní.",
+    "Sleduj signály k evakuaci a drž se pokynů úřadů. Pomoz zranitelným osobám, pokud je to bezpečné."
   ],
   dont=[
-    "Neodkládej volání pomoci při těžké dušnosti. Nečekej „až to přejde“. ",
-    "Nevystavuj se kouři a dráždivým aerosolům (svíčky bez větrání, chemie).",
-    "Nevynucuj námahu při zhoršování dýchání."
+    "Nezůstávej u oken a na balkonech, nefotografuj z nebezpečných míst, nezdržuj se venku.",
+    "Nejezdi zbytečně autem (ucpání komunikací). Nešiř neověřené zprávy.",
+    "Nevracej se pro věci, pokud je riziko. Bezpečí má absolutní prioritu."
   ],
   call=[
-    "155/112 při dechové tísni, modrání, zmatenosti, kolapsu, nebo když se stav rychle zhoršuje.",
-    "Kontakt lékaře co nejdřív při opakovaném zhoršování i bez akutní tísně.",
-    "Pokud nejste si jistí závažností, volej 112 – v panice raději dřív."
+    "112 při bezprostředním ohrožení, zranění, nebo když vidíš požár/výbuch a je potřeba zásah.",
+    "155 při vážném krvácení, bezvědomí, poranění hlavy, dušnosti.",
+    "150 při požáru po výbuchu/útoku."
   ]
 )
 
-# OBECNÝ POŽÁR / KOUŘ
+# ------------------------
+# EVAKUACE (kritické)
+# ------------------------
 add_template(
-  "pozar",
-  lambda it: ("pozar" in tags_set(it)) or ("kour" in tags_set(it)) or ("pozar" in cat(it)) or ("kouř" in qtext(it).lower()) or ("požár" in qtext(it).lower()),
+  "evakuace",
+  lambda it: has_tag(it,"evakuace","opustit dum","utek") or q_has(it,"evakuace","evakuovat","opustit byt","opustit dům"),
   now=[
-    "Když je kouř/ohně: okamžitě ven, zavři dveře za sebou, nechoď do kouře.",
-    "Volej 150 nebo 112, uveď adresu, patro, co hoří, jestli jsou lidé uvnitř.",
-    "Nepoužívej výtah. Pokud jdeš kouřem, drž se při zemi a kryj ústa látkou."
+    "Pokud je nařízena evakuace: odejdi hned. Vezmi doklady, léky, telefon, nabíjení, klíče, vodu – minimum.",
+    "Vypni plyn/elektřinu/vodu, pokud je čas a je to bezpečné. Zavři okna, zamkni.",
+    "Jdi podle pokynů (shromaždiště, trasa). Pomoz dětem/seniorům, ale nezdržuj se balením.",
+    "Dej rodině SMS: kam jdeš / kdy přibližně dorazíš / náhradní kontakt."
   ],
   nxt=[
-    "Po opuštění prostoru se neschovávej zpět pro věci. Zkontroluj všechny členy domácnosti.",
-    "Pokud máš lehký hasicí přístroj a je to bezpečné: jen malý začátek požáru, úniková cesta zajištěná.",
-    "Informuj sousedy jen pokud to nezdržuje únik (klepání, zvonek)."
+    "Na místě: registrace, informace, základní potřeby. Drž se skupiny, hlídej děti.",
+    "Zaznamenej: komu jsi předal info, kde jste ubytovaní, kontakty na úřady.",
+    "Pokud evakuace není organizovaná: domluv bezpečné místo u rodiny mimo rizikovou oblast."
   ],
   h72=[
-    "Po zásahu: větrej až po pokynu hasičů. Nezapínej elektřinu/plyn bez kontroly.",
-    "Sepiš škody, fotodokumentace, kontakt pojišťovny.",
-    "Pokud je byt neobyvatelný, řeš náhradní ubytování přes obec/rodinu."
+    "Režim přežití: hydratace, teplo, hygiena. Průběžně doplňuj informace a šetři energii.",
+    "Důležité dokumenty: fotky dokladů v telefonu + papírová kopie v batohu.",
+    "Po návratu domů až po povolení. Před vstupem kontroluj plyn/kouř/statiku."
   ],
   dont=[
-    "Nehas vodu na elektrických zařízeních nebo olej/ tuk (kuchyň).",
-    "Nevracej se do zakouřeného prostoru.",
-    "Neotevírej prudce dveře do místnosti s požárem (přísun kyslíku)."
+    "Nečekej „ještě chvilku“ při nařízené evakuaci. Nejezdi do uzavíraných zón.",
+    "Nezdržuj se balením věcí. Neber zbytečnosti na úkor léků/dokladů.",
+    "Neignoruj pokyny složek IZS."
   ],
   call=[
-    "150 při požáru, 112 při akutním ohrožení.",
-    "155 při nadýchání kouře, popáleninách, bezvědomí.",
-    "Plynárenská pohotovost při zápachu plynu po požáru."
+    "112 při zranění, uvíznutí, ohrožení na trase, nebo když nemůžeš evakuovat z vážných důvodů.",
+    "155 při zdravotním zhoršení (dušnost, kolaps).",
+    "150 při požáru, který brání evakuaci."
+  ]
+)
+
+# ------------------------
+# POVODEŇ / ZAPLAVENÍ (kritické)
+# ------------------------
+add_template(
+  "povoden",
+  lambda it: has_tag(it,"povoden","zaplava","zatop") or q_has(it,"povodeň","záplava","zatopen","voda v bytě","stoupa"),
+  now=[
+    "Pokud voda rychle stoupá: jdi do vyšších pater / na vyvýšené místo. Nečekej na poslední chvíli.",
+    "Vypni elektřinu hlavním jističem, pokud je to bezpečné a není voda u rozvaděče. Pozor na úraz proudem.",
+    "Přesuň doklady, léky, mobil, nabíjení a pár věcí do batohu a dej je do výšky.",
+    "Nechoď do vody s neznámou hloubkou/proudem. Volej pomoc, pokud hrozí uvěznění."
+  ],
+  nxt=[
+    "Zabezpeč byt: ucpání průsaků jen pokud bezpečné. Sleduj pokyny obce (evakuace, uzávěry).",
+    "Pitná voda: počítej s kontaminací. Používej balenou nebo bezpečně upravenou vodu.",
+    "Zdraví: po kontaktu s povodňovou vodou očisti kůži, drobná poranění dezinfikuj (riziko infekce)."
+  ],
+  h72=[
+    "Po opadnutí vody vstupuj až po povolení. Pozor na elektřinu, plyn, statiku, plísně.",
+    "Větrej, odstraň mokré materiály, dokumentuj škody. Používej rukavice/ochranu dýchacích cest při úklidu.",
+    "Zajisti odvoz odpadu a dezinfekci. Sleduj zdravotní potíže (průjmy, horečky)."
+  ],
+  dont=[
+    "Nechoď do vody, kde může být elektřina. Nejezdi autem do zatopených míst.",
+    "Nenechávej děti v blízkosti vody a rozbahněných sklepů.",
+    "Nepij vodu, u které si nejsi jistý původem a kvalitou."
+  ],
+  call=[
+    "112 při uvěznění, rychlém stoupání vody, ohrožení života.",
+    "150 při záchranných pracích, evakuaci, riziku požáru/elektro-závad.",
+    "155 při zranění, podchlazení, infekčních příznacích po kontaktu s povodňovou vodou."
+  ]
+)
+
+# ------------------------
+# BOUŘE / VÍTR / STROMY / KROUPY
+# ------------------------
+add_template(
+  "boure_vitr",
+  lambda it: has_tag(it,"boure","vitr","kroupy","storm","vichr") or q_has(it,"bouře","vichr","kroupy","silný vítr"),
+  now=[
+    "Zůstaň uvnitř, zavři okna, stáhni rolety/žaluzie. Drž se dál od oken.",
+    "Odpoj citlivou elektroniku ze zásuvek (přepětí). Připrav baterku a powerbanku.",
+    "Venku: nechoď pod stromy a konstrukce, vyhni se volným předmětům a vedení.",
+    "Zkontroluj, jestli něco nehrozí pádem na balkoně/okně – zajisti to, pokud je to bezpečné."
+  ],
+  nxt=[
+    "Po přechodu bouře zkontroluj škody jen bezpečně: pozor na spadlé dráty a nestabilní větve.",
+    "Pokud je výpadek proudu, přepni na blackout režim (světlo, rádio, šetření).",
+    "Zkontroluj sousedy, hlavně seniory, pokud je to bezpečné."
+  ],
+  h72=[
+    "Řeš opravy bezpečně: provizorní zakrytí střechy jen bez rizika pádu. Jinak čekej na odborníky.",
+    "Dokumentuj škody pro pojišťovnu. Sleduj varování před další vlnou počasí.",
+    "Měj připravený plán na další výpadky (baterie, voda, jídlo)."
+  ],
+  dont=[
+    "Nechoď k popadanému vedení. Nelez na střechu za větru nebo mokra.",
+    "Neparkuj pod stromy. Nezdržuj se venku při kroupách a silném větru.",
+    "Neodkládej řešení rizik (uvolněné tašky, hrozící pád) – ale řeš to bezpečně."
+  ],
+  call=[
+    "112/150 při bezprostředním ohrožení (spadlé vedení, požár, uvěznění).",
+    "155 při zranění.",
+    "Správce/servis při nebezpečné statice/poškození budovy."
   ]
 )
 
@@ -228,17 +325,16 @@ def choose_template(item):
   return None
 
 def merge_fill(item, tpl):
-  # Preserve existing arrays if non-empty; fill only missing/empty
   out = deepcopy(item)
 
-  # ensure keys exist as lists for renderer
+  # normalize fields
   for k in ["panic","now","next","h72","dont","call","tags"]:
     if k in out:
       out[k] = as_list(out.get(k))
     else:
-      # keep missing as missing? better: ensure list for consistency
       out[k] = []
 
+  # fill only if missing/empty
   if not has_any(out.get("now")):
     out["now"] = tpl["now"] if tpl else GENERIC_NOW
   if not has_any(out.get("next")):
@@ -250,7 +346,6 @@ def merge_fill(item, tpl):
   if not has_any(out.get("call")):
     out["call"] = tpl["call"] if tpl else GENERIC_CALL
 
-  # minimal provenance marker (optional but useful)
   out.setdefault("_meta", {})
   if isinstance(out["_meta"], dict):
     out["_meta"].setdefault("filled_at", datetime.utcnow().isoformat(timespec="seconds")+"Z")
@@ -259,10 +354,8 @@ def merge_fill(item, tpl):
   return out
 
 def stats(items):
-  def cnt(key):
-    return sum(1 for it in items if has_any(it.get(key)))
-  def empty(key):
-    return sum(1 for it in items if not has_any(it.get(key)))
+  def cnt(key): return sum(1 for it in items if has_any(it.get(key)))
+  def empty(key): return sum(1 for it in items if not has_any(it.get(key)))
   return {
     "total": len(items),
     "nonempty_now": cnt("now"),
@@ -282,12 +375,10 @@ def main():
     items = json.load(f)
 
   before = stats(items)
-
   filled = []
   for it in items:
     tpl = choose_template(it)
     filled.append(merge_fill(it, tpl))
-
   after = stats(filled)
 
   with open("faq.filled.json","w",encoding="utf-8") as f:
