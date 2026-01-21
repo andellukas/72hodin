@@ -1,3 +1,4 @@
+window.addEventListener("DOMContentLoaded", () => {
 
 // --- helpers: normalize section fields (string|array|null -> array) ---
 function asList(v) {
@@ -506,3 +507,4 @@ async function init(){
   if ("serviceWorker" in navigator) { navigator.serviceWorker.register("./sw.js").catch(()=>{}); }
 }
 init();
+});
