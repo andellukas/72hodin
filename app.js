@@ -21,6 +21,29 @@
 
   function __72h_main__(){
     try {
+// 72H SAFE BOOT PATCH (auto)
+// - ensures DOM is ready before touching elements
+// - shows runtime errors as on-page overlay
+(function(){
+  function __72h_show_error__(title, err){
+    try {
+      var box = document.getElementById("__72h_err__");
+      if(!box){
+        box = document.createElement("pre");
+        box.id="__72h_err__";
+        box.style.cssText="position:fixed;left:8px;right:8px;bottom:8px;max-height:45vh;overflow:auto;z-index:999999;background:#1b0b0b;color:#ffd7d7;padding:10px;border:2px solid #ff5a5a;border-radius:10px;font:12px/1.35 monospace;white-space:pre-wrap";
+        document.body.appendChild(box);
+      }
+      var msg = (err && (err.stack || err.message)) ? (err.stack || err.message) : String(err);
+      box.textContent = "[72H ERROR] " + title + "\n\n" + msg;
+    } catch(_) {}
+  }
+
+  window.addEventListener("error", function(e){ __72h_show_error__("window.error", e.error || e.message); });
+  window.addEventListener("unhandledrejection", function(e){ __72h_show_error__("unhandledrejection", e.reason); });
+
+  function __72h_main__(){
+    try {
 window.addEventListener("DOMContentLoaded", () => {
 
 // --- helpers: normalize section fields (string|array|null -> array) ---
@@ -532,6 +555,18 @@ async function init(){
 init();
 });
 
+    } catch(e) {
+      __72h_show_error__("boot", e);
+      throw e;
+    }
+  }
+
+  if (document.readyState === "loading") {
+    window.addEventListener("DOMContentLoaded", __72h_main__);
+  } else {
+    __72h_main__();
+  }
+})();
     } catch(e) {
       __72h_show_error__("boot", e);
       throw e;
