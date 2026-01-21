@@ -1,4 +1,19 @@
 
+window.addEventListener('error', function(e){
+  try{
+    var r=document.getElementById('r');
+    if(r) r.textContent='GLOBAL ERROR: '+(e.message||'unknown');
+  }catch(_){}
+});
+window.addEventListener('unhandledrejection', function(e){
+  try{
+    var r=document.getElementById('r');
+    var msg=(e.reason&&(e.reason.message||String(e.reason)))||'unknown';
+    if(r) r.textContent='PROMISE ERROR: '+msg;
+  }catch(_){}
+});
+
+
 // --- helpers: normalize section fields (string|array|null -> array) ---
 function asList(v) {
   if (Array.isArray(v)) return v.map(x => String(x ?? '').trim()).filter(Boolean);
@@ -487,6 +502,7 @@ $q.addEventListener("focus", ()=>{ if($sug.innerHTML) $sug.style.display="block"
 document.addEventListener("click", (e)=>{ if(!e.target.closest("#sug") && e.target!==$q) $sug.style.display="none"; });
 
 async function init(){
+  var r=document.getElementById('r'); if(r) r.textContent='BOOT OK — '+new Date().toISOString();
   // data
   DATA = await fetch("faq.json").then(r=>r.json());
 
