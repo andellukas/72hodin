@@ -1,3 +1,10 @@
+(function(){
+  try{
+    var r=document.getElementById('r');
+    if(r) r.textContent='BOOT STAGE 1 — '+new Date().toISOString();
+  }catch(_){}
+})();
+
 
 window.addEventListener('error', function(e){
   try{
