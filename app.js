@@ -505,4 +505,4 @@ async function init(){
   // sw
   if ("serviceWorker" in navigator) { navigator.serviceWorker.register("./sw.js").catch(()=>{}); }
 }
-init();
+init().catch(e=>{try{console.error(e);var r=document.getElementById("r");if(r)r.textContent="INIT ERROR: "+(e&&(e.stack||e.message)||e);}catch(_){}});
