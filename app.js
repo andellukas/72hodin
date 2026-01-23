@@ -380,8 +380,16 @@ function showDidYouMean(txt){
 }
 
 /* ---------- RENDER ---------- */
+  function tokensForHL(q){
+    // Simple + safe tokens for highlighting
+    const t = norm(q).split(/\s+/).filter(Boolean);
+    t.sort((a,b)=>b.length-a.length);
+    return t;
+  }
+
 function render(){
   const q = $q.value || "";
+    const qTokensForHL = tokensForHL(q);
   const scored = search(q);
 
   // suggestions
