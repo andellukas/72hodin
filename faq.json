@@ -10514,5 +10514,73 @@
       "filled_by": "fill_missing_sections.py",
       "template": "voda"
     }
+  },
+  {
+    "q": "Bouřka / vichřice (stromy, střepy, výpadky)",
+    "a": "NOW (teď hned):\n- Mimo stromy, lešení, vedení; zajisti volné předměty.\n- Zavři okna, odpoj citlivou elektroniku.\n- Venku: rychle do pevné budovy, ne pod strom.\n\nDALŠÍ KROKY (do 30–120 min):\n- Nesahej na spadlé dráty – velký odstup.\n- Připrav světlo, vodu, teplo (výpadek).\n- Škody řeš až po odeznění nebezpečí.\n\nNEDĚLEJ:\n- Nejezdi přes spadlé větve/dráty.\n- Nelez na střechu ve větru/dešti.\n- Nesahej na mokré elektro.\n\nKDY VOLAT 112/155/158:\n- 112: spadlé vedení v dosahu lidí, požár, ohrožení života.\n- 155: zranění, silné krvácení, bezvědomí.\n\nPOZNÁMKA:\n- Spadlé vedení může být pod napětím i když je ticho."
+  },
+  {
+    "q": "Bodnutí hmyzem / alergická reakce",
+    "a": "NOW (teď hned):\n- Odstraň žihadlo setřením (ne mačkáním), chlaď místo.\n- Sleduj otok rtů/jazyka, kopřivku, dušnost, motání hlavy.\n- Má-li adrenalinové pero, připrav ho dle návodu.\n\nDALŠÍ KROKY (do 30–120 min):\n- Běžná reakce: klid + chlazení; antihistaminikum dle příbaláku.\n- Bodnutí v ústech/krku ber vážně i při mírných příznacích.\n- Zapiš čas a vývoj.\n\nNEDĚLEJ:\n- Nečekej při známkách anafylaxe.\n- Nerozškrabuj ránu.\n\nKDY VOLAT 112/155/158:\n- 155/112: dušnost, otok jazyka/rtů, kolaps, rychlé zhoršování (anafylaxe).\n\nPOZNÁMKA:\n- Anafylaxe umí být rychlá – raději volej dřív."
+  },
+  {
+    "q": "Evakuace (kdy a jak odejít bezpečně)",
+    "a": "NOW (teď hned):\n- Doklady, léky, telefon+powerbanka, klíče, hotovost, voda.\n- Vypni plyn/elektřinu jen pokud je to bezpečné.\n- Domluv místo setkání rodiny, pošli krátkou zprávu.\n\nDALŠÍ KROKY (do 30–120 min):\n- Jdi určenou trasou, neblokuj IZS.\n- Zvíře: vodítko/klec, voda, krmivo.\n- Po příchodu: řiď se pokyny, šetři baterii.\n\nNEDĚLEJ:\n- Nevracej se pro věci, pokud je to nebezpečné.\n- Nešiř neověřené zprávy.\n\nKDY VOLAT 112/155/158:\n- 112: bezprostřední ohrožení života / uvíznutí / požár.\n\nPOZNÁMKA:\n- Evakuační minimum: doklady + léky + voda + nabití + teplo."
+  },
+  {
+    "q": "Elektrika kope / úraz proudem",
+    "a": "NOW (teď hned):\n- Nedotýkej se osoby, dokud není jisté odpojení proudu.\n- Vypni hlavní jistič (jen pokud je sucho a bezpečno).\n- Po odpojení: zkontroluj vědomí a dýchání.\n\nDALŠÍ KROKY (do 30–120 min):\n- Nedýchá: volej 155/112 a zahaj resuscitaci dle operátora.\n- I při dobrém stavu zvaž vyšetření (arytmie).\n- Popáleniny kryj sterilně.\n\nNEDĚLEJ:\n- Netahaj člověka, dokud není odpojeno.\n- Nehas vodou elektriku.\n\nKDY VOLAT 112/155/158:\n- 155/112: bezvědomí, porucha dýchání, popáleniny, bolest na hrudi.\n\nPOZNÁMKA:\n- U dětí/těhotných/srdcařů volej raději dřív."
+  },
+  {
+    "q": "Explozivní zápach plynu (únik plynu)",
+    "a": "NOW (teď hned):\n- Otevři okna, zavři plyn (uzávěr) jen pokud je to bezpečné.\n- Nerozsvěcej, nezapaluj, nepoužívej vypínače.\n- Odejdi ven do bezpečné vzdálenosti.\n\nDALŠÍ KROKY (do 30–120 min):\n- Upozorni sousedy mimo rizikovou zónu.\n- Nevracej se dovnitř bez potvrzení bezpečí.\n- Zapiš kde a kdy byl zápach.\n\nNEDĚLEJ:\n- Nezapínej/nevypínej spotřebiče a jističe.\n- Nevracej se pro věci při silném zápachu.\n\nKDY VOLAT 112/155/158:\n- 112: silný zápach, ohrožení lidí, riziko výbuchu.\n\nPOZNÁMKA:\n- Bezpečnost > majetek."
+  },
+  {
+    "q": "Fire / požár v bytě (kouř, plameny, evakuace)",
+    "a": "NOW (teď hned):\n- Kouř: drž se nízko u země, zavři dveře za sebou.\n- Je-li úniková cesta volná: okamžitě ven.\n- Nelze ven: utěsni dveře, jdi k oknu a volej o pomoc.\n\nDALŠÍ KROKY (do 30–120 min):\n- Volej 112/150: adresa, patro, co hoří, zda jsou lidé uvnitř.\n- Nepoužívej výtah.\n- Nevracej se dovnitř.\n\nNEDĚLEJ:\n- Neotvírej horké dveře.\n- Nehas vodou hořící olej a elektriku.\n\nKDY VOLAT 112/155/158:\n- 112/150: požár, kouř v objektu, uvěznění osob.\n- 155: popáleniny, nadýchání kouře.\n\nPOZNÁMKA:\n- Kouř zabíjí rychleji než oheň."
+  },
+  {
+    "q": "Falešný bankéř / podvodný telefonát",
+    "a": "NOW (teď hned):\n- Ukonči hovor, nic neinstaluj.\n- Nedávej kódy z SMS ani údaje karty/dokladů.\n- Už jsi něco sdělil: hned volej bance.\n\nDALŠÍ KROKY (do 30–120 min):\n- Blokace karty/účtu, změna hesel (email → banka).\n- Zapiš číslo, čas, průběh.\n- Zkontroluj transakce a limity.\n\nNEDĚLEJ:\n- Neplať 'odblokovací poplatky'.\n- Nevěř tlaku na rychlost a tajemství.\n\nKDY VOLAT 112/155/158:\n- Banka: okamžitě při podezření.\n- 158: pokud došlo k podvodu/škodě.\n\nPOZNÁMKA:\n- Kdo tlačí na rychlost, bývá podvod."
+  },
+  {
+    "q": "Food poisoning / otrava jídlem",
+    "a": "NOW (teď hned):\n- Přestaň jíst, uschovej vzorek.\n- Tekutiny po doušcích (rehydratace).\n- Sleduj: krev ve stolici, vysoká horečka, dehydratace.\n\nDALŠÍ KROKY (do 30–120 min):\n- Lehká strava až po zlepšení.\n- U dětí/seniorů hlídej močení a apatii.\n- Zapiš čas a co bylo snědeno.\n\nNEDĚLEJ:\n- Neignoruj zhoršování.\n- Opatrně s léky proti průjmu při horečce/krvi.\n\nKDY VOLAT 112/155/158:\n- 155: bezvědomí, těžká dehydratace, krev + vysoká horečka, rychlé zhoršování.\n\nPOZNÁMKA:\n- Když si nejsi jistý, volej 155."
+  },
+  {
+    "q": "Generální výpadek internetu/mobilních sítí (offline režim)",
+    "a": "NOW (teď hned):\n- Používej offline obsah, neřeš web refresh.\n- Šetři baterii (letadlo, občasná kontrola).\n- Získej info: rádio/rozhlas/sousedé.\n\nDALŠÍ KROKY (do 30–120 min):\n- Domluv rodinný plán setkání bez telefonů.\n- Připrav hotovost, vodu, světlo, jídlo.\n- Pokud máš: offline mapy.\n\nNEDĚLEJ:\n- Neplýtvej baterií nekonečným refreshováním.\n- Nešiř neověřené zprávy.\n\nKDY VOLAT 112/155/158:\n- 112: tísňová volání mohou projít i při přetížení.\n\nPOZNÁMKA:\n- Offline-first je přesně pro tohle."
+  },
+  {
+    "q": "Gas CO (oxid uhelnatý) – podezření na otravu",
+    "a": "NOW (teď hned):\n- Přeruš spalování, otevři okna a odejdi ven.\n- Sleduj: bolest hlavy, nevolnost, ospalost, zmatenost.\n- Nenechávej nikoho spát v podezřelém prostoru.\n\nDALŠÍ KROKY (do 30–120 min):\n- Nevracej se dovnitř bez potvrzení bezpečí.\n- Zvaž detektor CO.\n- Zapiš zdroj a průběh příznaků.\n\nNEDĚLEJ:\n- Negriluj/netop v uzavřené místnosti/garáži.\n- Neignoruj příznaky u více lidí současně.\n\nKDY VOLAT 112/155/158:\n- 155/112: ztráta vědomí, dušnost, zmatenost, více osob s příznaky.\n- 112: podezření na CO v objektu.\n\nPOZNÁMKA:\n- CO je bez zápachu – často se plete s chřipkou."
+  },
+  {
+    "q": "Granát v hlavě (psychická eskalace doma – rychlá stabilizace)",
+    "a": "NOW (teď hned):\n- Přeruš kontakt, jdi do bezpečné zóny.\n- Kontaktuj důvěryhodnou osobu.\n- Napiš si 3 fakta (co/kdy/kdo).\n\nDALŠÍ KROKY (do 30–120 min):\n- Nastav hranici krátce: 'Teď neřeším, až bude klid'.\n- Připrav odchod, pokud se bojíš.\n- Zvaž intervenční pomoc.\n\nNEDĚLEJ:\n- Nevysvětluj dokola, pokud hrozí nátlak.\n- Nezůstávej sám/sama, pokud hrozí agresivita.\n\nKDY VOLAT 112/155/158:\n- 112/158: bezprostřední ohrožení, násilí, stalking.\n\nPOZNÁMKA:\n- Cíl je bezpečí."
+  },
+  {
+    "q": "QR podvod (falešné kódy na platby / parkování)",
+    "a": "NOW (teď hned):\n- Neplať QR bez kontroly příjemce a částky.\n- Pozor na nalepené štítky přes originál.\n- Při omylu hned kontaktuj banku a ulož důkazy.\n\nDALŠÍ KROKY (do 30–120 min):\n- Nahlas správci/obci podezřelý QR.\n- Zkontroluj historii plateb a limity.\n- U větší škody zvaž 158.\n\nNEDĚLEJ:\n- Neplať ve spěchu.\n- Nezadávej přihlašovací údaje přes stránky z QR.\n\nKDY VOLAT 112/155/158:\n- Banka: okamžitě při podezřelé platbě.\n- 158: pokud došlo k podvodu/škodě.\n\nPOZNÁMKA:\n- Zkontroluj příjemce před potvrzením."
+  },
+  {
+    "q": "Quaranténa doma (infekce v rodině)",
+    "a": "NOW (teď hned):\n- Odděl nemocného, větrej, myj ruce.\n- Dezinfikuj dotykové plochy.\n- Zkontroluj zásoby a teploměr.\n\nDALŠÍ KROKY (do 30–120 min):\n- Sleduj teplotu a dýchání.\n- Domluv péči při zhoršení.\n- Konzultuj lékaře dle příznaků.\n\nNEDĚLEJ:\n- Neignoruj dušnost, bolest na hrudi, zmatenost.\n\nKDY VOLAT 112/155/158:\n- 155: dušnost, kolaps, výrazné zhoršování.\n\nPOZNÁMKA:\n- Řiď se doporučeními zdravotních autorit."
+  },
+  {
+    "q": "Quick ztráta dokladů (okamžitá obrana)",
+    "a": "NOW (teď hned):\n- Sepiš co chybí + kde naposledy.\n- Okamžitě blokuj karty.\n- Změň hesla (email je klíč).\n\nDALŠÍ KROKY (do 30–120 min):\n- Nahlas na policii.\n- Zažádej o nové doklady.\n- Sleduj účty kvůli zneužití identity.\n\nNEDĚLEJ:\n- Neodkládej blokaci karty.\n- Nezveřejňuj fotky dokladů.\n\nKDY VOLAT 112/155/158:\n- Banka: hned.\n- 158: krádež/podezření na zneužití identity.\n\nPOZNÁMKA:\n- Časová osa je důležitá."
+  },
+  {
+    "q": "Topení / pád do vody (led, řeka, rybník)",
+    "a": "NOW (teď hned):\n- Volej pomoc, bezpečí zachránce je priorita.\n- Podávej předmět (větev, provaz), plaz se po ledu.\n- Po vytažení: svléct mokré, zabalit do suchého.\n\nDALŠÍ KROKY (do 30–120 min):\n- Sleduj příznaky podchlazení.\n- Teplé sladké nápoje po doušcích (je-li při vědomí).\n- Zvaž vyšetření při výrazném podchlazení.\n\nNEDĚLEJ:\n- Neskákej do vody bez jištění.\n- Nezahřívej prudce u těžkého podchlazení.\n\nKDY VOLAT 112/155/158:\n- 112/155: dítě ve vodě, bezvědomí, podchlazení, potíže s dýcháním.\n\nPOZNÁMKA:\n- V ledové vodě jde o minuty."
+  },
+  {
+    "q": "Tržná rána / silné krvácení",
+    "a": "NOW (teď hned):\n- Tlak na ránu, přidej vrstvy, první nesundávej.\n- Zvedni poraněnou část pokud jde.\n- Sleduj známky šoku.\n\nDALŠÍ KROKY (do 30–120 min):\n- Zafixuj obvaz, udržuj teplo.\n- Zapiš čas úrazu.\n- Hluboké/špinavé rány často potřebují ošetření.\n\nNEDĚLEJ:\n- Nestrkej dezinfekci hluboko do rány.\n\nKDY VOLAT 112/155/158:\n- 155/112: masivní krvácení, poranění hlavy/krku, známky šoku.\n\nPOZNÁMKA:\n- Tlak zachraňuje život."
+  },
+  {
+    "q": "Těžká panika (rychlý stabilizační postup)",
+    "a": "NOW (teď hned):\n- Dýchej pomalu (4s nádech, 6–8s výdech).\n- Uzemnění: 5 věcí vidím, 4 cítím, 3 slyším.\n- Voda po doušcích.\n\nDALŠÍ KROKY (do 30–120 min):\n- Odejdi z přetížení, 10 minut bez stimulů.\n- Zapiš spouštěče.\n- Při opakování zvaž odbornou pomoc.\n\nNEDĚLEJ:\n- Nepřetlačuj to při řízení – zastav bezpečně.\n\nKDY VOLAT 112/155/158:\n- 155: bolest na hrudi, omdlévání, nebo podezření na akutní stav.\n\nPOZNÁMKA:\n- Cíl: zklidnit tělo."
   }
 ]
