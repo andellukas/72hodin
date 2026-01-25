@@ -387,6 +387,45 @@ function showDidYouMean(txt){
     return t;
   }
 
+
+/* === PANIKA CARDS (AUTO) === */
+function __renderPanicCards(){
+  try{
+    var grid = document.getElementById("panicGrid");
+    if(!grid) return;
+    grid.innerHTML = "";
+
+    var cards = [('Nouzové zásoby', 'nouzové zásoby'), ('Voda', 'voda'), ('Jídlo', 'jídlo'), ('Informace a komunikace', 'informace'), ('Když vypadne elektrický proud', 'elektřina'), ('Ukrytí', 'ukrytí'), ('Evakuace', 'evakuace'), ('Pomoc sousedům', 'pomoc sousedům'), ('Komunikace s dětmi', 'děti'), ('Podpora v těžkých chvílích', 'psychická pomoc'), ('Hlavní zásady první pomoci', 'první pomoc'), ('Kontakty', '__PANIKA_KONTAKTY__')];
+
+    cards.forEach(function(it){
+      var title = it[0], action = it[1];
+      var b = document.createElement("button");
+      b.className = "panicBtn";
+      b.textContent = title;
+
+      b.onclick = function(){
+        try{
+          if(action === "__PANIKA_KONTAKTY__"){
+            var card = document.getElementById("cityInfoCard");
+            if(card){
+              card.style.display = "block";
+              card.scrollIntoView({behavior:"smooth", block:"start"});
+              return;
+            }
+          }
+          if(typeof $q !== "undefined"){
+            $q.value = action;
+            render();
+            $q.focus();
+          }
+        }catch(_){}
+      };
+      grid.appendChild(b);
+    });
+  }catch(_){}
+}
+/* === /PANIKA CARDS (AUTO) === */
+
 function render(){
   const q = $q.value || "";
     const qTokensForHL = tokensForHL(q);
@@ -438,6 +477,8 @@ function render(){
         </div>`;
     $r.insertAdjacentHTML("beforeend", html);
   }
+
+  try{ __renderPanicCards(); }catch(_){ }
 }
 
 
