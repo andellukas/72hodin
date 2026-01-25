@@ -546,6 +546,9 @@ init().catch(e=>{try{console.error(e);var r=document.getElementById("r");if(r)r.
       return ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"})[c] || c;
     });
   }
+  function normTel(num) {
+    return String(num||"").replace(/\s+/g,"").replace(/^\+/, "+");
+  }
 
   function applyCityBranding(cfg) {
     try {
@@ -555,23 +558,72 @@ init().catch(e=>{try{console.error(e);var r=document.getElementById("r");if(r)r.
       var title = (b && b.headerTitle) ? b.headerTitle : (city && city.name ? ("Digitální krizový manuál – " + city.name) : "Digitální krizový manuál");
       var subtitle = (b && b.headerSubtitle) ? b.headerSubtitle : "Offline";
 
-      var elTitle = el("cityHeaderTitle");
-      var elSub = el("cityHeaderSubtitle");
-      if (elTitle) elTitle.textContent = title;
-      if (elSub) {
-        // zachovej původní „Offline: ? …“ řádek, jen přepiš text za tím
-        // pokud už tam je net, necháme ho být a doplníme zbytek
-        elSub.innerHTML = 'Offline: <b id="net">?</b> • ' + esc(subtitle);
-      }
+      var t = el("cityHeaderTitle");
+      var sub = el("cityHeaderSubtitle");
+      if (t) t.textContent = title;
+      if (sub) sub.innerHTML = 'Offline: <b id="net">?</b> • ' + esc(subtitle);
 
       var logoPath = (b && b.logo) ? b.logo : "";
-      var elLogo = el("cityLogo");
-      if (elLogo && logoPath) {
-        elLogo.src = logoPath;
-        elLogo.alt = (city && city.name) ? ("Logo města " + city.name) : "Logo obce";
-        elLogo.style.display = "block";
+      var lg = el("cityLogo");
+      if (lg && logoPath) {
+        lg.src = logoPath;
+        lg.alt = (city && city.name) ? ("Logo města " + city.name) : "Logo obce";
+        lg.style.display = "block";
       }
     } catch (e) {}
+  }
+
+  function renderPhonesFlat(phones, out) {
+    var rows = [];
+    if (phones) {
+      Object.keys(phones).forEach(function(k) {
+        var it = phones[k] || {};
+        var label = it.label || k;
+        var num = (it.number || "").trim();
+        if (!num) return;
+        var tel = normTel(num);
+        rows.push(
+          '<div style="display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.06)">' +
+            '<div style="font-weight:900;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0">' + esc(label) + '</div>' +
+            '<a href="tel:' + esc(tel) + '" style="font-weight:900;text-decoration:none;color:#0b5bd3;white-space:nowrap">' + esc(num) + '</a>' +
+          '</div>'
+        );
+      });
+    }
+    out.innerHTML = rows.length ? rows.join("") : '<div class="small">Kontakty nejsou vyplněné.</div>';
+  }
+
+  function renderContactGroups(groups, out) {
+    if (!Array.isArray(groups) || !groups.length) return false;
+
+    var html = groups.map(function(g) {
+      var title = g.title || (g.id ? (g.id + ") Kontakty") : "Kontakty");
+      var items = Array.isArray(g.items) ? g.items : [];
+      var inner = items.map(function(it) {
+        var label = it.label || "";
+        var num = (it.number || "").trim();
+        if (!num) return '';
+        var tel = normTel(num);
+        return (
+          '<div style="display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.06)">' +
+            '<div style="font-weight:900;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0">' + esc(label) + '</div>' +
+            '<a href="tel:' + esc(tel) + '" style="font-weight:900;text-decoration:none;color:#0b5bd3;white-space:nowrap">' + esc(num) + '</a>' +
+          '</div>'
+        );
+      }).filter(Boolean).join("");
+
+      if (!inner) inner = '<div class="small">Bez položek.</div>';
+
+      return (
+        '<details style="margin:10px 0;border:1px solid rgba(0,0,0,.08);border-radius:14px;background:#fff;padding:8px 10px">' +
+          '<summary style="cursor:pointer;font-weight:900;list-style:none;outline:none">' + esc(title) + '</summary>' +
+          '<div style="margin-top:8px">' + inner + '</div>' +
+        '</details>'
+      );
+    }).join("");
+
+    out.innerHTML = html;
+    return true;
   }
 
   function renderCityInfo(cfg) {
@@ -581,40 +633,21 @@ init().catch(e=>{try{console.error(e);var r=document.getElementById("r");if(r)r.
       var outEvac = el("cityEvacuation");
       if (!card || !outPhones || !outEvac) return;
 
-      var phones = (cfg && cfg.phones) ? cfg.phones : null;
+      var groups = cfg && cfg.contactGroups;
+      var phones = cfg && cfg.phones;
+
+      // Prefer groups (A–G). If missing, fallback to flat phones.
+      var usedGroups = renderContactGroups(groups, outPhones);
+      if (!usedGroups) renderPhonesFlat(phones, outPhones);
+
       var evac = (cfg && cfg.evacuation) ? cfg.evacuation : null;
-
-      var rows = [];
-      if (phones) {
-        Object.keys(phones).forEach(function(k) {
-          var it = phones[k] || {};
-          var label = it.label || k;
-          var num = (it.number || "").trim();
-          if (!num) return; // neukazuj prázdné
-          var tel = num.replace(/\s+/g,"");
-          rows.push(
-            '<div style="display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.06)">' +
-              '<div style="font-weight:900;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0">' + esc(label) + '</div>' +
-              '<a href="tel:' + esc(tel) + '" style="font-weight:900;text-decoration:none;color:#0b5bd3">' + esc(num) + '</a>' +
-            '</div>'
-          );
-        });
-      }
-
-      if (!rows.length) {
-        rows.push('<div class="small">Kontakty nejsou vyplněné v city.config.json.</div>');
-      }
-      outPhones.innerHTML = rows.join("");
-
-      var evacLine = "";
       if (evac && evac.primaryPoint) {
         var v = (evac.primaryPoint.value || "").trim();
         var lab = evac.primaryPoint.label || "Hlavní shromaždiště / evakuační místo";
-        evacLine = '<div><b>' + esc(lab) + ':</b> ' + (v ? esc(v) : '<span class="small">není vyplněno</span>') + '</div>';
+        outEvac.innerHTML = '<div><b>' + esc(lab) + ':</b> ' + (v ? esc(v) : '<span class="small">není vyplněno</span>') + '</div>';
       } else {
-        evacLine = '<div class="small">Evakuace není vyplněná v city.config.json.</div>';
+        outEvac.innerHTML = '<div class="small">Evakuace není vyplněná.</div>';
       }
-      outEvac.innerHTML = evacLine;
 
       card.style.display = "block";
     } catch (e) {}

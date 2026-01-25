@@ -27,12 +27,12 @@
       "number": "158"
     },
     "156": {
-      "label": "Městská policie (doplň obec)",
-      "number": "+420 381 486 486"
+      "label": "Městská policie Tábor (tísňová)",
+      "number": "156"
     },
     "cityHall": {
-      "label": "Městský úřad (doplň obec)",
-      "number": "+420 381 486 111"
+      "label": "Město Tábor – ústředna",
+      "number": "381 486 111"
     },
     "crisisLine": {
       "label": "Krizová linka obce (doplň obec)",
@@ -44,5 +44,401 @@
       "label": "Hlavní shromaždiště / evakuační místo (doplň obec)",
       "value": "Zimní stadion Tábor"
     }
-  }
+  },
+  "contactGroups": [
+    {
+      "id": "A",
+      "title": "A) Okamžitá tíseň (život / požár / násilí / hromadná událost)",
+      "items": [
+        {
+          "label": "112 – Evropské tísňové volání (IZS)",
+          "number": "112"
+        },
+        {
+          "label": "150 – Hasiči",
+          "number": "150"
+        },
+        {
+          "label": "155 – Zdravotnická záchranná služba",
+          "number": "155"
+        },
+        {
+          "label": "158 – Policie ČR",
+          "number": "158"
+        },
+        {
+          "label": "156 – Městská policie Tábor (tísňová)",
+          "number": "156"
+        }
+      ]
+    },
+    {
+      "id": "B",
+      "title": "B) Bezpečnost, pořádek, panika, násilí, podezřelé osoby",
+      "items": [
+        {
+          "label": "Policie ČR – ÚO Tábor (neurgentní/ústředna)",
+          "number": "974 238 111"
+        },
+        {
+          "label": "Policie ČR – Tábor (odd. tisku a prevence)",
+          "number": "974 238 207"
+        },
+        {
+          "label": "Policie ČR – Tábor (odd. tisku a prevence – mobil)",
+          "number": "724 250 835"
+        },
+        {
+          "label": "Policie ČR – Tábor (zbraně a bezp. materiál – kontaktní místo)",
+          "number": "974 238 300"
+        },
+        {
+          "label": "Městská policie Tábor – stálá služba",
+          "number": "381 253 008"
+        },
+        {
+          "label": "Městská policie Tábor – stálá služba (alternativa)",
+          "number": "381 486 256"
+        },
+        {
+          "label": "Městská policie Tábor – stálá služba (mobil)",
+          "number": "602 113 593"
+        },
+        {
+          "label": "Městská policie Tábor – vedení/velitelství (rozsah)",
+          "number": "381 486 250"
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "title": "C) Zdraví, zima, podchlazení, hromadná zranění, otravy, epidemie",
+      "items": [
+        {
+          "label": "Nemocnice Tábor – recepce",
+          "number": "381 608 111"
+        },
+        {
+          "label": "Lékařská pohotovostní služba (dospělí)",
+          "number": "381 607 700"
+        },
+        {
+          "label": "Lékařská pohotovostní služba (děti a dorost)",
+          "number": "381 606 613"
+        },
+        {
+          "label": "Lékařská pohotovostní služba (děti a dorost – další)",
+          "number": "381 606 614"
+        },
+        {
+          "label": "Záchranná služba Tábor (neurgentní)",
+          "number": "381 792 111"
+        },
+        {
+          "label": "Záchranná služba Tábor (neurgentní – další)",
+          "number": "381 252 526"
+        },
+        {
+          "label": "Toxikologické informační středisko (otravy) – 24/7",
+          "number": "224 919 293"
+        },
+        {
+          "label": "Toxikologické informační středisko (otravy) – 24/7 (další)",
+          "number": "224 915 402"
+        },
+        {
+          "label": "TIS – nouzový tel. při poruše linek",
+          "number": "725 103 658"
+        },
+        {
+          "label": "KHS JČK – územní pracoviště Tábor",
+          "number": "387 712 410"
+        },
+        {
+          "label": "Info linka MZ (prac. dny 8–19)",
+          "number": "1221"
+        },
+        {
+          "label": "Info linka MZ (ze zahraničí)",
+          "number": "+420 226 20 1221"
+        },
+        {
+          "label": "ZZS Jihočeského kraje – centrála",
+          "number": "387 762 115"
+        },
+        {
+          "label": "ZZS JČK – protialkoholní záchytná stanice",
+          "number": "387 762 127"
+        }
+      ]
+    },
+    {
+      "id": "D",
+      "title": "D) Infrastruktura: blackout, voda, plyn, teplo, osvětlení, silnice",
+      "items": [
+        {
+          "label": "EG.D (poruchy / nonstop)",
+          "number": "800 22 55 77"
+        },
+        {
+          "label": "ČEZ (poruchy)",
+          "number": "800 850 860"
+        },
+        {
+          "label": "EG.D (energetická závada mimo dům)",
+          "number": "800 225 577"
+        },
+        {
+          "label": "Poruchová služba voda Tábor (24/7)",
+          "number": "800 120 120"
+        },
+        {
+          "label": "ČEVAK (porucha dodávky studené vody)",
+          "number": "800 120 112"
+        },
+        {
+          "label": "Havarijní linka plyn (úniky, závady)",
+          "number": "1239"
+        },
+        {
+          "label": "Havárie vytápění (výjezd ihned)",
+          "number": "552 305 233"
+        },
+        {
+          "label": "Havárie vytápění (neurgentní oprava)",
+          "number": "840 840 600"
+        },
+        {
+          "label": "Bytes Tábor – dodávka tepla a teplé vody",
+          "number": "607 276 579"
+        },
+        {
+          "label": "Bytes Tábor – energetická závada v domě",
+          "number": "602 579 797"
+        },
+        {
+          "label": "Bytes Tábor – zámečnictví",
+          "number": "776 445 654"
+        },
+        {
+          "label": "Technické služby Tábor – sjízdnost/schůdnost",
+          "number": "606 373 173"
+        },
+        {
+          "label": "Technické služby Tábor – sjízdnost/schůdnost (další)",
+          "number": "381 231 072"
+        },
+        {
+          "label": "Technické služby Tábor – poruchy VO a signalizace",
+          "number": "728 461 274"
+        },
+        {
+          "label": "Technické služby Tábor – poruchy VO a signalizace (další)",
+          "number": "381 232 373"
+        },
+        {
+          "label": "Technické služby Tábor – provozovatel (pevná)",
+          "number": "381 231 072"
+        },
+        {
+          "label": "Technické služby Tábor – mobil",
+          "number": "724 050 850"
+        }
+      ]
+    },
+    {
+      "id": "E",
+      "title": "E) Krizové řízení, evakuace, organizace pomoci (Město / ORP / IZS)",
+      "items": [
+        {
+          "label": "Město Tábor – ústředna",
+          "number": "381 486 111"
+        },
+        {
+          "label": "Krizový štáb ORP Tábor – pevná linka",
+          "number": "381 486 363"
+        },
+        {
+          "label": "Ing. Lenka Horejsková (1. místostarostka)",
+          "number": "381 486 135"
+        },
+        {
+          "label": "Ing. Oldřich Semrád (krizový manažer)",
+          "number": "381 486 359"
+        },
+        {
+          "label": "kpt. Ing. Tomáš Zadák (IZS nasazení sil a prostředků)",
+          "number": "950 221 570"
+        },
+        {
+          "label": "Mgr. Petr Svoboda (velitel MP Tábor)",
+          "number": "381 486 250"
+        },
+        {
+          "label": "HZS JČK – ÚO Tábor (koordinace, mimo 150)",
+          "number": "950 221 111"
+        }
+      ]
+    },
+    {
+      "id": "F",
+      "title": "F) Sociální nouze: zima, hlad, zranitelní, děti bez dozoru, domácí násilí",
+      "items": [
+        {
+          "label": "Linka první psychické pomoci",
+          "number": "116 123"
+        },
+        {
+          "label": "Linka bezpečí (děti a mladí do 26)",
+          "number": "116 111"
+        },
+        {
+          "label": "Linka pro rodinu a školu (nonstop)",
+          "number": "116 000"
+        },
+        {
+          "label": "Linka pomoci obětem kriminality a domácího násilí (BKB)",
+          "number": "116 006"
+        },
+        {
+          "label": "Senior telefon (Život 90)",
+          "number": "800 157 157"
+        },
+        {
+          "label": "Město Tábor – Odbor sociálních věcí (hlavní kontakt)",
+          "number": "381 486 400"
+        },
+        {
+          "label": "SPOD – Mgr. Markéta Baranová",
+          "number": "381 486 420"
+        },
+        {
+          "label": "SPOD – Mgr. Jitka Dušková",
+          "number": "381 486 421"
+        },
+        {
+          "label": "SPOD – Bc. Michaela Mrázová",
+          "number": "381 486 411"
+        },
+        {
+          "label": "SPOD – Mgr. Rostislav Šmerda",
+          "number": "381 486 412"
+        },
+        {
+          "label": "SPOD – Mgr. Blažena Průšová",
+          "number": "381 486 413"
+        },
+        {
+          "label": "SPOD – Mgr. Eva Šestáková Matyášová (vedoucí)",
+          "number": "381 486 414"
+        },
+        {
+          "label": "SPOD – Romana Pešková",
+          "number": "381 486 415"
+        },
+        {
+          "label": "SPOD – Eliška Sedlačíková",
+          "number": "381 486 416"
+        },
+        {
+          "label": "SPOD – Mgr. Silvie Kováčová",
+          "number": "381 486 422"
+        },
+        {
+          "label": "SPOD – Mgr. Markéta Nováčková",
+          "number": "381 486 426"
+        },
+        {
+          "label": "Úřad práce ČR – kontaktní pobočka Tábor",
+          "number": "950 165 111"
+        },
+        {
+          "label": "OSSZ Tábor",
+          "number": "381 499 111"
+        }
+      ]
+    },
+    {
+      "id": "G",
+      "title": "G) Humanitární pomoc, dobrovolníci, zvířata, doprava, uváznutí",
+      "items": [
+        {
+          "label": "Český červený kříž – Oblastní spolek Tábor",
+          "number": "774 253 515"
+        },
+        {
+          "label": "Charita Tábor – centrální kontakt",
+          "number": "736 256 987"
+        },
+        {
+          "label": "Charita Tábor – další",
+          "number": "381 255 998"
+        },
+        {
+          "label": "Charita Tábor – další",
+          "number": "739 082 765"
+        },
+        {
+          "label": "Farní charita Tábor (Auritus)",
+          "number": "381 255 999"
+        },
+        {
+          "label": "Útulek Tábor – provoz (ošetřovatelky)",
+          "number": "773 791 322"
+        },
+        {
+          "label": "Útulek Tábor – vedoucí provozu",
+          "number": "778 465 467"
+        },
+        {
+          "label": "Útulek Tábor – zástupce vedoucí",
+          "number": "770 332 820"
+        },
+        {
+          "label": "Technické služby Tábor (útulek) – pevná",
+          "number": "381 231 072"
+        },
+        {
+          "label": "Technické služby Tábor (útulek) – mobil",
+          "number": "724 050 850"
+        },
+        {
+          "label": "Veterinární klinika Karakal Tábor – pevná",
+          "number": "381 251 254"
+        },
+        {
+          "label": "Veterinární klinika Karakal Tábor – pohotovost",
+          "number": "602 554 246"
+        },
+        {
+          "label": "Veterinární ordinace U Rytíře – pevná",
+          "number": "385 520 520"
+        },
+        {
+          "label": "Veterinární ordinace U Rytíře – pohotovost (volat předem)",
+          "number": "724 263 233"
+        },
+        {
+          "label": "Vlakové nádraží Tábor – informace",
+          "number": "724 495 532"
+        },
+        {
+          "label": "Autobusové nádraží Tábor – informace",
+          "number": "381 253 898"
+        },
+        {
+          "label": "GW BUS (info + ztráty a nálezy)",
+          "number": "734 359 852"
+        },
+        {
+          "label": "Info o tel. číslech v ČR",
+          "number": "1180"
+        },
+        {
+          "label": "Info o tel. číslech v zahraničí",
+          "number": "1181"
+        }
+      ]
+    }
+  ]
 }
