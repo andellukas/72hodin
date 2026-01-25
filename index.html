@@ -25,6 +25,7 @@ window.sugs = window.sugs || [];
 body{font-family:system-ui,Arial;margin:0;background:var(--bg);color:var(--text)}
 header{background:var(--blue);color:#fff;padding:18px 20px}
 main{max-width:1040px;margin:auto;padding:18px}
+.wrap{max-width:1040px;margin:0 auto}
 h1{margin:0;font-size:22px}
 .small{color:var(--muted);font-size:13px}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
@@ -33,6 +34,7 @@ input{width:100%;padding:16px;font-size:18px;border:1px solid #ccc;border-radius
 .btn:hover{background:#f3f6ff;border-color:#cbd6ff}
 .btnPrimary{background:var(--blue2);color:#fff;border-color:transparent}
 .card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);padding:14px 14px;margin:12px 0}
+#r{max-width:1040px;margin:0 auto}
 .q{font-weight:900;font-size:18px;line-height:1.25}
 .box{background:#eef5ff;border:1px solid #cfe0ff;border-radius:14px;padding:12px;margin-top:10px}
 .box h3{margin:0 0 6px 0;font-size:14px;text-transform:uppercase;letter-spacing:.06em}
@@ -47,11 +49,19 @@ input{width:100%;padding:16px;font-size:18px;border:1px solid #ccc;border-radius
 .sugBtn:hover{background:#f6f8ff}
 #dym{display:none;margin-top:10px;color:#333}
 .dymBtn{border:0;background:#0b5bd3;color:#fff;padding:6px 10px;border-radius:10px;cursor:pointer;font-weight:900}
+
+@media (min-width: 900px){
+  header{padding:22px 0}
+  main{padding:22px 18px}
+  #panicGrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
 </style>
 </head>
 <body>
 <header>
-  <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start">
+  <div class="wrap" style="padding:0 18px">
+<div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start">
       <div style="display:flex;gap:12px;align-items:flex-start">
         <img id="cityLogo" src="" alt="" style="height:42px;width:auto;display:none;filter:drop-shadow(0 1px 1px rgba(0,0,0,.15));" />
         <div style="min-width:0">
@@ -66,6 +76,7 @@ input{width:100%;padding:16px;font-size:18px;border:1px solid #ccc;border-radius
       <button class="btn btnPrimary" id="toggle">PANIKA: ZAP</button>
       <button class="btn" id="all">Vymazat</button>
     </div>
+  </div>
   </div>
 </header>
 
