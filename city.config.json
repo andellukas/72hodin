@@ -10,15 +10,39 @@
     "headerSubtitle": "Offline • pilotní veřejně prospěšná verze"
   },
   "phones": {
-    "112": {"label": "Integrovaný záchranný systém", "number": "112"},
-    "150": {"label": "Hasiči", "number": "150"},
-    "155": {"label": "Zdravotnická záchranná služba", "number": "155"},
-    "158": {"label": "Policie ČR", "number": "158"},
-    "156": {"label": "Městská policie (doplň obec)", "number": ""},
-    "cityHall": {"label": "Městský úřad (doplň obec)", "number": ""},
-    "crisisLine": {"label": "Krizová linka obce (doplň obec)", "number": ""}
+    "112": {
+      "label": "Integrovaný záchranný systém",
+      "number": "112"
+    },
+    "150": {
+      "label": "Hasiči",
+      "number": "150"
+    },
+    "155": {
+      "label": "Zdravotnická záchranná služba",
+      "number": "155"
+    },
+    "158": {
+      "label": "Policie ČR",
+      "number": "158"
+    },
+    "156": {
+      "label": "Městská policie (doplň obec)",
+      "number": "+420 381 486 486"
+    },
+    "cityHall": {
+      "label": "Městský úřad (doplň obec)",
+      "number": "+420 381 486 111"
+    },
+    "crisisLine": {
+      "label": "Krizová linka obce (doplň obec)",
+      "number": ""
+    }
   },
   "evacuation": {
-    "primaryPoint": {"label": "Hlavní shromaždiště / evakuační místo (doplň obec)", "value": ""}
+    "primaryPoint": {
+      "label": "Hlavní shromaždiště / evakuační místo (doplň obec)",
+      "value": "Zimní stadion Tábor"
+    }
   }
 }
