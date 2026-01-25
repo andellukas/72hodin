@@ -3866,46 +3866,65 @@
     "id": "jidlo-5d0deb268b",
     "category": "Jídlo",
     "tags": [
-      "voda"
+      "voda",
+      "jídlo"
     ],
     "q": "Jak si rozplánovat porce, aby jídlo vydrželo?",
     "panic": [
       "UDĚLEJ INVENTURU: co máš doma na 72 h (voda, jídlo, léky).",
       "NAKUPUJ CHYTŘE: trvanlivé věci + voda, ne panické hromadění.",
-      "DOMLUV SE: rodina/sousedé – sdílení informací a pomoc zranitelným."
+      "DOMLUV SE: rodina/sousedé – sdílení informací a pomoc zranitelným.",
+      "UDĚLEJ SOUPIS: co máš doma teď (konzervy, těstoviny, rýže, vločky, paštiky, ořechy).",
+      "ZAVEĎ PORCE: rozděl jídlo na dny, ať to nevysypeš první 24 h.",
+      "PRVNÍ DEN JE KLID: jez normálně, ale rozumně — cílem je stabilita."
     ],
     "now": [
       "Ověř rozsah: je voda jen u tebe (stoupačka/uzávěr) nebo v celé ulici? Zeptej se sousedů.",
       "Pokud hrozí únik (prasklé potrubí): zavři hlavní uzávěr vody v bytě/domu.",
-      "Naplň nádoby, pokud voda krátce teče; vyhraď pitnou vodu zvlášť (čisté lahve)."
+      "Naplň nádoby, pokud voda krátce teče; vyhraď pitnou vodu zvlášť (čisté lahve).",
+      "Začni tím, co se kazí: lednice/mrazák (pokud je bezpečné).",
+      "Bez vaření: konzervy, paštiky, ořechy, sušené ovoce, trvanlivé pečivo, proteinové tyčinky.",
+      "Hlídej vodu: sušené věci (těstoviny/rýže) stojí vodu — plánuj podle zásob vody a možnosti ohřevu.",
+      "Děti a rizikoví: radši menší porce častěji, ať držíš energii."
     ],
     "next": [
       "Zaveď hygienický režim: mytí rukou minimalizuj, používej dezinfekci, jednorázové ubrousky.",
       "Zajisti vodu: rodina/sousedé, veřejné cisterny, obchody (pokud fungují), voda z bojleru jen pokud je bezpečná.",
-      "Šetři splachování: používej kýbl/šedou vodu, pokud je to hygienicky možné."
+      "Šetři splachování: používej kýbl/šedou vodu, pokud je to hygienicky možné.",
+      "Plán 3 úrovní: (1) bez vaření, (2) krátké vaření, (3) delší vaření – podle energie/plynu.",
+      "Zaveď pravidlo: 1 teplé jídlo denně max, pokud šetříš palivo.",
+      "Minimalizuj odpad: otevírej jen to, co sníš. Zbytky řeš hned (bez lednice se kazí rychle).",
+      "Jestli je dostupný obchod: doplň trvanlivé věci + vodu, ne luxus."
     ],
     "h72": [
       "Pitná voda: 2–3 l na osobu/den. Priorita pití, potom vaření, hygiena až nakonec.",
       "Pokud bereš vodu z alternativních zdrojů: převařit (min. 1 min varu) nebo použít ověřenou filtraci/dezinfekci.",
-      "Sleduj pokyny obce/vodáren: kvalita vody, místa výdeje, zákaz používání."
+      "Sleduj pokyny obce/vodáren: kvalita vody, místa výdeje, zákaz používání.",
+      "Sleduj varovné signály: slabost, závratě, u dětí apatie – může být málo energie/tekutin.",
+      "Základ pro výkon: bílkoviny + tuky + sacharidy, ne jen cukr.",
+      "Když dojde jídlo rychle: sniž výdej energie (teplo, klid) a řeš doplnění přes okolí/obec."
     ],
     "dont": [
       "Nepij neověřenou vodu (studna/řeka) bez úpravy. Riziko infekce.",
       "Nenechávej vodu v otevřených nádobách bez krytu (kontaminace).",
-      "Neplýtvej pitnou vodou na úklid/splachování."
+      "Neplýtvej pitnou vodou na úklid/splachování.",
+      "Nejez podezřelé potraviny (nafouklá konzerva, divný zápach) – risk otravy.",
+      "Neplánuj vaření, když nemáš vodu a způsob bezpečného ohřevu.",
+      "Neutrhni režim hned prvního dne (přejedení/hladovění) – drž stabilitu."
     ],
     "call": [
       "Havarijní služba vodáren/správce domu při prasklém potrubí nebo vytápění vodou v domě.",
       "155/112 při příznacích těžké dehydratace, kolapsu, u malých dětí/seniorů.",
-      "150 při zaplavení, které ohrožuje elektroinstalaci nebo vzniká riziko požáru."
+      "150 při zaplavení, které ohrožuje elektroinstalaci nebo vzniká riziko požáru.",
+      "155: těžká dehydratace/kolaps, opakované zvracení u dětí nebo seniorů."
     ],
     "if": [],
     "notes": [],
     "sources": [],
-    "updated_at": "2026-01-20",
+    "updated_at": "2026-01-25",
     "_meta": {
-      "filled_at": "2026-01-20T18:21:47Z",
-      "filled_by": "fill_missing_sections.py",
+      "filled_at": "2026-01-25T15:06:56Z",
+      "filled_by": "shell_patch_panika_v2_voda_jidlo",
       "template": "voda"
     }
   },
@@ -6383,39 +6402,57 @@
     "panic": [
       "NAPLŇ VŠE, co jde (vana, PET, hrnce).",
       "ROZDĚL vodu: pití / hygiena / WC.",
-      "NEPLÝTVEJ – pití má absolutní prioritu."
+      "NEPLÝTVEJ – pití má absolutní prioritu.",
+      "VYHRAĎ 1 NÁDOBU NA PITÍ: čistá lahev/kanystr jen na pitnou vodu (označ).",
+      "HLEDEJ JISTÝ ZDROJ: balená voda → kohoutková (pokud je) → zásoby v bojleru/rezervoáru (pokud víš jak bezpečně).",
+      "ZAPIŠ: kolik litrů máš + kolik osob. Cíl: aspoň 2 l/os/den na pití."
     ],
     "now": [
       "Zjisti, zda neteče ani studená.",
-      "Označ nádoby."
+      "Označ nádoby.",
+      "Napusť dostupné nádoby, dokud teče (kanystry, PET, hrnce). Označ pitnou vs užitkovou.",
+      "Pití má prioritu. Pokud je voda jen trochu: nejdřív pití, pak vaření, až potom hygiena.",
+      "Jestli je hlášení o kontaminaci: nepij bez převaření/ověření, používej balenou nebo převařenou vodu.",
+      "Zajisti základ hygieny bez vody: vlhčené ubrousky, dezinfekce na ruce, pytle na odpad."
     ],
     "next": [
       "Zaveď hygienický režim: mytí rukou minimalizuj, používej dezinfekci, jednorázové ubrousky.",
       "Zajisti vodu: rodina/sousedé, veřejné cisterny, obchody (pokud fungují), voda z bojleru jen pokud je bezpečná.",
-      "Šetři splachování: používej kýbl/šedou vodu, pokud je to hygienicky možné."
+      "Šetři splachování: používej kýbl/šedou vodu, pokud je to hygienicky možné.",
+      "Nastav příděly: rozděl vodu na denní dávky (ráno/poledne/večer).",
+      "Užitkovou vodu šetři: mytí nádobí jednou denně, otírání místo sprchy.",
+      "Zjisti info: obecní web/rozhlas, náhradní cisterna, sousedská výpomoc.",
+      "Připrav nouzové WC: pytel do mísy + savý materiál, uzavírat a vyhazovat dle pokynů obce."
     ],
     "h72": [
       "Pitná voda: 2–3 l na osobu/den. Priorita pití, potom vaření, hygiena až nakonec.",
       "Pokud bereš vodu z alternativních zdrojů: převařit (min. 1 min varu) nebo použít ověřenou filtraci/dezinfekci.",
-      "Sleduj pokyny obce/vodáren: kvalita vody, místa výdeje, zákaz používání."
+      "Sleduj pokyny obce/vodáren: kvalita vody, místa výdeje, zákaz používání.",
+      "Sleduj rizikové osoby: děti, senioři – dehydratace je rychlá (sucho v puse, slabost, málo močení).",
+      "V zimě nezapomeň pít (pocit žízně klame).",
+      "Měj plán doplnění: kdo jde pro vodu, jaké nádoby, jak přenést (taška/vozík)."
     ],
     "dont": [
       "Nepij neověřenou vodu (studna/řeka) bez úpravy. Riziko infekce.",
       "Nenechávej vodu v otevřených nádobách bez krytu (kontaminace).",
-      "Neplýtvej pitnou vodou na úklid/splachování."
+      "Neplýtvej pitnou vodou na úklid/splachování.",
+      "Nepij vodu s divnou barvou/zápachem, pokud není ověřeno, že je bezpečná.",
+      "Nespotřebuj vše první den – bez plánu přídělů dojde voda rychle.",
+      "Nezapomeň na hygienu rukou – špinavé ruce = průjmy a problémy."
     ],
     "call": [
       "Havarijní služba vodáren/správce domu při prasklém potrubí nebo vytápění vodou v domě.",
       "155/112 při příznacích těžké dehydratace, kolapsu, u malých dětí/seniorů.",
-      "150 při zaplavení, které ohrožuje elektroinstalaci nebo vzniká riziko požáru."
+      "150 při zaplavení, které ohrožuje elektroinstalaci nebo vzniká riziko požáru.",
+      "155/112: známky těžké dehydratace (zmatenost, kolaps, dítě nemočí)."
     ],
     "if": [],
     "notes": [],
     "sources": [],
-    "updated_at": "2026-01-20",
+    "updated_at": "2026-01-25",
     "_meta": {
-      "filled_at": "2026-01-20T18:21:47Z",
-      "filled_by": "fill_missing_sections.py",
+      "filled_at": "2026-01-25T15:06:56Z",
+      "filled_by": "shell_patch_panika_v2_voda_jidlo",
       "template": "voda"
     }
   },
