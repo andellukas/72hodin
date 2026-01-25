@@ -540,7 +540,12 @@ init().catch(e=>{try{console.error(e);var r=document.getElementById("r");if(r)r.
 
 /* === CITY CONFIG BOOTSTRAP (AUTO) === */
 (function() {
-  function qs(id) { return document.getElementById(id); }
+  function el(id) { return document.getElementById(id); }
+  function esc(t) {
+    return String(t||"").replace(/[&<>"']/g, function(c){
+      return ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"})[c] || c;
+    });
+  }
 
   function applyCityBranding(cfg) {
     try {
@@ -550,13 +555,17 @@ init().catch(e=>{try{console.error(e);var r=document.getElementById("r");if(r)r.
       var title = (b && b.headerTitle) ? b.headerTitle : (city && city.name ? ("Digitální krizový manuál – " + city.name) : "Digitální krizový manuál");
       var subtitle = (b && b.headerSubtitle) ? b.headerSubtitle : "Offline";
 
-      var elTitle = qs("cityHeaderTitle");
-      var elSub = qs("cityHeaderSubtitle");
+      var elTitle = el("cityHeaderTitle");
+      var elSub = el("cityHeaderSubtitle");
       if (elTitle) elTitle.textContent = title;
-      if (elSub) elSub.textContent = subtitle;
+      if (elSub) {
+        // zachovej původní „Offline: ? …“ řádek, jen přepiš text za tím
+        // pokud už tam je net, necháme ho být a doplníme zbytek
+        elSub.innerHTML = 'Offline: <b id="net">?</b> • ' + esc(subtitle);
+      }
 
       var logoPath = (b && b.logo) ? b.logo : "";
-      var elLogo = qs("cityLogo");
+      var elLogo = el("cityLogo");
       if (elLogo && logoPath) {
         elLogo.src = logoPath;
         elLogo.alt = (city && city.name) ? ("Logo města " + city.name) : "Logo obce";
@@ -565,9 +574,54 @@ init().catch(e=>{try{console.error(e);var r=document.getElementById("r");if(r)r.
     } catch (e) {}
   }
 
+  function renderCityInfo(cfg) {
+    try {
+      var card = el("cityInfoCard");
+      var outPhones = el("cityContacts");
+      var outEvac = el("cityEvacuation");
+      if (!card || !outPhones || !outEvac) return;
+
+      var phones = (cfg && cfg.phones) ? cfg.phones : null;
+      var evac = (cfg && cfg.evacuation) ? cfg.evacuation : null;
+
+      var rows = [];
+      if (phones) {
+        Object.keys(phones).forEach(function(k) {
+          var it = phones[k] || {};
+          var label = it.label || k;
+          var num = (it.number || "").trim();
+          if (!num) return; // neukazuj prázdné
+          var tel = num.replace(/\s+/g,"");
+          rows.push(
+            '<div style="display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.06)">' +
+              '<div style="font-weight:900;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0">' + esc(label) + '</div>' +
+              '<a href="tel:' + esc(tel) + '" style="font-weight:900;text-decoration:none;color:#0b5bd3">' + esc(num) + '</a>' +
+            '</div>'
+          );
+        });
+      }
+
+      if (!rows.length) {
+        rows.push('<div class="small">Kontakty nejsou vyplněné v city.config.json.</div>');
+      }
+      outPhones.innerHTML = rows.join("");
+
+      var evacLine = "";
+      if (evac && evac.primaryPoint) {
+        var v = (evac.primaryPoint.value || "").trim();
+        var lab = evac.primaryPoint.label || "Hlavní shromaždiště / evakuační místo";
+        evacLine = '<div><b>' + esc(lab) + ':</b> ' + (v ? esc(v) : '<span class="small">není vyplněno</span>') + '</div>';
+      } else {
+        evacLine = '<div class="small">Evakuace není vyplněná v city.config.json.</div>';
+      }
+      outEvac.innerHTML = evacLine;
+
+      card.style.display = "block";
+    } catch (e) {}
+  }
+
   async function loadCityConfig() {
     try {
-      // Relative path works on GH Pages root
       var r = await fetch("./city.config.json", { cache: "no-store" });
       if (!r.ok) return null;
       return await r.json();
@@ -576,15 +630,14 @@ init().catch(e=>{try{console.error(e);var r=document.getElementById("r");if(r)r.
     }
   }
 
-  // Boot ASAP (does not touch existing app logic)
   (async function() {
     var cfg = await loadCityConfig();
     if (cfg) {
       window.__CITY_CONFIG__ = cfg;
       applyCityBranding(cfg);
+      renderCityInfo(cfg);
     } else {
-      // fallback title if config not available (offline first load etc.)
-      applyCityBranding({ city: { name: "" }, branding: { headerTitle: "Digitální krizový manuál", headerSubtitle: "Offline" } });
+      applyCityBranding({ branding: { headerTitle: "Digitální krizový manuál", headerSubtitle: "Offline" } });
     }
   })();
 })();

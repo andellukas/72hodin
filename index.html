@@ -74,7 +74,24 @@ input{width:100%;padding:16px;font-size:18px;border:1px solid #ccc;border-radius
   <div id="sug"></div>
   <div id="dym" class="small"></div>
 
-  <div id="panicCard" class="card">
+  
+
+
+  <div id="cityInfoCard" class="card" style="display:none">
+    <div class="q" id="cityInfoTitle">Kontakty a evakuace</div>
+    <div class="small" id="cityInfoHint" style="margin-top:6px">Tip: v krizi může být síť přetížená. Volat jen když je to nutné.</div>
+
+    <div class="box" style="margin-top:10px">
+      <h3>Telefonní čísla</h3>
+      <div id="cityContacts"></div>
+    </div>
+
+    <div class="box warn" style="margin-top:10px">
+      <h3>Evakuace</h3>
+      <div id="cityEvacuation"></div>
+    </div>
+  </div>
+<div id="panicCard" class="card">
     <div class="q">Rychlé volby (PANIKA)</div>
     <div id="panicGrid"></div>
     <div class="small" style="margin-top:10px">Tip: napiš klidně bez diakritiky. Překlepy typu „eletrika“, „sirema“ se snažíme pochopit.</div>
