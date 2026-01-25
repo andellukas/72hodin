@@ -537,3 +537,56 @@ async function init(){
   if ("serviceWorker" in navigator) { navigator.serviceWorker.register("./sw.js").catch(()=>{}); }
 }
 init().catch(e=>{try{console.error(e);var r=document.getElementById("r");if(r)r.textContent="INIT ERROR: "+(e&&(e.stack||e.message)||e);}catch(_){}});
+
+/* === CITY CONFIG BOOTSTRAP (AUTO) === */
+(function() {
+  function qs(id) { return document.getElementById(id); }
+
+  function applyCityBranding(cfg) {
+    try {
+      var b = (cfg && cfg.branding) ? cfg.branding : null;
+      var city = (cfg && cfg.city) ? cfg.city : null;
+
+      var title = (b && b.headerTitle) ? b.headerTitle : (city && city.name ? ("Digitální krizový manuál – " + city.name) : "Digitální krizový manuál");
+      var subtitle = (b && b.headerSubtitle) ? b.headerSubtitle : "Offline";
+
+      var elTitle = qs("cityHeaderTitle");
+      var elSub = qs("cityHeaderSubtitle");
+      if (elTitle) elTitle.textContent = title;
+      if (elSub) elSub.textContent = subtitle;
+
+      var logoPath = (b && b.logo) ? b.logo : "";
+      var elLogo = qs("cityLogo");
+      if (elLogo && logoPath) {
+        elLogo.src = logoPath;
+        elLogo.alt = (city && city.name) ? ("Logo města " + city.name) : "Logo obce";
+        elLogo.style.display = "block";
+      }
+    } catch (e) {}
+  }
+
+  async function loadCityConfig() {
+    try {
+      // Relative path works on GH Pages root
+      var r = await fetch("./city.config.json", { cache: "no-store" });
+      if (!r.ok) return null;
+      return await r.json();
+    } catch (e) {
+      return null;
+    }
+  }
+
+  // Boot ASAP (does not touch existing app logic)
+  (async function() {
+    var cfg = await loadCityConfig();
+    if (cfg) {
+      window.__CITY_CONFIG__ = cfg;
+      applyCityBranding(cfg);
+    } else {
+      // fallback title if config not available (offline first load etc.)
+      applyCityBranding({ city: { name: "" }, branding: { headerTitle: "Digitální krizový manuál", headerSubtitle: "Offline" } });
+    }
+  })();
+})();
+/* === /CITY CONFIG BOOTSTRAP (AUTO) === */
+
