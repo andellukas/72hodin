@@ -890,7 +890,8 @@
     "id": "deti-567f36aec8",
     "category": "Děti",
     "tags": [
-      "voda"
+      "voda",
+      "děti"
     ],
     "q": "Jak zvládnout krizi s dětmi?",
     "panic": [
@@ -1084,7 +1085,8 @@
     "id": "dezinformace-00932802bb",
     "category": "Dezinformace",
     "tags": [
-      "voda"
+      "voda",
+      "informace"
     ],
     "q": "Jak poznám falešné zprávy v krizi?",
     "panic": [
@@ -1470,7 +1472,8 @@
     "id": "domluva-191d0166ec",
     "category": "Domluva",
     "tags": [
-      "voda"
+      "voda",
+      "pomoc sousedům"
     ],
     "q": "Jak se domluvit s rodinou bez mobilů?",
     "panic": [
@@ -8014,7 +8017,8 @@
     "category": "Úkryt",
     "tags": [
       "evakuace",
-      "rádio"
+      "rádio",
+      "ukrytí"
     ],
     "q": "Chemická havárie / toxický kouř v okolí. Co dělat (ukrytí)?",
     "panic": [
@@ -10252,7 +10256,8 @@
     "id": "zdravi-c56b3bba1a",
     "category": "Zdraví",
     "tags": [
-      "voda"
+      "voda",
+      "první pomoc"
     ],
     "q": "Silné krvácení. Co dělat (první pomoc)?",
     "panic": [
@@ -10545,7 +10550,10 @@
   },
   {
     "q": "Food poisoning / otrava jídlem",
-    "a": "NOW (teď hned):\n- Přestaň jíst, uschovej vzorek.\n- Tekutiny po doušcích (rehydratace).\n- Sleduj: krev ve stolici, vysoká horečka, dehydratace.\n\nDALŠÍ KROKY (do 30–120 min):\n- Lehká strava až po zlepšení.\n- U dětí/seniorů hlídej močení a apatii.\n- Zapiš čas a co bylo snědeno.\n\nNEDĚLEJ:\n- Neignoruj zhoršování.\n- Opatrně s léky proti průjmu při horečce/krvi.\n\nKDY VOLAT 112/155/158:\n- 155: bezvědomí, těžká dehydratace, krev + vysoká horečka, rychlé zhoršování.\n\nPOZNÁMKA:\n- Když si nejsi jistý, volej 155."
+    "a": "NOW (teď hned):\n- Přestaň jíst, uschovej vzorek.\n- Tekutiny po doušcích (rehydratace).\n- Sleduj: krev ve stolici, vysoká horečka, dehydratace.\n\nDALŠÍ KROKY (do 30–120 min):\n- Lehká strava až po zlepšení.\n- U dětí/seniorů hlídej močení a apatii.\n- Zapiš čas a co bylo snědeno.\n\nNEDĚLEJ:\n- Neignoruj zhoršování.\n- Opatrně s léky proti průjmu při horečce/krvi.\n\nKDY VOLAT 112/155/158:\n- 155: bezvědomí, těžká dehydratace, krev + vysoká horečka, rychlé zhoršování.\n\nPOZNÁMKA:\n- Když si nejsi jistý, volej 155.",
+    "tags": [
+      "jídlo"
+    ]
   },
   {
     "q": "Generální výpadek internetu/mobilních sítí (offline režim)",
@@ -10582,5 +10590,106 @@
   {
     "q": "Těžká panika (rychlý stabilizační postup)",
     "a": "NOW (teď hned):\n- Dýchej pomalu (4s nádech, 6–8s výdech).\n- Uzemnění: 5 věcí vidím, 4 cítím, 3 slyším.\n- Voda po doušcích.\n\nDALŠÍ KROKY (do 30–120 min):\n- Odejdi z přetížení, 10 minut bez stimulů.\n- Zapiš spouštěče.\n- Při opakování zvaž odbornou pomoc.\n\nNEDĚLEJ:\n- Nepřetlačuj to při řízení – zastav bezpečně.\n\nKDY VOLAT 112/155/158:\n- 155: bolest na hrudi, omdlévání, nebo podezření na akutní stav.\n\nPOZNÁMKA:\n- Cíl: zklidnit tělo."
+  },
+  {
+    "id": "panika-nouzove-zasoby",
+    "category": "PANIKA",
+    "tags": [
+      "nouzové zásoby",
+      "zásoby",
+      "72h"
+    ],
+    "q": "Nouzové zásoby (72 hodin). Co mít doma a jak to udělat jednoduše?",
+    "panic": [
+      "TEĎ HNED: vezmi papír a napiš 3 věci: VODA • JÍDLO • SVĚTLO/TEPLO.",
+      "VODA: minimálně 2 litry na osobu a den (aspoň na 2 dny dopředu).",
+      "JÍDLO: trvanlivé věci, které se dají jíst i bez vaření.",
+      "LÉKY: vlastní léky + základ (náplasti, obvazy, dezinfekce)."
+    ],
+    "now": [
+      "Seber doma to, co už máš: voda, konzervy, těstoviny, rýže, ořechy, sušené ovoce, paštiky, trvanlivé mléko.",
+      "Zkontroluj: baterka/čelovka + baterie, powerbanka, zapalovač, svíčky (bezpečně), rádio.",
+      "Hotovost: aspoň menší rezerva (výpadek terminálů).",
+      "Dej všechno na 1 místo (krabice/bedna) a napiš na ni „72H“."
+    ],
+    "next": [
+      "Doplň slabá místa: voda, jednoduché jídlo, hygiena (toaleťák, vlhčené ubrousky, pytle).",
+      "Zapiš si: kdo v domácnosti bere léky + kde jsou uložené + dávkování.",
+      "Uděláš 1× týdně rychlou kontrolu: datum spotřeby + nabití powerbanky."
+    ],
+    "h72": [
+      "Nastav režim: šetřit baterii telefonu, pít pravidelně, jíst jednoduše.",
+      "Drž pořádek: voda a jídlo rozděl po dnech, ať nevyluxuješ zásoby první den.",
+      "Pokud je zima: izoluj jednu místnost a drž teplo tam."
+    ],
+    "dont": [
+      "Nekupuj panicky „všechno“. Nejvíc vyřeší voda, jednoduché jídlo a světlo.",
+      "Nespoléhej jen na mrazák (bez elektřiny je to riziko)."
+    ],
+    "call": [
+      "112 při bezprostředním ohrožení života.",
+      "155 při zdravotní tísni."
+    ],
+    "if": [],
+    "notes": [],
+    "sources": [
+      "72h"
+    ],
+    "updated_at": "2026-01-25",
+    "_meta": {
+      "filled_at": "2026-01-25T15:02:25Z",
+      "filled_by": "shell_patch_panika_v1",
+      "template": "panika"
+    }
+  },
+  {
+    "id": "panika-psychicka-pomoc",
+    "category": "PANIKA",
+    "tags": [
+      "psychická pomoc",
+      "psychika",
+      "panika"
+    ],
+    "q": "Psychická pomoc v krizi (panika, zahlcení). Co dělat hned?",
+    "panic": [
+      "ZPOMAL: 4 s nádech, 6–8 s výdech (aspoň 8 cyklů).",
+      "UZEMNĚNÍ: 5 věcí vidím • 4 cítím • 3 slyším • 2 voním • 1 chutná.",
+      "VODA: pár doušků. Tělo potřebuje signál bezpečí.",
+      "JEDNA VĚTA: „Teď řeším jen první krok.“"
+    ],
+    "now": [
+      "Odejdi od chaosu (okno, hluk, dav). Najdi vnitřní místnost nebo kout.",
+      "Sniž stimulaci: ztiš telefon, vypni notifikace, přestaň scrollovat zprávy.",
+      "Kontaktuj 1 člověka: krátká zpráva „Jsem v panice, potřebuji chvíli mluvit / být na telefonu“."
+    ],
+    "next": [
+      "Zapiš spouštěč + co zhoršuje stav (hlad, únava, kofein, alkohol).",
+      "Mikrokroky: voda → teplo → jídlo → spánek. Tělo je základ.",
+      "Pokud máš děti: mluv klidně, krátce, dej jim jednoduchý úkol (voda, deka)."
+    ],
+    "h72": [
+      "Drž rytmus: spánek, jídlo, voda, krátký pohyb (i doma).",
+      "Informace dávkuj: 2× denně kontrola zpráv, jinak stop.",
+      "Když se stav opakovaně zhoršuje: vyhledej odbornou pomoc, jakmile je to možné."
+    ],
+    "dont": [
+      "Neřeš velká rozhodnutí v panice.",
+      "Nezvyšuj stimulaci (kafe, alkohol, nekonečné zprávy)."
+    ],
+    "call": [
+      "155/112 pokud je podezření na akutní zdravotní stav (bolest na hrudi, kolaps, dušnost).",
+      "158/112 při bezprostředním ohrožení násilím."
+    ],
+    "if": [],
+    "notes": [],
+    "sources": [
+      "72h"
+    ],
+    "updated_at": "2026-01-25",
+    "_meta": {
+      "filled_at": "2026-01-25T15:02:25Z",
+      "filled_by": "shell_patch_panika_v1",
+      "template": "panika"
+    }
   }
 ]
