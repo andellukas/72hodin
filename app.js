@@ -73,6 +73,7 @@ const PRESETS = [
   {label:"GSM", q:"gsm nejde signal hovory sms"},
   {label:"Peníze", q:"nejde platit karta bankomat hotovost"},
   {label:"Evakuace", q:"evakuace odejit pryc"},
+    {label:"Kontakty", q:"__PANIKA_KONTAKTY__"},
   {label:"Válka", q:"valka utok bombardovani nato"},
 ];
 
@@ -518,7 +519,15 @@ function buildPanicButtons(){
     const b=document.createElement("button");
     b.className="panicBtn";
     b.textContent=p.label;
-    b.onclick=()=>{ $q.value=p.q; render(); };
+    b.onclick=()=>{
+        try{
+          if(p.q === "__PANIKA_KONTAKTY__"){
+            var card = document.getElementById("cityInfoCard");
+            if(card){ card.style.display="block"; card.scrollIntoView({behavior:"smooth", block:"start"}); return; }
+          }
+        }catch(_){ }
+        $q.value=p.q; render();
+      };
     $grid.appendChild(b);
   }
 }
