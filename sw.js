@@ -1,4 +1,4 @@
-const CACHE = "72h-cache-v20260126-" + "20260126_144337";
+const CACHE = "72h-cache-v20260126-20260126_144504";
 
 const ASSETS = [
   "./",
@@ -37,12 +37,11 @@ self.addEventListener("activate", (e) =>
   )
 );
 
-function isNetworkFirst(url) {
-  // data soubory: chceme vždy brát nejnovější, ale mít fallback do cache pro offline
+function isNetworkFirst(pathname) {
   return (
-    url.endsWith("/faq.json") ||
-    url.endsWith("/synonyms.json") ||
-    url.endsWith("/city.config.json")
+    pathname.endsWith("/faq.json") ||
+    pathname.endsWith("/synonyms.json") ||
+    pathname.endsWith("/city.config.json")
   );
 }
 
@@ -52,14 +51,11 @@ self.addEventListener("fetch", (e) =>
       const req = e.request;
       const url = new URL(req.url);
 
-      // Jen stejné origin (GH Pages)
-      if (url.origin !== self.location.origin) {
-        return fetch(req);
-      }
+      if (url.origin !== self.location.origin) return fetch(req);
 
       const cache = await caches.open(CACHE);
 
-      // NETWORK-FIRST pro JSONy
+      // NETWORK-FIRST pro JSONy (fresh, ale s offline fallbackem)
       if (isNetworkFirst(url.pathname)) {
         try {
           const fresh = await fetch(req, { cache: "no-store" });
@@ -71,7 +67,7 @@ self.addEventListener("fetch", (e) =>
         }
       }
 
-      // CACHE-FIRST pro všechno ostatní
+      // CACHE-FIRST pro ostatní
       const hit = await cache.match(req);
       if (hit) return hit;
 
