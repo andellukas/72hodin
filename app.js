@@ -571,6 +571,35 @@ async function init(){
   // data
   DATA = await fetch("faq.json").then(r=>r.json());
 
+    // --- merge city.config.json contacts into search DATA (synthetic FAQ items) ---
+    try{
+      const cfg = await fetch("city.config.json", { cache: "no-store" }).then(r => r.ok ? r.json() : null);
+      if(cfg){
+        window.__CITY_CONFIG__ = cfg;
+        const cityName = (cfg.city && cfg.city.name) ? String(cfg.city.name) : "";
+        const groups = Array.isArray(cfg.contactGroups) ? cfg.contactGroups : [];
+        const add = [];
+        for(const g of groups){
+          const gid = (g && g.id) ? String(g.id) : "X";
+          const items = (g && Array.isArray(g.items)) ? g.items : [];
+          for(const it of items){
+            const label = (it && it.label) ? String(it.label).trim() : "";
+            const num = (it && it.number) ? String(it.number).trim() : "";
+            if(!label || !num) continue;
+            add.push({
+              id: `CITY_${gid}_${add.length}`,
+              category: "Kontakty",
+              q: label,
+              a: `Telefon: ${num}`,
+              tags: ["kontakty", cityName].filter(Boolean)
+            });
+          }
+        }
+        if(add.length) DATA = DATA.concat(add);
+      }
+    }catch(e){}
+
+
   // syn
   try{
     const syn = await fetch("synonyms.json").then(r=>r.json());
