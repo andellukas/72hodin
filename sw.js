@@ -1,83 +1,37 @@
-const CACHE = "72h-cache-v20260126-20260126_144504";
-
+const CACHE = "tabor-v2-20260127_120427";
 const ASSETS = [
-  "./",
   "./index.html",
+  "./styles.css",
   "./app.js",
-  "./faq.json",
-  "./synonyms.json",
-  "./help.html",
   "./offline.html",
   "./manifest.webmanifest",
-  "./sw.js",
-  "./icons/icon.svg",
-  "./icons/icon-192.png",
-  "./icons/icon-512.png",
-  "./city.config.json",
-  "./assets/cities/tabor/logo.svg",
+  "../cities/tabor/city.json",
+  "../cities/tabor/contacts.json"
 ];
 
-self.addEventListener("install", (e) =>
-  e.waitUntil(
-    (async () => {
-      const c = await caches.open(CACHE);
-      await c.addAll(ASSETS);
-      self.skipWaiting();
-    })()
-  )
-);
+self.addEventListener("install", (e) => e.waitUntil((async () => {
+  const c = await caches.open(CACHE);
+  await c.addAll(ASSETS);
+  self.skipWaiting();
+})()));
 
-self.addEventListener("activate", (e) =>
-  e.waitUntil(
-    (async () => {
-      const ks = await caches.keys();
-      await Promise.all(ks.map((k) => (k === CACHE ? null : caches.delete(k))));
-      self.clients.claim();
-    })()
-  )
-);
+self.addEventListener("activate", (e) => e.waitUntil((async () => {
+  const keys = await caches.keys();
+  await Promise.all(keys.filter(k => k.startsWith("tabor-v2-") && k !== CACHE).map(k => caches.delete(k)));
+  self.clients.claim();
+})()));
 
-function isNetworkFirst(pathname) {
-  return (
-    pathname.endsWith("/faq.json") ||
-    pathname.endsWith("/synonyms.json") ||
-    pathname.endsWith("/city.config.json")
-  );
-}
-
-self.addEventListener("fetch", (e) =>
-  e.respondWith(
-    (async () => {
-      const req = e.request;
-      const url = new URL(req.url);
-
-      if (url.origin !== self.location.origin) return fetch(req);
-
-      const cache = await caches.open(CACHE);
-
-      // NETWORK-FIRST pro JSONy (fresh, ale s offline fallbackem)
-      if (isNetworkFirst(url.pathname)) {
-        try {
-          const fresh = await fetch(req, { cache: "no-store" });
-          cache.put(req, fresh.clone());
-          return fresh;
-        } catch {
-          const hit = await cache.match(req);
-          return hit || new Response("Offline", { status: 503 });
-        }
-      }
-
-      // CACHE-FIRST pro ostatní
-      const hit = await cache.match(req);
-      if (hit) return hit;
-
-      try {
-        const fresh = await fetch(req);
-        cache.put(req, fresh.clone());
-        return fresh;
-      } catch {
-        return hit || new Response("Offline", { status: 503 });
-      }
-    })()
-  )
-);
+self.addEventListener("fetch", (e) => {
+  const url = new URL(e.request.url);
+  if (url.origin !== location.origin) return;
+  e.respondWith((async () => {
+    const cached = await caches.match(e.request);
+    if (cached) return cached;
+    try {
+      const res = await fetch(e.request);
+      return res;
+    } catch {
+      return caches.match("./offline.html");
+    }
+  })());
+});
