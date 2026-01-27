@@ -1,0 +1,12 @@
+{
+  "city": "tabor",
+  "updated_at": null,
+  "groups": [
+    { "id": "tisen", "name": "Tísňové linky", "items": [
+      { "name": "Integrovaný záchranný systém", "tel": "112", "note": "Tísňová linka" },
+      { "name": "Zdravotnická záchranná služba", "tel": "155", "note": "Tísňová linka" },
+      { "name": "Policie", "tel": "158", "note": "Tísňová linka" },
+      { "name": "Hasiči", "tel": "150", "note": "Tísňová linka" }
+    ] }
+  ]
+}

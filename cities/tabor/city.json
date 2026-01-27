@@ -1,0 +1,14 @@
+{
+  "id": "tabor",
+  "name": "Tábor",
+  "appTitle": "72 hodin – Tábor",
+  "theme": {
+    "primary": "#0B1B2B",
+    "accent": "#F2C14E",
+    "bg": "#0A0F14",
+    "surface": "#121A22",
+    "text": "#EAF1F7",
+    "muted": "#A9B4BE"
+  },
+  "logo": "./cities/tabor/logo.svg"
+}

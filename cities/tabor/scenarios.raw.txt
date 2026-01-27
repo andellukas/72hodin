@@ -1,0 +1,2 @@
+PLACEHOLDER: sem půjde převod z KNOLIGE BASE.txt do struktury scénářů.
+Zatím držíme fail-closed: nezobrazujeme haldu textu, dokud to není rozsekané do akčních kroků.
