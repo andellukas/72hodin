@@ -1,4 +1,4 @@
-const CACHE = "tabor-v2-20260127_120427";
+const CACHE = "tabor-v2-20260127_141852";
 const ASSETS = [
   "./index.html",
   "./styles.css",
