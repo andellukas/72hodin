@@ -1,0 +1,17 @@
+{
+  "city": "tabor",
+  "source": "cities/tabor/scenarios.raw.txt",
+  "count": 1,
+  "scenarios": [
+    {
+      "id": "placeholder-sem-pujde-prevod-z-knolige-basetxt-do-struktury",
+      "title": "PLACEHOLDER: sem půjde převod z KNOLIGE BASE.txt do struktury scénářů.",
+      "sections": [
+        {
+          "title": "Postup",
+          "content": "PLACEHOLDER: sem půjde převod z KNOLIGE BASE.txt do struktury scénářů.\nZatím držíme fail-closed: nezobrazujeme haldu textu, dokud to není rozsekané do akčních kroků."
+        }
+      ]
+    }
+  ]
+}

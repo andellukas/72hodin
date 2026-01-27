@@ -6,7 +6,8 @@ const ASSETS = [
   "./offline.html",
   "./manifest.webmanifest",
   "../cities/tabor/city.json",
-  "../cities/tabor/contacts.json"
+  "../cities/tabor/contacts.json",
+  "../cities/tabor/scenarios.json"
 ];
 
 self.addEventListener("install", (e) => e.waitUntil((async () => {
