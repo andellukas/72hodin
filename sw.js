@@ -15,7 +15,8 @@ const ASSETS = [
   "./icons/icon-512.png",
   "./city.config.json",
   "./assets/cities/tabor/logo.svg",
-  "./cities/tabor/scenarios.json",
+  "./cities/tabor/scenarios.json,
+  ./cities/tabor/knowledge_base.txt",
 ];
 
 self.addEventListener("install", (e) =>
