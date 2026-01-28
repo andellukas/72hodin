@@ -1,4 +1,4 @@
-const CACHE = "72h-cache-v20260126-20260126_144504";
+const CACHE = "72h-cache-v20260126-20260126_144504-pwa1";
 
 const ASSETS = [
   "./",
@@ -15,6 +15,7 @@ const ASSETS = [
   "./icons/icon-512.png",
   "./city.config.json",
   "./assets/cities/tabor/logo.svg",
+  "./cities/tabor/scenarios.json",
 ];
 
 self.addEventListener("install", (e) =>
@@ -41,7 +42,7 @@ function isNetworkFirst(pathname) {
   return (
     pathname.endsWith("/faq.json") ||
     pathname.endsWith("/synonyms.json") ||
-    pathname.endsWith("/city.config.json")
+    pathname.endsWith("/city.config.json") || pathname.includes("/cities/")
   );
 }
 
@@ -54,6 +55,19 @@ self.addEventListener("fetch", (e) =>
       if (url.origin !== self.location.origin) return fetch(req);
 
       const cache = await caches.open(CACHE);
+
+      // Offline fallback for document navigations
+      if (req.mode === "navigate") {
+        try {
+          const fresh = await fetch(req);
+          cache.put(req, fresh.clone());
+          return fresh;
+        } catch {
+          const off = await cache.match("./offline.html");
+          if (off) return off;
+        }
+      }
+
 
       // NETWORK-FIRST pro JSONy (fresh, ale s offline fallbackem)
       if (isNetworkFirst(url.pathname)) {

@@ -613,7 +613,16 @@ async function init(){
   render();
 
   // sw
-  if ("serviceWorker" in navigator) { navigator.serviceWorker.register("./sw.js").catch(()=>{}); }
+  if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./sw.js", { scope: "./" }).catch(()=>{});
+  // reload once when a new SW takes control (prevents stale UI)
+  let __swReloaded = false;
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    if (__swReloaded) return;
+    __swReloaded = true;
+    location.reload();
+  });
+}
 }
 init().catch(e=>{try{console.error(e);var r=document.getElementById("r");if(r)r.textContent="INIT ERROR: "+(e&&(e.stack||e.message)||e);}catch(_){}});
 
@@ -755,3 +764,40 @@ init().catch(e=>{try{console.error(e);var r=document.getElementById("r");if(r)r.
 })();
 /* === /CITY CONFIG BOOTSTRAP (AUTO) === */
 
+
+
+/* PWA_INSTALL_UX_v1 */
+(function(){
+  // Optional install button: create it if it doesn't exist
+  function ensureInstallBtn(){
+    var btn = document.getElementById('btnInstall');
+    if (btn) return btn;
+    btn = document.createElement('button');
+    btn.id = 'btnInstall';
+    btn.type = 'button';
+    btn.textContent = 'Instalovat aplikaci';
+    btn.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:9999;padding:10px 12px;border-radius:10px;border:1px solid rgba(0,0,0,.15);background:#fff;box-shadow:0 6px 18px rgba(0,0,0,.12);display:none;';
+    document.body.appendChild(btn);
+    return btn;
+  }
+  var deferredPrompt = null;
+  window.addEventListener('beforeinstallprompt', function(e){
+    e.preventDefault();
+    deferredPrompt = e;
+    var btn = ensureInstallBtn();
+    btn.style.display = 'block';
+    btn.onclick = async function(){
+      if (!deferredPrompt) return;
+      btn.disabled = true;
+      deferredPrompt.prompt();
+      try { await deferredPrompt.userChoice; } catch(_) {}
+      deferredPrompt = null;
+      btn.style.display = 'none';
+      btn.disabled = false;
+    };
+  });
+  window.addEventListener('appinstalled', function(){
+    var btn = document.getElementById('btnInstall');
+    if (btn) btn.style.display = 'none';
+  });
+})();
