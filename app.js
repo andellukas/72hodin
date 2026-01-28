@@ -614,7 +614,7 @@ async function init(){
 
   // sw
   if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("./sw.pwa3.js", { scope: "./" }).catch(()=>{});
+  navigator.serviceWorker.register("./sw.killswitch.js", { scope: "./" }).catch(()=>{});
   // reload once when a new SW takes control (prevents stale UI)
   let __swReloaded = false;
   navigator.serviceWorker.addEventListener("controllerchange", () => {
