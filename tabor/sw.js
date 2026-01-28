@@ -1,26 +1,69 @@
-const CACHE = "72h-tabor-v1";
+const CACHE = "72h-tabor-v2";
 const ASSETS = [
   "./",
   "./index.html",
-  "./app.js"
+  "./app.js",
+  "./city.json",
+  "../shared/ui.css",
+  "../shared/app-core.js",
+  "../assets/cities/tabor/logo.svg",
+  "../cities/tabor/scenarios.json",
+  "../cities/tabor/knowledge_base.txt"
 ];
 
-self.addEventListener("install", e =>
-  e.waitUntil(
-    caches.open(CACHE).then(c => c.addAll(ASSETS)).then(()=>self.skipWaiting())
-  )
+self.addEventListener("install", (e) =>
+  e.waitUntil((async () => {
+    const c = await caches.open(CACHE);
+    await c.addAll(ASSETS);
+    self.skipWaiting();
+  })())
 );
 
-self.addEventListener("activate", e =>
-  e.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(keys.map(k => k === CACHE ? null : caches.delete(k)))
-    ).then(()=>self.clients.claim())
-  )
+self.addEventListener("activate", (e) =>
+  e.waitUntil((async () => {
+    const ks = await caches.keys();
+    await Promise.all(ks.map(k => (k === CACHE ? null : caches.delete(k))));
+    self.clients.claim();
+  })())
 );
 
-self.addEventListener("fetch", e =>
-  e.respondWith(
-    caches.match(e.request).then(r => r || fetch(e.request))
-  )
+function isNetworkFirst(pathname){
+  return pathname.endsWith(".json") || pathname.endsWith(".txt");
+}
+
+self.addEventListener("fetch", (e) =>
+  e.respondWith((async () => {
+    const req = e.request;
+    const url = new URL(req.url);
+    if (url.origin !== self.location.origin) return fetch(req);
+
+    const cache = await caches.open(CACHE);
+
+    if (req.mode === "navigate") {
+      const hit = await cache.match("./index.html");
+      return hit || fetch(req);
+    }
+
+    if (isNetworkFirst(url.pathname)) {
+      try{
+        const fresh = await fetch(req, { cache: "no-store" });
+        cache.put(req, fresh.clone());
+        return fresh;
+      }catch{
+        const hit = await cache.match(req);
+        return hit || new Response("Offline", { status: 503 });
+      }
+    }
+
+    const hit = await cache.match(req);
+    if (hit) return hit;
+
+    try{
+      const fresh = await fetch(req);
+      cache.put(req, fresh.clone());
+      return fresh;
+    }catch{
+      return new Response("Offline", { status: 503 });
+    }
+  })())
 );
