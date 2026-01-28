@@ -1,9 +1,10 @@
-const CACHE = "72h-tabor-v2";
+const CACHE = "72h-tabor-v2-20260128_164027";
 const ASSETS = [
   "./",
   "./index.html",
   "./app.js",
   "./city.json",
+  "./offline.html",
   "../shared/ui.css",
   "../shared/app-core.js",
   "../assets/cities/tabor/logo.svg",
@@ -41,7 +42,9 @@ self.addEventListener("fetch", (e) =>
 
     if (req.mode === "navigate") {
       const hit = await cache.match("./index.html");
-      return hit || fetch(req);
+      if (hit) return hit;
+      const off = await cache.match("./offline.html");
+      return off || fetch(req);
     }
 
     if (isNetworkFirst(url.pathname)) {
