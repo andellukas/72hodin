@@ -1,11 +1,10 @@
-const CACHE = "72h-tabor-v2-20260128_164027";
+const CACHE = "72h-tabor-v2-20260128_164201";
 const ASSETS = [
   "./",
   "./index.html",
   "./app.js",
   "./city.json",
-  "./offline.html",
-  "../shared/ui.css",
+    "../shared/ui.css",
   "../shared/app-core.js",
   "../assets/cities/tabor/logo.svg",
   "../cities/tabor/scenarios.json",
@@ -15,7 +14,18 @@ const ASSETS = [
 self.addEventListener("install", (e) =>
   e.waitUntil((async () => {
     const c = await caches.open(CACHE);
-    await c.addAll(ASSETS);
+    /* SW_FAILSOFT_v1 */
+        try {
+          await c.addAll(ASSETS);
+        } catch (e) {
+          // If any single asset 404s (CDN propagation), do best-effort caching so SW still installs.
+          for (const a of ASSETS) {
+            try { await c.add(a); } catch (_) {}
+          }
+        }
+        // cache offline.html best-effort (do NOT make install fail)
+        try { await c.add("./offline.html"); } catch (_) {}
+
     self.skipWaiting();
   })())
 );
