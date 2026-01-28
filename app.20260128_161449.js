@@ -622,7 +622,6 @@ async function init(){
     navigator.serviceWorker.register(__swUrl, { scope: "./" }).catch(()=>{});
     if (!__ksDone && typeof localStorage !== "undefined") localStorage.setItem(__ksKey, "1");
   } catch(_) {
-    navigator.serviceWorker.register("./sw.pwa3.js", { scope: "./" }).catch(()=>{});
   }
 
   // reload once when a new SW takes control (prevents stale UI)

@@ -1,4 +1,4 @@
-const CACHE = "72h-cache-v20260126-20260126_144504-pwa4";
+const CACHE = "72h-cache-v20260126-20260126_144504-pwa5";
 
 const ASSETS = [
   "./",
