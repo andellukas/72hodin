@@ -614,7 +614,17 @@ async function init(){
 
   // sw
   if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("./sw.killswitch.js", { scope: "./" }).catch(()=>{});
+  /* SW_REGISTER_STRATEGY_v2 */
+  try {
+    const __ksKey = "72h_sw_killswitch_done_v1";
+    const __ksDone = (typeof localStorage !== "undefined") && localStorage.getItem(__ksKey) === "1";
+    const __swUrl = __ksDone ? "./sw.pwa3.js" : "./sw.killswitch.js";
+    navigator.serviceWorker.register(__swUrl, { scope: "./" }).catch(()=>{});
+    if (!__ksDone && typeof localStorage !== "undefined") localStorage.setItem(__ksKey, "1");
+  } catch(_) {
+    navigator.serviceWorker.register("./sw.pwa3.js", { scope: "./" }).catch(()=>{});
+  }
+
   // reload once when a new SW takes control (prevents stale UI)
   let __swReloaded = false;
   navigator.serviceWorker.addEventListener("controllerchange", () => {
