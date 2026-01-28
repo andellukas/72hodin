@@ -1,119 +1,213 @@
-async function safeFetchText(url){
+/**
+ * shared/app-core.js — Offline "Google-like" search (v1 data)
+ * - searches in knowledge_base.txt + scenarios.json
+ * - simple substring search, sorted by relevance
+ * - fullscreen results
+ */
+
+function $(sel){ return document.querySelector(sel); }
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function toAbs(base, rel){
+  return new URL(rel, base).toString();
+}
+
+async function fetchText(url){
   const r = await fetch(url, { cache: "no-store" });
-  if (!r.ok) throw new Error(`HTTP ${r.status} for ${url}`);
+  if(!r.ok) throw new Error(`HTTP ${r.status} for ${url}`);
   return await r.text();
 }
-async function safeFetchJson(url){
+async function fetchJson(url){
   const r = await fetch(url, { cache: "no-store" });
-  if (!r.ok) throw new Error(`HTTP ${r.status} for ${url}`);
+  if(!r.ok) throw new Error(`HTTP ${r.status} for ${url}`);
   return await r.json();
 }
 
-function el(html){
-  const t = document.createElement('template');
-  t.innerHTML = html.trim();
-  return t.content.firstElementChild;
+function parseKB(txt){
+  // blocks separated by blank lines
+  const blocks = txt.split(/\n\s*\n+/g).map(b => b.trim()).filter(Boolean);
+  const items = [];
+  for(const b of blocks){
+    const lines = b.split("\n");
+    const q = (lines[0] || "").trim();
+    const a = lines.slice(1).join("\n").trim();
+    if(q && a) items.push({ type:"kb", title:q.replace(/^\?\s*/,"").trim(), body:a });
+  }
+  if(items.length === 0 && txt.trim()){
+    items.push({ type:"kb", title:"Znalostní báze", body:txt.trim() });
+  }
+  return items;
+}
+
+function normalize(s){
+  return String(s).toLowerCase();
+}
+
+function score(hayTitle, hayBody, q){
+  // simple deterministic relevance:
+  // +3 for each token in title, +1 for each token in body
+  const tokens = normalize(q).split(/\s+/).filter(Boolean);
+  if(tokens.length === 0) return 0;
+  const t = normalize(hayTitle);
+  const b = normalize(hayBody);
+  let s = 0;
+  for(const tok of tokens){
+    if(t.includes(tok)) s += 3;
+    if(b.includes(tok)) s += 1;
+  }
+  // small bonus for exact substring match of full query
+  if(t.includes(normalize(q))) s += 5;
+  if(b.includes(normalize(q))) s += 2;
+  return s;
+}
+
+function highlight(htmlText, q){
+  const tokens = q.split(/\s+/).filter(Boolean).slice(0,8);
+  let out = escapeHtml(htmlText);
+  for(const tok of tokens){
+    const safe = tok.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+    const re = new RegExp(`(${safe})`, "ig");
+    out = out.replace(re, `<mark style="background:rgba(45,212,191,.18);color:inherit;border-radius:6px;padding:0 3px">$1</mark>`);
+  }
+  return out;
+}
+
+function render(root, cityName){
+  root.innerHTML = `
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="t">72 hodin – ${escapeHtml(cityName)}</div>
+        <div class="s">Offline vyhledávač (scénáře + znalostní báze)</div>
+      </div>
+      <div class="kbd">Enter = hledat • Esc = zavřít</div>
+    </div>
+
+    <div class="searchRow">
+      <input id="q" class="input" placeholder="Napiš co potřebuješ… (např. blackout, voda, úraz, evakuace)" autocomplete="off" />
+      <button id="go" class="btn">Hledat</button>
+    </div>
+
+    <div class="card">
+      <div class="cardHd">
+        <div class="h">Stav</div>
+        <div class="small" id="state">Načítám data…</div>
+      </div>
+      <div class="cardBd small">
+        Tip: používej krátká slova. Offline to bude fungovat po prvním načtení (instalace SW).
+      </div>
+    </div>
+  </div>
+
+  <div id="fs" class="fullscreen" aria-hidden="true">
+    <div class="fsWrap">
+      <div class="fsTop">
+        <div class="fsTitle" id="fsTitle">Výsledky</div>
+        <div style="display:flex; gap:10px; align-items:center">
+          <span class="small" id="fsMeta"></span>
+          <button id="close" class="btn secondary">Zavřít</button>
+        </div>
+      </div>
+      <div class="fsBody" id="fsBody"></div>
+    </div>
+  </div>
+  `;
+}
+
+function openFS(title, meta, bodyHtml){
+  $("#fsTitle").textContent = title;
+  $("#fsMeta").textContent = meta;
+  $("#fsBody").innerHTML = bodyHtml;
+  const fs = $("#fs");
+  fs.classList.add("on");
+  fs.setAttribute("aria-hidden","false");
+}
+function closeFS(){
+  const fs = $("#fs");
+  fs.classList.remove("on");
+  fs.setAttribute("aria-hidden","true");
 }
 
 export async function bootCityApp(){
-  const cfgUrl = './city.json';
-  const cfg = await safeFetchJson(cfgUrl);
+  const root = document.getElementById("app");
+  if(!root) throw new Error("Missing #app");
+  const base = new URL(".", location.href).toString();
 
-  // apply theme
-  const root = document.documentElement;
-  if (cfg.theme?.bg) root.style.setProperty('--bg', cfg.theme.bg);
-  if (cfg.theme?.card) root.style.setProperty('--card', cfg.theme.card);
-  if (cfg.theme?.accent) root.style.setProperty('--accent', cfg.theme.accent);
-  if (cfg.theme?.danger) root.style.setProperty('--danger', cfg.theme.danger);
+  const city = JSON.parse(await fetchText(toAbs(base,"./city.json")));
+  const cityName = city?.name || "Město";
+  render(root, cityName);
 
-  // SW: city-scope only
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js', { scope: './' }).catch(()=>{});
-  }
+  let corpus = [];
+  let okParts = [];
 
-  const app = document.getElementById('app');
-  app.innerHTML = '';
-  const top = el(`
-    <div class="top">
-      <div class="brand">
-        <div class="logo">${cfg.logo ? `<img alt="" src="${cfg.logo}">` : '72H'}</div>
-        <div>
-          <p class="h1">${cfg.title || '72 hodin'}</p>
-          <p class="sub">${cfg.subtitle || 'Offline krizový manuál'}</p>
-        </div>
-      </div>
-      <div class="badge">${cfg.citySlug || ''}</div>
-    </div>
-  `);
-  app.appendChild(el('<div class="wrap"></div>'));
-  app.querySelector('.wrap').appendChild(top);
+  // KB
+  try{
+    const kbUrl = toAbs(base, city.knowledge_base);
+    const kbTxt = await fetchText(kbUrl);
+    corpus = corpus.concat(parseKB(kbTxt));
+    okParts.push(`KB:${corpus.filter(x=>x.type==="kb").length}`);
+  }catch(e){}
 
-  const grid = el(`<div class="grid"></div>`);
-  app.querySelector('.wrap').appendChild(grid);
+  // Scenarios
+  try{
+    const scUrl = toAbs(base, city.scenarios);
+    const sc = await fetchJson(scUrl);
 
-  const cardNow = el(`
-    <div class="card">
-      <h2>Teď hned</h2>
-      <p class="p">Rychlé kroky pro první minuty. Offline-first, jedno tlačítko = jasná akce.</p>
-      <div class="btns">
-        <button class="btn primary" id="btnScenarios">Scénáře</button>
-        <button class="btn" id="btnKB">Znalosti</button>
-        <button class="btn danger" id="btnPanic">PANIKA</button>
-      </div>
-      <div class="small" id="status"></div>
-    </div>
-  `);
-
-  const cardData = el(`
-    <div class="card">
-      <h2>Data města</h2>
-      <ul class="list" id="dataList"></ul>
-      <div class="small">Zdrojové soubory jsou mimo UI: stačí vyměnit cesty v <code>city.json</code>.</div>
-    </div>
-  `);
-
-  grid.appendChild(cardNow);
-  grid.appendChild(cardData);
-
-  const status = app.querySelector('#status');
-  const list = app.querySelector('#dataList');
-
-  function addItem(name, desc){
-    const li = el(`<li class="item"><strong></strong><span></span></li>`);
-    li.querySelector('strong').textContent = name;
-    li.querySelector('span').textContent = desc;
-    list.appendChild(li);
-  }
-
-  addItem('scenarios.json', cfg.data?.scenarios || '(nenastaveno)');
-  addItem('knowledge_base.txt', cfg.data?.knowledgeBase || '(nenastaveno)');
-
-  async function showScenarios(){
-    status.textContent = 'Načítám scénáře…';
-    try{
-      const data = await safeFetchJson(cfg.data.scenarios);
-      const n = Array.isArray(data) ? data.length : (data?.length || Object.keys(data||{}).length);
-      status.textContent = `Scénáře načteny: ${n}`;
-    }catch(e){
-      status.textContent = `Chyba scénářů: ${e.message}`;
+    // support common shapes:
+    // - array of {title, text/steps/body/...}
+    // - {scenarios:[...]}
+    const arr = Array.isArray(sc) ? sc : (Array.isArray(sc.scenarios) ? sc.scenarios : []);
+    const items = [];
+    for(const it of arr){
+      const title = String(it.title || it.name || it.id || "Scénář").trim();
+      const body =
+        String(it.text || it.body || it.description || "").trim() ||
+        (Array.isArray(it.steps) ? it.steps.join("\n") : "") ||
+        (Array.isArray(it.now) ? ("NOW:\n"+it.now.join("\n")) : "") ||
+        (Array.isArray(it.do) ? ("DO:\n"+it.do.join("\n")) : "");
+      if(title && body) items.push({ type:"scenario", title, body });
     }
-  }
+    corpus = corpus.concat(items);
+    okParts.push(`SC:${items.length}`);
+  }catch(e){}
 
-  async function showKB(){
-    status.textContent = 'Načítám znalosti…';
-    try{
-      const txt = await safeFetchText(cfg.data.knowledgeBase);
-      status.textContent = `Znalosti načteny: ${txt.length} znaků`;
-    }catch(e){
-      status.textContent = `Chyba znalostí: ${e.message}`;
+  $("#state").textContent = corpus.length ? `OK • ${okParts.join(" • ")} • celkem: ${corpus.length}` : "Chyba: data se nenačetla";
+
+  const runSearch = () => {
+    const q = ($("#q").value || "").trim();
+    if(!q){
+      openFS("Napiš dotaz", "", `<div class="hit"><div class="a">Zkus: <b>blackout</b>, <b>voda</b>, <b>evakuace</b>, <b>zima</b>, <b>úraz</b>.</div></div>`);
+      return;
     }
-  }
 
-  document.getElementById('btnScenarios').onclick = showScenarios;
-  document.getElementById('btnKB').onclick = showKB;
-  document.getElementById('btnPanic').onclick = () => {
-    status.textContent = 'PANIKA: TODO (v2) — sem dáme offline preset + kontakty.';
+    const ranked = corpus
+      .map(it => ({ it, s: score(it.title, it.body, q) }))
+      .filter(x => x.s > 0)
+      .sort((a,b)=> b.s - a.s)
+      .slice(0, 40);
+
+    if(!ranked.length){
+      openFS(`Nenalezeno: ${q}`, "0 výsledků", `<div class="hit"><div class="a">Zkus kratší dotaz nebo jiné slovo.</div></div>`);
+      return;
+    }
+
+    const html = ranked.map(x => `
+      <div class="hit">
+        <div class="q">${escapeHtml(x.it.type === "scenario" ? "Scénář" : "Znalostní báze")} • ${highlight(x.it.title, q)}</div>
+        <div class="a">${highlight(x.it.body, q).replace(/\n/g,"<br>")}</div>
+      </div>
+    `).join("");
+
+    openFS(`Výsledky: ${q}`, `nalezeno: ${ranked.length}`, html);
   };
 
-  status.textContent = 'Připraveno.';
+  $("#go").addEventListener("click", runSearch);
+  $("#q").addEventListener("keydown", (e)=>{ if(e.key==="Enter") runSearch(); });
+
+  $("#close").addEventListener("click", closeFS);
+  $("#fs").addEventListener("click", (e)=>{ if(e.target && e.target.id==="fs") closeFS(); });
+  window.addEventListener("keydown", (e)=>{ if(e.key==="Escape") closeFS(); });
 }
