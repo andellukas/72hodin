@@ -1,4 +1,4 @@
-const CACHE = "72h-cache-v20260126-20260126_144504-pwa2";
+const CACHE = "72h-cache-v20260126-20260126_144504-pwa3";
 
 const ASSETS = [
   "./",
@@ -17,8 +17,6 @@ const ASSETS = [
   "./assets/cities/tabor/logo.svg",
   "./cities/tabor/scenarios.json",
   "./cities/tabor/knowledge_base.txt",
-  "./cities/tabor/scenarios.json,
-  ./cities/tabor/knowledge_base.txt",
 ];
 
 self.addEventListener("install", (e) =>
