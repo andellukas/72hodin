@@ -801,3 +801,18 @@ init().catch(e=>{try{console.error(e);var r=document.getElementById("r");if(r)r.
     if (btn) btn.style.display = 'none';
   });
 })();
+
+
+/* SW_MIGRATION_LISTENER_v1 */
+(function(){
+  if(!("serviceWorker" in navigator)) return;
+  navigator.serviceWorker.addEventListener("message", async (e)=>{
+    try{
+      const msg = e.data || {};
+      if(msg.type !== "SW_MIGRATE_TO") return;
+      const url = msg.url || "./sw.pwa3.js";
+      await navigator.serviceWorker.register(url, { scope: "./" }).catch(()=>{});
+      location.reload();
+    }catch(_){}
+  });
+})();
