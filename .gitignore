@@ -3,3 +3,10 @@ _local_backup_before_abort_*/
 faq.txt
 _scratch/
 faq.json.bak.*
+_local_backup_before_change/
+*.bak
+*.bak_*
+sw-*.js
+sw.js.bak.*
+faq.json.bak_*
+*.tar.gz
