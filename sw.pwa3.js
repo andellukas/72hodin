@@ -1,9 +1,10 @@
-const CACHE = "72h-cache-v20260126-20260126_144504-pwa3";
+const CACHE = "72h-cache-v20260126-20260126_144504-pwa4";
 
 const ASSETS = [
   "./",
   "./index.html",
   "./app.js",
+  "./app.20260128_161449.js",
   "./faq.json",
   "./synonyms.json",
   "./help.html",
