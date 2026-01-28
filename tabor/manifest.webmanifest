@@ -1,0 +1,9 @@
+{
+  "name": "72 hodin – Tábor",
+  "short_name": "72h Tábor",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0b1c2d",
+  "theme_color": "#0b1c2d",
+  "icons": []
+}
