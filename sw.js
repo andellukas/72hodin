@@ -1,4 +1,4 @@
-const CACHE = "72h-cache-v20260126-20260126_144504-pwa1";
+const CACHE = "72h-cache-v20260126-20260126_144504-pwa2";
 
 const ASSETS = [
   "./",
@@ -15,6 +15,8 @@ const ASSETS = [
   "./icons/icon-512.png",
   "./city.config.json",
   "./assets/cities/tabor/logo.svg",
+  "./cities/tabor/scenarios.json",
+  "./cities/tabor/knowledge_base.txt",
   "./cities/tabor/scenarios.json,
   ./cities/tabor/knowledge_base.txt",
 ];
