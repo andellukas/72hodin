@@ -1,16 +1,6 @@
 {
-  "citySlug": "tabor",
-  "title": "72 hodin – Tábor",
-  "subtitle": "Offline krizový manuál pro obyvatele",
+  "name": "Tábor",
   "logo": "../assets/cities/tabor/logo.svg",
-  "theme": {
-    "bg": "#0b1c2d",
-    "card": "#0f2a42",
-    "accent": "#2dd4bf",
-    "danger": "#fb7185"
-  },
-  "data": {
-    "scenarios": "../cities/tabor/scenarios.json",
-    "knowledgeBase": "../cities/tabor/knowledge_base.txt"
-  }
+  "knowledge_base": "../cities/tabor/knowledge_base.txt",
+  "scenarios": "../cities/tabor/scenarios.json"
 }
