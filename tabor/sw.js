@@ -1,14 +1,15 @@
-const CACHE = "72h-tabor-v2-20260128_164201";
+const CACHE = "72h-tabor-ui-20260129_145333";
 const ASSETS = [
   "./",
   "./index.html",
   "./app.js",
   "./city.json",
-    "../shared/ui.css",
+  "./offline.html",
+  "../shared/ui.css",
   "../shared/app-core.js",
   "../assets/cities/tabor/logo.svg",
   "../cities/tabor/scenarios.json",
-  "../cities/tabor/knowledge_base.txt"
+  "../cities/tabor/knowledge_base.txt",
 ];
 
 self.addEventListener("install", (e) =>

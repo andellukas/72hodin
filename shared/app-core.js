@@ -12,10 +12,6 @@ function escapeHtml(s){
   return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
-function toAbs(base, rel){
-  return new URL(rel, base).toString();
-}
-
 async function fetchText(url){
   const r = await fetch(url, { cache: "no-store" });
   if(!r.ok) throw new Error(`HTTP ${r.status} for ${url}`);
@@ -27,168 +23,167 @@ async function fetchJson(url){
   return await r.json();
 }
 
+function tokenize(q){
+  return q.toLowerCase().trim().split(/\s+/).filter(Boolean);
+}
+function scoreItem(tokens, title, body){
+  const t = title.toLowerCase();
+  const b = body.toLowerCase();
+  let s = 0;
+  for(const tok of tokens){
+    if(!tok) continue;
+    if(t.includes(tok)) s += 8;
+    if(b.includes(tok)) s += 2;
+    if(t.startsWith(tok)) s += 3;
+  }
+  // malý bonus za krátký titulek (čitelnost)
+  if(title.length <= 60) s += 1;
+  return s;
+}
+
 function parseKB(txt){
-  // blocks separated by blank lines
+  // Očekáváme bloky oddělené prázdným řádkem:
+  // první řádek = otázka / nadpis, zbytek = odpověď
   const blocks = txt.split(/\n\s*\n+/g).map(b => b.trim()).filter(Boolean);
   const items = [];
   for(const b of blocks){
     const lines = b.split("\n");
-    const q = (lines[0] || "").trim();
-    const a = lines.slice(1).join("\n").trim();
-    if(q && a){
-      items.push({ type:"kb", title:q.replace(/^\?\s*/,"").trim(), body:a });
-    }
-  }
-  // fallback if KB doesn't follow block format
-  if(items.length === 0 && txt.trim()){
-    items.push({ type:"kb", title:"Znalostní báze", body:txt.trim() });
+    const head = (lines[0] || "").trim().replace(/^\?\s*/,"").trim();
+    const body = lines.slice(1).join("\n").trim();
+    if(head && body) items.push({ type:"kb", title: head, body });
   }
   return items;
 }
 
-function normalize(s){ return String(s).toLowerCase(); }
-
-function score(title, body, q){
-  const tokens = normalize(q).split(/\s+/).filter(Boolean);
-  if(tokens.length === 0) return 0;
-  const t = normalize(title);
-  const b = normalize(body);
-  let s = 0;
-  for(const tok of tokens){
-    if(t.includes(tok)) s += 3;
-    if(b.includes(tok)) s += 1;
+function parseScenarios(json){
+  // podporujeme více možných tvarů (fail-soft)
+  // 1) { scenarios:[{title,text|body|steps...}] }
+  // 2) [{...}]
+  const arr = Array.isArray(json) ? json : (Array.isArray(json?.scenarios) ? json.scenarios : []);
+  const items = [];
+  for(const s of arr){
+    const title = (s.title || s.name || s.heading || "").toString().trim();
+    const body =
+      (s.text || s.body || s.content || "").toString().trim() ||
+      (Array.isArray(s.steps) ? s.steps.join("\n") : "").trim();
+    if(title && body) items.push({ type:"scenario", title, body });
   }
-  if(t.includes(normalize(q))) s += 5;
-  if(b.includes(normalize(q))) s += 2;
-  return s;
+  return items;
 }
 
-function highlight(text, q){
-  const tokens = q.split(/\s+/).filter(Boolean).slice(0,8);
-  let out = escapeHtml(text);
-  for(const tok of tokens){
-    const safe = tok.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-    const re = new RegExp(`(${safe})`, "ig");
-    out = out.replace(re, `<mark>$1</mark>`);
-  }
-  return out;
+function showOverlay(title, items){
+  const ov = $("#overlay");
+  const out = $("#results");
+  const h = $("#ovTitle");
+  if(!ov || !out || !h) return;
+
+  h.textContent = title;
+  out.innerHTML = items.map(it => {
+    const badge = it.type === "kb" ? "Znalosti" : "Scénář";
+    return `
+      <div class="item">
+        <div><span class="badge">${escapeHtml(badge)}</span></div>
+        <h3>${escapeHtml(it.title)}</h3>
+        <pre>${escapeHtml(it.body)}</pre>
+      </div>
+    `;
+  }).join("");
+
+  ov.classList.add("on");
+  ov.setAttribute("aria-hidden","false");
 }
 
-function openFS(title, bodyHtml){
-  $("#fsTitle").textContent = title;
-  $("#fsBody").innerHTML = bodyHtml;
-  $("#fs").classList.add("on");
-  $("#fs").setAttribute("aria-hidden","false");
-}
-function closeFS(){
-  $("#fs").classList.remove("on");
-  $("#fs").setAttribute("aria-hidden","true");
+function hideOverlay(){
+  const ov = $("#overlay");
+  if(!ov) return;
+  ov.classList.remove("on");
+  ov.setAttribute("aria-hidden","true");
 }
 
 export async function bootCityApp(){
-  const root = document.getElementById("app");
-  if(!root) throw new Error("Missing #app");
+  const status = $("#status");
+  const q = $("#q");
+  const closeBtn = $("#ovClose");
+  const offBtn = $("#openOffline");
+  const logoEl = $("#cityLogo");
+  const titleEl = $("#cityTitle");
 
-  const base = new URL(".", location.href).toString();
-  const city = JSON.parse(await fetchText(toAbs(base,"./city.json")));
+  // SW register je v city app.js (kvůli scope ./)
+  // tady jen UI + data
 
-  const cityName = city?.name || "Město";
-  const logoPath = city?.logo || "../assets/cities/tabor/logo.svg";
+  if(closeBtn) closeBtn.addEventListener("click", hideOverlay);
+  document.addEventListener("keydown", (e)=>{ if(e.key === "Escape") hideOverlay(); });
 
-  root.innerHTML = `
-    <div class="wrap">
-      <div class="hero">
-        <div class="logo"><img alt="Logo" src="${escapeHtml(logoPath)}"></div>
-        <h1 class="title">72 hodin – ${escapeHtml(cityName)}</h1>
-        <p class="sub">Offline vyhledávač krizových postupů</p>
-      </div>
+  // Load city.json relative to /<city>/
+  const cityJson = await fetchJson("./city.json");
 
-      <div class="search">
-        <input id="q" class="input" placeholder="Napiš, co potřebuješ…" autocomplete="off" />
-        <button id="go" class="btn">Hledat</button>
-      </div>
+  if(titleEl && cityJson?.name) titleEl.textContent = `72 hodin – ${cityJson.name}`;
+  if(logoEl && cityJson?.logo) logoEl.src = cityJson.logo;
 
-      <div class="quick">
-        <button class="qbtn danger" data-q="blackout">BLACKOUT</button>
-        <button class="qbtn" data-q="evakuace">EVAKUACE</button>
-        <button class="qbtn" data-q="první pomoc">PRVNÍ POMOC</button>
-      </div>
-    </div>
-
-    <div id="fs" class="fullscreen" aria-hidden="true">
-      <div class="fsWrap">
-        <div class="fsTop">
-          <div class="fsTitle" id="fsTitle">Výsledky</div>
-          <button class="fsClose" id="close">Zavřít</button>
-        </div>
-        <div class="fsBody" id="fsBody"></div>
-      </div>
-    </div>
-  `;
-
-  // Load v1 data
-  let corpus = [];
-
-  const kbUrl = toAbs(base, city.knowledge_base);
-  const kbTxt = await fetchText(kbUrl);
-  corpus = corpus.concat(parseKB(kbTxt));
-
-  const scUrl = toAbs(base, city.scenarios);
-  const sc = await fetchJson(scUrl);
-
-  const arr =
-    Array.isArray(sc) ? sc :
-    (Array.isArray(sc.scenarios) ? sc.scenarios : []);
-
-  for(const it of arr){
-    const title = String(it.title || it.name || it.id || "Scénář").trim();
-    const body =
-      String(it.text || it.body || it.description || "").trim() ||
-      (Array.isArray(it.steps) ? it.steps.join("\n") : "") ||
-      (Array.isArray(it.now) ? ("NOW:\n"+it.now.join("\n")) : "") ||
-      (Array.isArray(it.do) ? ("DO:\n"+it.do.join("\n")) : "");
-    if(title && body) corpus.push({ type:"scenario", title, body });
+  if(offBtn){
+    offBtn.addEventListener("click", async ()=>{
+      // otevře offline.html v overlay (jako “rychlá nápověda”)
+      try{
+        const html = await fetchText("./offline.html");
+        showOverlay("Offline", [{type:"kb", title:"Offline režim", body: html.replace(/<\/?[^>]+>/g," ").replace(/\s+/g," ").trim()}]);
+      }catch(e){
+        showOverlay("Offline", [{type:"kb", title:"Offline", body:"Offline stránka není dostupná."}]);
+      }
+    });
   }
 
-  const runSearch = () => {
-    const q = ($("#q").value || "").trim();
-    if(!q){
-      openFS("Napiš dotaz", `<div class="hit"><div class="a">Zkus: blackout, voda, zima, úraz, evakuace…</div></div>`);
+  if(status) status.textContent = "Načítám znalosti…";
+
+  // Fetch v1 data (paths come from city.json)
+  const kbUrl = cityJson?.knowledge_base;
+  const scUrl = cityJson?.scenarios;
+  if(!kbUrl || !scUrl) throw new Error("city.json: chybí knowledge_base nebo scenarios");
+
+  const [kbTxt, scJson] = await Promise.all([
+    fetchText(kbUrl),
+    fetchJson(scUrl),
+  ]);
+
+  const items = [
+    ...parseKB(kbTxt),
+    ...parseScenarios(scJson),
+  ];
+
+  if(status) status.textContent = `Připraveno. Záznamů: ${items.length}.`;
+
+  function runSearch(query){
+    const tokens = tokenize(query);
+    if(tokens.length === 0){
+      showOverlay("Tipy", [{
+        type:"kb",
+        title:"Zadej dotaz",
+        body:"Příklady: blackout, voda, zima, evakuace, úraz, oheň, plyn, povodeň."
+      }]);
       return;
     }
-
-    const ranked = corpus
-      .map(it => ({ it, s: score(it.title, it.body, q) }))
+    const scored = items
+      .map(it => ({ it, s: scoreItem(tokens, it.title, it.body) }))
       .filter(x => x.s > 0)
       .sort((a,b)=> b.s - a.s)
-      .slice(0, 50);
+      .slice(0, 30)
+      .map(x => x.it);
 
-    if(!ranked.length){
-      openFS(`Nenalezeno: ${q}`, `<div class="hit"><div class="a">Zkus kratší slovo nebo jiné synonymum.</div></div>`);
+    if(scored.length === 0){
+      showOverlay(`Nic nenalezeno: "${query}"`, [{
+        type:"kb",
+        title:"Bez výsledku",
+        body:"Zkus jiné slovo nebo kratší dotaz."
+      }]);
       return;
     }
+    showOverlay(`Výsledky: "${query}"`, scored);
+  }
 
-    const html = ranked.map(x => `
-      <div class="hit">
-        <div class="q">${escapeHtml(x.it.type === "scenario" ? "Scénář" : "Znalostní báze")} • ${highlight(x.it.title, q)}</div>
-        <div class="a">${highlight(x.it.body, q).replace(/\n/g,"<br>")}</div>
-      </div>
-    `).join("");
-
-    openFS(`Výsledky: ${q}`, html);
-  };
-
-  $("#go").addEventListener("click", runSearch);
-  $("#q").addEventListener("keydown", (e)=>{ if(e.key==="Enter") runSearch(); });
-
-  document.querySelectorAll("[data-q]").forEach(btn=>{
-    btn.addEventListener("click", ()=>{
-      $("#q").value = btn.getAttribute("data-q") || "";
-      runSearch();
+  if(q){
+    q.addEventListener("keydown", (e)=>{
+      if(e.key === "Enter"){
+        runSearch(q.value || "");
+      }
     });
-  });
-
-  $("#close").addEventListener("click", closeFS);
-  $("#fs").addEventListener("click", (e)=>{ if(e.target && e.target.id==="fs") closeFS(); });
-  window.addEventListener("keydown", (e)=>{ if(e.key==="Escape") closeFS(); });
+  }
 }
