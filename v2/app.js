@@ -13,22 +13,187 @@ function escapeHtml(s){
 }
 
 function normalizeKB(data){
-  // Accept:
-  // 1) { items: [...] }
-  // 2) [...] (array)
-  // Anything else -> empty
-  let items = [];
-  if (Array.isArray(data)) items = data;
-  else if (data && Array.isArray(data.items)) items = data.items;
+  // Intuitive normalization:
+  // Accept many reasonable JSON shapes and normalize into:
+  // [{ title, body, tags:[] }]
+  //
+  // Supported top-level:
+  // - Array
+  // - {items:[...]} or {entries:[...]} or {data:[...]} or {kb:[...]} or {docs:[...]} etc.
 
-  // Normalize each item into {title, body, tags?}
-  return items.map((it) => {
-    if (typeof it === "string") return { title: it.slice(0, 80), body: it };
-    const title = String(it.title ?? it.name ?? it.q ?? it.question ?? "").trim();
-    const body  = String(it.body ?? it.text ?? it.a ?? it.answer ?? "").trim();
-    const tags  = Array.isArray(it.tags) ? it.tags.map(String) : [];
-    return { title: title || "(bez názvu)", body, tags };
-  }).filter(x => x.body || x.title);
+  const pickArray = (obj) => {
+    if (!obj || typeof obj !== "object") return null;
+    const keys = ["items","entries","data","kb","records","docs","documents","articles","scenarios"];
+    for (const k of keys){
+      if (Array.isArray(obj[k])) return obj[k];
+    }
+    return null;
+  };
+
+  const isObj = (x) => x && typeof x === "object" && !Array.isArray(x);
+
+  const asText = (v) => {
+    if (v == null) return "";
+    if (typeof v === "string") return v;
+    if (typeof v === "number" || typeof v === "boolean") return String(v);
+    return "";
+  };
+
+  const joinLines = (arr) => (Array.isArray(arr) ? arr.map(asText).filter(Boolean).join("\n") : "");
+
+  const formatSteps = (steps) => {
+    if (!Array.isArray(steps)) return "";
+    const lines = steps.map((s, i) => {
+      if (typeof s === "string") return `- ${s}`;
+      if (isObj(s)){
+        const t = asText(s.title || s.step || s.name);
+        const b = asText(s.body || s.text || s.do || s.action);
+        if (t && b) return `- ${t}: ${b}`;
+        if (t) return `- ${t}`;
+        if (b) return `- ${b}`;
+      }
+      return "";
+    }).filter(Boolean);
+    return lines.join("\n");
+  };
+
+  const formatSections = (sections) => {
+    if (!isObj(sections)) return "";
+    const out = [];
+    for (const [k,v] of Object.entries(sections)){
+      const head = String(k).trim();
+      if (!head) continue;
+      let body = "";
+      if (typeof v === "string") body = v.trim();
+      else if (Array.isArray(v)) body = v.map(asText).filter(Boolean).join("\n");
+      else if (isObj(v)) body = JSON.stringify(v, null, 2);
+      if (body) out.push(`${head}\n${body}`);
+    }
+    return out.join("\n\n");
+  };
+
+  const uniq = (arr) => {
+    const s = new Set();
+    for (const x of arr){
+      const v = String(x || "").trim();
+      if (v) s.add(v);
+    }
+    return Array.from(s);
+  };
+
+  const deriveTags = (it, title) => {
+    const tags = [];
+    // explicit tags
+    if (Array.isArray(it.tags)) tags.push(...it.tags.map(asText));
+    else if (typeof it.tags === "string") tags.push(...it.tags.split(/[;,]/g).map(t=>t.trim()));
+
+    // common metadata -> tags
+    for (const k of ["category","type","city","severity","phase"]){
+      const v = asText(it[k]);
+      if (v) tags.push(v);
+    }
+
+    // very light title-derived tags (no guessing, just split)
+    if (title){
+      const t = title.toLowerCase();
+      const hit = [];
+      const map = [
+        ["blackout","blackout"],["elektř","elektrina"],["voda","voda"],["plyn","plyn"],
+        ["zima","zima"],["mráz","zima"],["oheň","pozar"],["požár","pozar"],
+        ["konflikt","konflikt"],["agrese","konflikt"],["zraně","prvni_pomoc"],["krvác","prvni_pomoc"]
+      ];
+      for (const [needle, tag] of map){
+        if (t.includes(needle)) hit.push(tag);
+      }
+      tags.push(...hit);
+    }
+
+    return uniq(tags);
+  };
+
+  const normalizeItem = (it) => {
+    // string item
+    if (typeof it === "string"){
+      const s = it.trim();
+      if (!s) return null;
+      const title = s.split("\n")[0].slice(0, 120).trim() || "(bez názvu)";
+      return { title, body: s, tags: [] };
+    }
+
+    // object item
+    if (isObj(it)){
+      const title =
+        asText(it.title) ||
+        asText(it.name) ||
+        asText(it.q) ||
+        asText(it.question) ||
+        asText(it.heading) ||
+        asText(it.h) ||
+        "";
+
+      // body can come from many places
+      let body =
+        asText(it.body) ||
+        asText(it.text) ||
+        asText(it.content) ||
+        asText(it.markdown) ||
+        asText(it.a) ||
+        asText(it.answer) ||
+        "";
+
+      // enrich from structured fields if body empty or to append
+      const parts = [];
+
+      // "when"/"if" (conditions)
+      const when = joinLines(it.when) || asText(it.when);
+      const cond = joinLines(it.if) || asText(it.if);
+      if (when) parts.push(`KDY:\n${when}`);
+      if (cond) parts.push(`PODMÍNKA:\n${cond}`);
+
+      // steps / do / bullets
+      const steps = formatSteps(it.steps) || formatSteps(it.do) || joinLines(it.bullets);
+      if (steps) parts.push(`POSTUP:\n${steps}`);
+
+      // sections object
+      const sec = formatSections(it.sections);
+      if (sec) parts.push(sec);
+
+      // fallback: if no body and we still have parts
+      if (parts.length){
+        const extra = parts.join("\n\n");
+        if (body) body = `${body}\n\n${extra}`;
+        else body = extra;
+      }
+
+      const finalTitle = (title || "(bez názvu)").trim();
+      const finalBody = (body || "").trim();
+
+      if (!finalTitle && !finalBody) return null;
+
+      const tags = deriveTags(it, finalTitle);
+      return { title: finalTitle, body: finalBody || finalTitle, tags };
+    }
+
+    // unknown type
+    return null;
+  };
+
+  let arr = null;
+  if (Array.isArray(data)) arr = data;
+  else if (isObj(data)) arr = pickArray(data);
+
+  if (!arr){
+    // fail-closed: show diagnostic format
+    const keys = isObj(data) ? Object.keys(data).slice(0, 30) : [];
+    throw new Error("Neznámý formát knowledge_base.json. Očekávám pole nebo objekt s polem (items/entries/data/...). Vidím klíče: " + keys.join(", "));
+  }
+
+  const out = [];
+  for (const it of arr){
+    const n = normalizeItem(it);
+    if (n) out.push(n);
+  }
+  return out;
 }
 
 function scoreItem(item, qTokens){
