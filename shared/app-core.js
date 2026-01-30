@@ -21,131 +21,16 @@ async function fetchJson(url){
   const r = await fetch(url, { cache: "no-store" });
   if(!r.ok) throw new Error(`HTTP ${r.status} for ${url}`);
   return await r.json();
-}
-
-
-/* AUTOCOMPLETE_TAHOR_v1
- * - offline našeptávač + rychlé dotazy (chips)
- * - bez knihoven, čisté DOM
- */
-
-function norm(s){
+}function norm(s){
   return String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 }
 
-function uniq(arr){
-  const out = [];
-  const seen = new Set();
-  for(const x of arr){
-    const k = norm(x).trim();
-    if(!k || seen.has(k)) continue;
-    seen.add(k);
-    out.push(String(x).trim());
-  }
-  return out;
-}
 
-function buildSuggestList(items){
-  // pevné krizové fráze (prioritní, “městský krizový manuál”)
-  const core = [
-    "blackout",
-    "voda neteče",
-    "plyn",
-    "požár",
-    "zima",
-    "úraz",
-    "krvácení",
-    "evakuace",
-    "chemický zápach",
-    "povodeň",
-    "bouřka",
-    "silný vítr",
-    "výpadek signálu",
-    "léky",
-    "děti",
-    "senioři",
-  ];
 
-  const titles = (items || []).map(it => it?.title).filter(Boolean);
-  // bereme jen relativně krátké titulky, aby návrhy nebyly romány
-  const compactTitles = titles.filter(t => String(t).length <= 90);
 
-  return uniq([...core, ...compactTitles]);
-}
 
-function scoreSuggest(q, cand){
-  // jednoduché, deterministické: startsWith > includes
-  const nq = norm(q);
-  const nc = norm(cand);
-  if(!nq || nq.length < 2) return -1;
-  let s = 0;
-  if(nc.startsWith(nq)) s += 20;
-  if(nc.includes(nq)) s += 8;
-  // bonus pokud je to “krizové slovo” (krátké)
-  if(String(cand).length <= 18) s += 2;
-  return s;
-}
 
-function ensureSuggestUI(qInput){
-  const wrap = qInput?.closest?.(".search");
-  if(!wrap) return null;
 
-  // chips row
-  let chips = wrap.querySelector(".chips");
-  if(!chips){
-    chips = document.createElement("div");
-    chips.className = "chips";
-    wrap.appendChild(chips);
-  }
-
-  // suggest dropdown
-  let box = wrap.querySelector(".suggestBox");
-  if(!box){
-    box = document.createElement("div");
-    box.className = "suggestBox";
-    box.setAttribute("aria-hidden","true");
-    wrap.appendChild(box);
-  }
-
-  return { wrap, chips, box };
-}
-
-function renderChips(chipsEl, onPick){
-  const chips = [
-    "blackout",
-    "voda neteče",
-    "plyn",
-    "zima",
-    "úraz",
-    "evakuace",
-  ];
-  chipsEl.innerHTML = chips.map(t => `<button type="button" class="chip">${escapeHtml(t)}</button>`).join("");
-  chipsEl.querySelectorAll(".chip").forEach((btn)=>{
-    btn.addEventListener("click", ()=> onPick(btn.textContent || ""));
-  });
-}
-
-function showSuggestBox(box, list, activeIdx){
-  if(!box) return;
-  if(!list || list.length === 0){
-    box.innerHTML = "";
-    box.classList.remove("on");
-    box.setAttribute("aria-hidden","true");
-    return;
-  }
-  box.innerHTML = list.map((t, i)=>(
-    `<div class="sItem ${i===activeIdx ? "on":""}" data-i="${i}">${escapeHtml(t)}</div>`
-  )).join("");
-  box.classList.add("on");
-  box.setAttribute("aria-hidden","false");
-}
-
-function hideSuggestBox(box){
-  if(!box) return;
-  box.classList.remove("on");
-  box.setAttribute("aria-hidden","true");
-  box.innerHTML = "";
-}
 
 function tokenize(q){
   return q.toLowerCase().trim().split(/\s+/).filter(Boolean);
