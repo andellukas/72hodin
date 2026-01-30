@@ -23,6 +23,130 @@ async function fetchJson(url){
   return await r.json();
 }
 
+
+/* AUTOCOMPLETE_TAHOR_v1
+ * - offline našeptávač + rychlé dotazy (chips)
+ * - bez knihoven, čisté DOM
+ */
+
+function norm(s){
+  return String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+}
+
+function uniq(arr){
+  const out = [];
+  const seen = new Set();
+  for(const x of arr){
+    const k = norm(x).trim();
+    if(!k || seen.has(k)) continue;
+    seen.add(k);
+    out.push(String(x).trim());
+  }
+  return out;
+}
+
+function buildSuggestList(items){
+  // pevné krizové fráze (prioritní, “městský krizový manuál”)
+  const core = [
+    "blackout",
+    "voda neteče",
+    "plyn",
+    "požár",
+    "zima",
+    "úraz",
+    "krvácení",
+    "evakuace",
+    "chemický zápach",
+    "povodeň",
+    "bouřka",
+    "silný vítr",
+    "výpadek signálu",
+    "léky",
+    "děti",
+    "senioři",
+  ];
+
+  const titles = (items || []).map(it => it?.title).filter(Boolean);
+  // bereme jen relativně krátké titulky, aby návrhy nebyly romány
+  const compactTitles = titles.filter(t => String(t).length <= 90);
+
+  return uniq([...core, ...compactTitles]);
+}
+
+function scoreSuggest(q, cand){
+  // jednoduché, deterministické: startsWith > includes
+  const nq = norm(q);
+  const nc = norm(cand);
+  if(!nq || nq.length < 2) return -1;
+  let s = 0;
+  if(nc.startsWith(nq)) s += 20;
+  if(nc.includes(nq)) s += 8;
+  // bonus pokud je to “krizové slovo” (krátké)
+  if(String(cand).length <= 18) s += 2;
+  return s;
+}
+
+function ensureSuggestUI(qInput){
+  const wrap = qInput?.closest?.(".search");
+  if(!wrap) return null;
+
+  // chips row
+  let chips = wrap.querySelector(".chips");
+  if(!chips){
+    chips = document.createElement("div");
+    chips.className = "chips";
+    wrap.appendChild(chips);
+  }
+
+  // suggest dropdown
+  let box = wrap.querySelector(".suggestBox");
+  if(!box){
+    box = document.createElement("div");
+    box.className = "suggestBox";
+    box.setAttribute("aria-hidden","true");
+    wrap.appendChild(box);
+  }
+
+  return { wrap, chips, box };
+}
+
+function renderChips(chipsEl, onPick){
+  const chips = [
+    "blackout",
+    "voda neteče",
+    "plyn",
+    "zima",
+    "úraz",
+    "evakuace",
+  ];
+  chipsEl.innerHTML = chips.map(t => `<button type="button" class="chip">${escapeHtml(t)}</button>`).join("");
+  chipsEl.querySelectorAll(".chip").forEach((btn)=>{
+    btn.addEventListener("click", ()=> onPick(btn.textContent || ""));
+  });
+}
+
+function showSuggestBox(box, list, activeIdx){
+  if(!box) return;
+  if(!list || list.length === 0){
+    box.innerHTML = "";
+    box.classList.remove("on");
+    box.setAttribute("aria-hidden","true");
+    return;
+  }
+  box.innerHTML = list.map((t, i)=>(
+    `<div class="sItem ${i===activeIdx ? "on":""}" data-i="${i}">${escapeHtml(t)}</div>`
+  )).join("");
+  box.classList.add("on");
+  box.setAttribute("aria-hidden","false");
+}
+
+function hideSuggestBox(box){
+  if(!box) return;
+  box.classList.remove("on");
+  box.setAttribute("aria-hidden","true");
+  box.innerHTML = "";
+}
+
 function tokenize(q){
   return q.toLowerCase().trim().split(/\s+/).filter(Boolean);
 }
@@ -151,6 +275,60 @@ export async function bootCityApp(){
 
   if(status) status.textContent = `Připraveno. Záznamů: ${items.length}.`;
 
+
+  /* AUTOCOMPLETE_WIRED_v1 */
+  const suggestList = buildSuggestList(items);
+  const ui = ensureSuggestUI(q);
+  let sActive = -1;
+  let sShown = [];
+
+  function pickQuery(v){
+    if(q) q.value = v || "";
+    hideSuggestBox(ui?.box);
+    runSearch(v || "");
+  }
+
+  if(ui?.chips){
+    renderChips(ui.chips, pickQuery);
+  }
+
+  function updateSuggest(){
+    if(!q || !ui?.box) return;
+    const v = (q.value || "").trim();
+    if(v.length < 2){ sActive = -1; sShown = []; hideSuggestBox(ui.box); return; }
+
+    const scored = suggestList
+      .map(c => ({ c, s: scoreSuggest(v, c) }))
+      .filter(x => x.s > 0)
+      .sort((a,b)=> b.s - a.s)
+      .slice(0, 8)
+      .map(x => x.c);
+
+    sShown = scored;
+    sActive = (sShown.length ? 0 : -1);
+    showSuggestBox(ui.box, sShown, sActive);
+  }
+
+  if(q){
+    // psaní = návrhy hned (offline)
+    q.addEventListener("input", updateSuggest);
+
+    // klik mimo = zavřít
+    document.addEventListener("click", (e)=>{
+      if(!ui?.wrap) return;
+      if(ui.wrap.contains(e.target)) return;
+      hideSuggestBox(ui.box);
+    });
+
+    // klik na návrh
+    ui?.box?.addEventListener("click", (e)=>{
+      const el = e.target?.closest?.(".sItem");
+      if(!el) return;
+      const i = Number(el.getAttribute("data-i"));
+      if(Number.isFinite(i) && sShown[i]) pickQuery(sShown[i]);
+    });
+  }
+
   function runSearch(query){
     const tokens = tokenize(query);
     if(tokens.length === 0){
@@ -182,8 +360,40 @@ export async function bootCityApp(){
   if(q){
     q.addEventListener("keydown", (e)=>{
       if(e.key === "Enter"){
-        runSearch(q.value || "");
+        /* AUTOCOMPLETE_ENTER_v1 */
+        // pokud je otevřený našeptávač a máme aktivní položku, vezmi ji
+        const box = document.querySelector('.search .suggestBox');
+        const hasOpen = box && box.classList.contains('on');
+        if(hasOpen){
+          const on = box.querySelector('.sItem.on');
+          const v = (on && on.textContent) ? on.textContent.trim() : (q.value || "");
+          runSearch(v);
+          hideSuggestBox(box);
+        }else{
+          runSearch(q.value || "");
+        }
       }
     });
+    /* AUTOCOMPLETE_KEYS_v1 */
+    q.addEventListener("keydown", (e)=>{
+      const box = document.querySelector('.search .suggestBox');
+      if(!box || !box.classList.contains('on')) return;
+
+      const itemsEl = Array.from(box.querySelectorAll(".sItem"));
+      if(itemsEl.length === 0) return;
+
+      const idx = itemsEl.findIndex(x => x.classList.contains("on"));
+      let n = idx;
+
+      if(e.key === "ArrowDown"){ e.preventDefault(); n = (idx < 0) ? 0 : Math.min(idx + 1, itemsEl.length - 1); }
+      if(e.key === "ArrowUp"){ e.preventDefault(); n = (idx < 0) ? 0 : Math.max(idx - 1, 0); }
+      if(e.key === "Escape"){ hideSuggestBox(box); return; }
+
+      if(n !== idx){
+        itemsEl.forEach(x => x.classList.remove("on"));
+        itemsEl[n].classList.add("on");
+      }
+    });
+
   }
 }

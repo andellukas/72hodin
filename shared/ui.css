@@ -132,3 +132,55 @@ body{
   border-radius:999px;
   margin-right:8px;
 }
+
+
+/* SUGGEST_UI_v1 — typeahead + chips */
+.search{ position: relative; }
+
+.chips{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+
+.chip{
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  color: var(--text);
+  padding: 8px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.chip:active{ transform: translateY(1px); }
+
+.suggestBox{
+  position:absolute;
+  left:0;
+  right:0;
+  top: 56px;
+  background: rgba(7,21,33,.98);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.35);
+  display:none;
+  z-index: 20;
+}
+
+.suggestBox.on{ display:block; }
+
+.sItem{
+  padding: 10px 10px;
+  border-radius: 10px;
+  cursor:pointer;
+  user-select:none;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.sItem:hover,
+.sItem.on{
+  background: rgba(255,255,255,.06);
+}
