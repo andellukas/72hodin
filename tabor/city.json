@@ -1,6 +1,6 @@
 {
   "name": "Tábor",
-  "logo": "../assets/cities/tabor/logo.svg",
+  "logo": "../assets/cities/tabor/logo.jpg",
   "knowledge_base": "../cities/tabor/knowledge_base.txt",
   "scenarios": "../cities/tabor/scenarios.json"
 }
