@@ -275,60 +275,6 @@ export async function bootCityApp(){
 
   if(status) status.textContent = `Připraveno. Záznamů: ${items.length}.`;
 
-
-  /* AUTOCOMPLETE_WIRED_v1 */
-  const suggestList = buildSuggestList(items);
-  const ui = ensureSuggestUI(q);
-  let sActive = -1;
-  let sShown = [];
-
-  function pickQuery(v){
-    if(q) q.value = v || "";
-    hideSuggestBox(ui?.box);
-    runSearch(v || "");
-  }
-
-  if(ui?.chips){
-    renderChips(ui.chips, pickQuery);
-  }
-
-  function updateSuggest(){
-    if(!q || !ui?.box) return;
-    const v = (q.value || "").trim();
-    if(v.length < 2){ sActive = -1; sShown = []; hideSuggestBox(ui.box); return; }
-
-    const scored = suggestList
-      .map(c => ({ c, s: scoreSuggest(v, c) }))
-      .filter(x => x.s > 0)
-      .sort((a,b)=> b.s - a.s)
-      .slice(0, 8)
-      .map(x => x.c);
-
-    sShown = scored;
-    sActive = (sShown.length ? 0 : -1);
-    showSuggestBox(ui.box, sShown, sActive);
-  }
-
-  if(q){
-    // psaní = návrhy hned (offline)
-    q.addEventListener("input", updateSuggest);
-
-    // klik mimo = zavřít
-    document.addEventListener("click", (e)=>{
-      if(!ui?.wrap) return;
-      if(ui.wrap.contains(e.target)) return;
-      hideSuggestBox(ui.box);
-    });
-
-    // klik na návrh
-    ui?.box?.addEventListener("click", (e)=>{
-      const el = e.target?.closest?.(".sItem");
-      if(!el) return;
-      const i = Number(el.getAttribute("data-i"));
-      if(Number.isFinite(i) && sShown[i]) pickQuery(sShown[i]);
-    });
-  }
-
   function runSearch(query){
     const tokens = tokenize(query);
     if(tokens.length === 0){
@@ -360,40 +306,14 @@ export async function bootCityApp(){
   if(q){
     q.addEventListener("keydown", (e)=>{
       if(e.key === "Enter"){
-        /* AUTOCOMPLETE_ENTER_v1 */
-        // pokud je otevřený našeptávač a máme aktivní položku, vezmi ji
-        const box = document.querySelector('.search .suggestBox');
-        const hasOpen = box && box.classList.contains('on');
-        if(hasOpen){
-          const on = box.querySelector('.sItem.on');
-          const v = (on && on.textContent) ? on.textContent.trim() : (q.value || "");
-          runSearch(v);
-          hideSuggestBox(box);
-        }else{
+        runSearch(q.value || "");
+      }
+else{
           runSearch(q.value || "");
         }
       }
     });
-    /* AUTOCOMPLETE_KEYS_v1 */
-    q.addEventListener("keydown", (e)=>{
-      const box = document.querySelector('.search .suggestBox');
-      if(!box || !box.classList.contains('on')) return;
 
-      const itemsEl = Array.from(box.querySelectorAll(".sItem"));
-      if(itemsEl.length === 0) return;
-
-      const idx = itemsEl.findIndex(x => x.classList.contains("on"));
-      let n = idx;
-
-      if(e.key === "ArrowDown"){ e.preventDefault(); n = (idx < 0) ? 0 : Math.min(idx + 1, itemsEl.length - 1); }
-      if(e.key === "ArrowUp"){ e.preventDefault(); n = (idx < 0) ? 0 : Math.max(idx - 1, 0); }
-      if(e.key === "Escape"){ hideSuggestBox(box); return; }
-
-      if(n !== idx){
-        itemsEl.forEach(x => x.classList.remove("on"));
-        itemsEl[n].classList.add("on");
-      }
-    });
 
   }
 }

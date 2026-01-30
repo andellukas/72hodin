@@ -22,23 +22,22 @@ body{
 .wrap{max-width:var(--max); margin:0 auto; padding:18px}
 .top{display:flex; align-items:center; gap:12px; padding:14px 0 10px}
 .logo{
-  width: 168px;
-  height: 56px;
-  padding: 6px 10px;
-  border-radius: 14px;
-  background: var(--card);
-  border: 1px solid var(--line);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: visible;
+  width:96px;height:64px;
+  background:transparent;
+  border:0;
+  border-radius:0;
+  padding:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:visible;
 }
 .logo img{
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-  display: block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:left center;
+  display:block;
 }
 
 .title{display:flex;flex-direction:column;line-height:1.1}
@@ -145,66 +144,6 @@ body{
   margin-right:8px;
 }
 
-
-/* SUGGEST_UI_v1 — typeahead + chips */
-.search{ position: relative; }
-
-.chips{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:10px;
-}
-
-.chip{
-  border:1px solid rgba(255,255,255,.12);
-  background: rgba(255,255,255,.04);
-  color: var(--text);
-  padding: 8px 10px;
-  border-radius: 999px;
-  font-size: 13px;
-  cursor: pointer;
-}
-.chip:active{ transform: translateY(1px); }
-
-.suggestBox{
-  position:absolute;
-  left:0;
-  right:0;
-  top: 56px;
-  background: rgba(7,21,33,.98);
-  border:1px solid rgba(255,255,255,.12);
-  border-radius: 12px;
-  padding: 6px;
-  box-shadow: 0 12px 30px rgba(0,0,0,.35);
-  display:none;
-  z-index: 20;
-}
-
-.suggestBox.on{ display:block; }
-
-.sItem{
-  padding: 10px 10px;
-  border-radius: 10px;
-  cursor:pointer;
-  user-select:none;
-  font-size: 14px;
-  color: var(--text);
-}
-
-.sItem:hover,
-.sItem.on{
-  background: rgba(255,255,255,.06);
-}
-
-
-/* LOGO_CONTAIN_MOBILESAFE_v1
- * Cíl: logo vždy celé vidět (contain), bezpečně i na mobilu.
- * Nezasahuje do HTML, jen override pravidel.
- */
-
-.top{ gap: 14px; }
-
 /* box pro logo: větší + padding + žádné ořezávání */
 .top .logo{
   width: 84px;
@@ -240,10 +179,8 @@ body{
 }
 
 
-/* LOGO_WIDE_CONTAIN_v1 */
+
+/* LOGO_BIG_NOFRAME_v1 */
 @media (max-width: 520px){
-  .logo{
-    width: 190px;
-    height: 56px;
-  }
+  .logo{ width:110px; height:70px; }
 }
