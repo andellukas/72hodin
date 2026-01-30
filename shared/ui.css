@@ -184,3 +184,45 @@ body{
 .sItem.on{
   background: rgba(255,255,255,.06);
 }
+
+
+/* LOGO_CONTAIN_MOBILESAFE_v1
+ * Cíl: logo vždy celé vidět (contain), bezpečně i na mobilu.
+ * Nezasahuje do HTML, jen override pravidel.
+ */
+
+.top{ gap: 14px; }
+
+/* box pro logo: větší + padding + žádné ořezávání */
+.top .logo{
+  width: 84px;
+  height: 56px;
+  padding: 8px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.10);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow: hidden; /* bezpečnost – ale díky contain se nebude ořezávat */
+}
+
+/* samotné logo: VŽDY celé */
+.top .logo img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display:block;
+}
+
+/* mobil: ještě víc místa, ať se to netlačí */
+@media (max-width: 520px){
+  .top .logo{
+    width: 92px;
+    height: 60px;
+  }
+  .top{
+    align-items: center;
+  }
+}
