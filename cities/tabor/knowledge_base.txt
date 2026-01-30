@@ -509,20 +509,6 @@ NEODCHÁZEJ, KDYŽ:
 V krizi:
 POHYB = SPOTŘEBA ENERGIE.
 
-@@SECTION: JAK SE PŘIPRAVIT NA ODCHOD (MINIMUM)
-PŘED ODCHODEM:
-- obléct vrstvy (ne styl, funkce)
-- pevné boty
-- batoh / taška přes rameno
-- doklady (alespoň občanka)
-- telefon + powerbanka (pokud máš)
-- voda / jídlo na cestu
-
-NIKDY NEODCHÁZEJ:
-- nalehko
-- v pantoflích
-- bez informace, kam jdeš
-
 @@SECTION: KAM SE V TÁBOŘE POHYBOVAT (OBECNÁ LOGIKA)
 BEZPEČNĚJŠÍ:
 - otevřené prostory
@@ -632,6 +618,21 @@ NEJDŘÍV STABILIZACE.
 • HZS Tábor: 950 221 111  
 • Městská policie Tábor: 381 253 008  
 • Policie ČR Tábor: 974 238 111
+
+@@SECTION: JAK SE PŘIPRAVIT NA ODCHOD (MINIMUM)
+PŘED ODCHODEM:
+- obléct vrstvy (ne styl, funkce)
+- pevné boty
+- batoh / taška přes rameno
+- doklady (alespoň občanka)
+- telefon + powerbanka (pokud máš)
+- voda / jídlo na cestu
+
+NIKDY NEODCHÁZEJ:
+- nalehko
+- v pantoflích
+- bez informace, kam jdeš
+
 @@SCENARIO: KONFLIKTY, AGRESE A CHAOS MEZI LIDMI – JAK SE NEZAPLET A PŘEŽÍT
 
 @@SECTION: PROČ KE KONFLIKTŮM V KRIZI DOCHÁZÍ
