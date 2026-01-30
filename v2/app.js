@@ -1,254 +1,119 @@
-(async function(){
-  const el = document.getElementById("app");
+/* v2/app.js — offline search over v2/data/knowledge_base.json ONLY */
 
-  function h(tag, attrs={}, children=[]){
-    const n = document.createElement(tag);
-    for(const [k,v] of Object.entries(attrs||{})){
-      if(k==="class") n.className=v;
-      else if(k==="html") n.innerHTML=v;
-      else if(k==="value") n.value=v;
-      else n.setAttribute(k, v);
-    }
-    for(const c of (children||[])) n.appendChild(typeof c==="string"?document.createTextNode(c):c);
-    return n;
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js', { scope: './' }).catch(()=>{});
+}
+
+function $(sel){ return document.querySelector(sel); }
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c => (
+    {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]
+  ));
+}
+
+function normalizeKB(data){
+  // Accept:
+  // 1) { items: [...] }
+  // 2) [...] (array)
+  // Anything else -> empty
+  let items = [];
+  if (Array.isArray(data)) items = data;
+  else if (data && Array.isArray(data.items)) items = data.items;
+
+  // Normalize each item into {title, body, tags?}
+  return items.map((it) => {
+    if (typeof it === "string") return { title: it.slice(0, 80), body: it };
+    const title = String(it.title ?? it.name ?? it.q ?? it.question ?? "").trim();
+    const body  = String(it.body ?? it.text ?? it.a ?? it.answer ?? "").trim();
+    const tags  = Array.isArray(it.tags) ? it.tags.map(String) : [];
+    return { title: title || "(bez názvu)", body, tags };
+  }).filter(x => x.body || x.title);
+}
+
+function scoreItem(item, qTokens){
+  const t = (item.title || "").toLowerCase();
+  const b = (item.body || "").toLowerCase();
+  const tags = (item.tags || []).join(" ").toLowerCase();
+
+  let s = 0;
+  for (const tok of qTokens){
+    if (!tok) continue;
+    if (t.includes(tok)) s += 20;
+    if (tags.includes(tok)) s += 12;
+    if (b.includes(tok)) s += 6;
+  }
+  // Bonus if startswith in title
+  if (qTokens.length && t.startsWith(qTokens[0])) s += 8;
+  return s;
+}
+
+async function loadKB(){
+  const url = "./data/knowledge_base.json";
+  const r = await fetch(url, { cache: "no-store" });
+  if(!r.ok) throw new Error(`KB load failed: HTTP ${r.status} (${url})`);
+  const data = await r.json();
+  return normalizeKB(data);
+}
+
+function openResults(query, results){
+  const box = $("#results");
+  const list = $("#list");
+  const qinfo = $("#qinfo");
+  qinfo.textContent = `Dotaz: "${query}" • Nalezeno: ${results.length}`;
+  list.innerHTML = results.map((x) => `
+    <div class="card">
+      <h2>${escapeHtml(x.title)}</h2>
+      <pre>${escapeHtml(x.body || "")}</pre>
+      ${x.tags?.length ? `<div class="small">štítky: ${escapeHtml(x.tags.join(", "))}</div>` : ``}
+    </div>
+  `).join("");
+
+  box.classList.add("open");
+}
+
+function closeResults(){
+  $("#results").classList.remove("open");
+}
+
+(async function main(){
+  const q = $("#q");
+  const go = $("#go");
+  const close = $("#close");
+  const pills = document.querySelectorAll("[data-q]");
+
+  let KB = [];
+  try{
+    KB = await loadKB();
+  }catch(e){
+    // Fail-closed: show explicit error
+    const msg = document.createElement("div");
+    msg.className = "wrap";
+    msg.innerHTML = `<div class="card"><h2>Chyba dat</h2><pre>${escapeHtml(e?.message || String(e))}</pre></div>`;
+    document.body.appendChild(msg);
+    return;
   }
 
-  function parseHash(){
-    // "#path?x=y"
-    const raw = (location.hash || "#").slice(1);
-    const [path, qs] = raw.split("?");
-    const q = {};
-    if(qs){
-      for(const part of qs.split("&")){
-        const [k,v] = part.split("=");
-        if(k) q[decodeURIComponent(k)] = decodeURIComponent(v||"");
-      }
-    }
-    return { path: path || "", q };
+  function runSearch(query){
+    const qq = String(query || "").trim();
+    if(!qq) return;
+    const tokens = qq.toLowerCase().split(/\s+/g).slice(0, 12);
+    const scored = KB.map(it => ({ it, s: scoreItem(it, tokens) }))
+                     .filter(x => x.s > 0)
+                     .sort((a,b) => b.s - a.s)
+                     .slice(0, 50)
+                     .map(x => x.it);
+    openResults(qq, scored.length ? scored : [{title:"Nic nenalezeno", body:"Zkus jiné slovo (např. blackout, voda, plyn, zima, konflikt)."}]);
   }
 
-  async function loadJSON(url){
-    const r = await fetch(url, {cache:"no-store"});
-    if(!r.ok) throw new Error(`Missing: ${url}`);
-    return r.json();
-  }
+  go.addEventListener("click", () => runSearch(q.value));
+  q.addEventListener("keydown", (e) => { if(e.key === "Enter") runSearch(q.value); });
+  close.addEventListener("click", closeResults);
+  $("#results").addEventListener("click", (e) => { if(e.target.id === "results") closeResults(); });
 
-  function setTheme(theme){
-    if(!theme) return;
-    const root = document.documentElement;
-    for(const [k,v] of Object.entries(theme)){
-      root.style.setProperty(`--${k}`, v);
-    }
-  }
-
-  const city = await loadJSON("../cities/tabor/city.json");
-  setTheme(city.theme);
-
-  const contacts = await loadJSON("../cities/tabor/contacts.json").catch(()=>null);
-  const scenariosPayload = await loadJSON("../cities/tabor/scenarios.json").catch(()=>null);
-  const scenarios = (scenariosPayload && scenariosPayload.scenarios) ? scenariosPayload.scenarios : [];
-  const scenarioById = Object.fromEntries(scenarios.map(s => [s.id, s]));
-
-  function render(node){
-    el.innerHTML="";
-    el.appendChild(node);
-  }
-
-  function header(title, subtitle){
-    return h("div",{class:"header"},[
-      h("div",{class:"brand"},[
-        h("b",{},[title]),
-        h("span",{},[subtitle||""])
-      ])
-    ]);
-  }
-
-  function btn(href, label, cls="btn"){
-    return h("a",{class:cls,href},[label]);
-  }
-
-  function screenHome(){
-    const container = h("div",{class:"container"});
-    container.append(
-      header(city.appTitle||"72 hodin – Tábor","Offline krizový manuál (v2)"),
-      h("div",{class:"grid"},[
-        btn("#panic","🆘 PANIKA – JDE O ŽIVOT","btn panic"),
-        btn("#where","📍 KDE JSEM / CO SE DĚJE","btn"),
-        btn("#situations","📚 SITUACE (všechny)","btn"),
-        btn("#contacts","📞 POMOC & KONTAKTY","btn")
-      ]),
-      h("div",{class:"small",style:"margin-top:10px"},[`Stav: ${navigator.onLine ? "online" : "offline"}`])
-    );
-    return container;
-  }
-
-  function screenPanic(){
-    const container = h("div",{class:"container"});
-    container.append(
-      h("div",{class:"card"},[
-        h("b",{},["TEĎ (1–3 min): ZASTAV PANIKU"]),
-        h("div",{class:"small",style:"margin-top:8px"},[
-          "ZASTAV SE. Nadechni nosem, vydechni pusou (5×). Rozhlédni se: jsem v bezpečí? Zkontroluj zranění/krev/zmatenost. Pokud ano: volej."
-        ]),
-        h("div",{class:"row",style:"margin-top:12px"},[
-          h("a",{class:"pill call",href:"tel:112"},[h("b",{},["📞 112"]), "IZS"]),
-          h("a",{class:"pill call",href:"tel:155"},[h("b",{},["📞 155"]), "Záchranka"]),
-          h("a",{class:"pill call",href:"tel:158"},[h("b",{},["📞 158"]), "Policie"]),
-          h("a",{class:"pill call",href:"tel:150"},[h("b",{},["📞 150"]), "Hasiči"])
-        ]),
-        h("div",{style:"margin-top:12px"},[ btn("#","⬅ ZPĚT","btn") ])
-      ])
-    );
-    return container;
-  }
-
-  function screenWhere(){
-    const container = h("div",{class:"container"});
-    container.append(
-      h("div",{class:"card"},[
-        h("b",{},["KDE JSEM / CO SE DĚJE"]),
-        h("div",{class:"small",style:"margin-top:8px"},[
-          "Vyber stav. Nejde o dokonalý výběr – jde o rychlé navedení."
-        ]),
-        h("div",{class:"grid",style:"margin-top:12px"},[
-          btn("#situations?ctx=doma","🏠 JSEM DOMA / V BUDOVĚ","btn"),
-          btn("#situations?ctx=venku","🚶 JSEM VENKU","btn"),
-          btn("#situations?ctx=cizi","🏙 JSEM V CIZÍM MÍSTĚ","btn"),
-          btn("#situations?ctx=ukryt","🚨 NEBEZPEČNO VENKU / ÚKRYT","btn"),
-          btn("#situations?ctx=elektrina","⚡ VYPADLA ELEKTŘINA","btn"),
-          btn("#situations?ctx=voda","🚰 NETEČE VODA","btn"),
-          btn("#situations?ctx=jidlo","🥣 NENÍ JÍDLO","btn")
-        ]),
-        h("div",{style:"margin-top:12px"},[ btn("#","⬅ ZPĚT","btn") ])
-      ])
-    );
-    return container;
-  }
-
-  function scenarioMatchesCtx(s, ctx){
-    if(!ctx) return true;
-    const t = (s.title || "").toLowerCase();
-    if(ctx==="voda") return t.includes("voda");
-    if(ctx==="elektrina") return t.includes("elektřina") || t.includes("elektrina");
-    if(ctx==="jidlo") return t.includes("jídlo") || t.includes("jidlo");
-    if(ctx==="ukryt") return t.includes("ukryt");
-    // doma/venku/cizi: zatím neděláme “chytré” tagy – fail-closed: ukážeme vše
-    return true;
-  }
-
-  function screenSituations(q){
-    const container = h("div",{class:"container"});
-    const ctx = q.ctx || "";
-    const input = h("input",{placeholder:"Hledej situaci…", value:"", style:"margin-top:10px"});
-    const list = h("div",{class:"card"},[]);
-
-    function draw(){
-      const needle = (input.value||"").toLowerCase().trim();
-      list.innerHTML="";
-      const filtered = scenarios
-        .filter(s => scenarioMatchesCtx(s, ctx))
-        .filter(s => !needle || (s.title||"").toLowerCase().includes(needle));
-
-      list.appendChild(h("b",{},[ctx ? `SITUACE (${ctx})` : "SITUACE"]));
-      list.appendChild(h("div",{class:"small",style:"margin-top:8px"},[
-        filtered.length ? `${filtered.length} položek` : "Nic nenalezeno."
-      ]));
-
-      for(const s of filtered){
-        list.appendChild(
-          h("div",{style:"margin-top:10px"},[
-            h("a",{class:"pill",href:`#s/${encodeURIComponent(s.id)}`},[s.title])
-          ])
-        );
-      }
-
-      list.appendChild(h("div",{style:"margin-top:12px"},[ btn("#","⬅ ZPĚT","btn") ]));
-    }
-
-    input.addEventListener("input", draw);
-
-    container.append(
-      header(city.appTitle||"72 hodin – Tábor","Situace (v2)"),
-      input,
-      list
-    );
-    draw();
-    return container;
-  }
-
-  function screenScenario(id){
-    const s = scenarioById[id];
-    const container = h("div",{class:"container"});
-
-    if(!s){
-      container.append(
-        h("div",{class:"card"},[
-          h("b",{},["Scénář nenalezen"]),
-          h("div",{class:"small",style:"margin-top:8px"},[id]),
-          h("div",{style:"margin-top:12px"},[ btn("#situations","⬅ ZPĚT","btn") ])
-        ])
-      );
-      return container;
-    }
-
-    const card = h("div",{class:"card"},[
-      h("b",{},[s.title]),
-      h("div",{class:"small",style:"margin-top:8px"},["Čti shora. V krizi: nejdřív TEĎ."])
-    ]);
-
-    for(const sec of (s.sections||[])){
-      const box = h("div",{class:"box"},[
-        h("h3",{},[sec.title]),
-        h("div",{class:"small",style:"white-space:pre-wrap"},[sec.content])
-      ]);
-      card.appendChild(box);
-    }
-
-    card.appendChild(h("div",{style:"margin-top:12px"},[
-      btn("#situations","⬅ ZPĚT na situace","btn"),
-      btn("#panic","🆘 PANIKA","btn panic")
-    ]));
-
-    container.append(card);
-    return container;
-  }
-
-  function screenContacts(){
-    const container = h("div",{class:"container"});
-    const card = h("div",{class:"card"},[
-      h("b",{},["KONTAKTY – Tábor"]),
-      h("div",{class:"small",style:"margin-top:8px"},["Jedno klepnutí = volání. Mimo tísňové doplníme až po ověření."])
-    ]);
-
-    const tisen = (contacts && contacts.groups || []).find(g=>g.id==="tisen");
-    if(tisen){
-      for(const item of tisen.items){
-        card.append(
-          h("div",{style:"margin-top:10px"},[
-            h("a",{class:"pill call",href:`tel:${item.tel}`},[
-              h("b",{},[`📞 ${item.tel}`]), ` ${item.name}`
-            ])
-          ])
-        );
-      }
-    }
-
-    card.append(h("div",{style:"margin-top:12px"},[ btn("#","⬅ ZPĚT","btn") ]));
-    container.append(card);
-    return container;
-  }
-
-  function route(){
-    const {path, q} = parseHash();
-
-    if(path === "panic") return render(screenPanic());
-    if(path === "where") return render(screenWhere());
-    if(path === "contacts") return render(screenContacts());
-    if(path === "situations") return render(screenSituations(q));
-    if(path.startsWith("s/")) return render(screenScenario(decodeURIComponent(path.slice(2))));
-    return render(screenHome());
-  }
-
-  window.addEventListener("hashchange", route);
-  route();
+  pills.forEach(p => p.addEventListener("click", () => {
+    const v = p.getAttribute("data-q") || "";
+    q.value = v;
+    runSearch(v);
+  }));
 })();
