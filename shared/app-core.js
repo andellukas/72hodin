@@ -42,7 +42,7 @@ async function fetchWithTimeout(url, asJson){
   }
 }
 
-async function fetchText(url){ return await fetchWithTimeout(url, false); }(url){ return await fetchWithTimeout(url, false); }
+async function fetchText(url){ return await fetchWithTimeout(url, false); }
 async function fetchJson(url){ return await fetchWithTimeout(url, true); }
 
 
