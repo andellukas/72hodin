@@ -61,7 +61,6 @@ function hardReload(){
 }
 
 function wireButtons(){
-  const r = document.getElementById("resetCacheBtn");
   const h = document.getElementById("hardReloadBtn");
   if(r) r.addEventListener("click", (e)=>{ e.preventDefault(); hardResetCachesAndSW(); });
   if(h) h.addEventListener("click", (e)=>{ e.preventDefault(); hardReload(); });
@@ -110,7 +109,6 @@ if ("serviceWorker" in navigator) {
   try{
     setStatus("Načítám data…");
 
-  // WATCHDOG_15S: pokud visíme, nabídni reset (typicky SW/cache stav)
   setTimeout(()=>{
     const el = document.getElementById("status");
     const cur = (el && el.textContent) ? el.textContent.trim() : "";

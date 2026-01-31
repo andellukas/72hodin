@@ -18,21 +18,31 @@ function escapeHtml(s){
 const FETCH_TIMEOUT_MS = 12000;
 
 async function fetchWithTimeout(url, asJson){
+  // HARD timeout: works even if AbortController isn't available.
   const ctrl = ("AbortController" in window) ? new AbortController() : null;
-  const t = setTimeout(()=>{ try{ ctrl && ctrl.abort(); }catch(e){} }, FETCH_TIMEOUT_MS);
-  try{
+
+  const fetchPromise = (async ()=>{
     const r = await fetch(url, { cache: "no-store", signal: ctrl ? ctrl.signal : undefined });
     if(!r.ok) throw new Error(`HTTP ${r.status} for ${url}`);
     return asJson ? await r.json() : await r.text();
+  })();
+
+  const timeoutPromise = new Promise((_, reject)=>{
+    setTimeout(()=>{
+      try{ ctrl && ctrl.abort(); }catch(e){}
+      reject(new Error(`TIMEOUT ${FETCH_TIMEOUT_MS}ms for ${url}`));
+    }, FETCH_TIMEOUT_MS);
+  });
+
+  try{
+    return await Promise.race([fetchPromise, timeoutPromise]);
   }catch(e){
     const msg = (e && (e.message || String(e))) || "fetch failed";
     throw new Error(`Fetch selhal: ${url} — ${msg}`);
-  }finally{
-    clearTimeout(t);
   }
 }
 
-async function fetchText(url){ return await fetchWithTimeout(url, false); }
+async function fetchText(url){ return await fetchWithTimeout(url, false); }(url){ return await fetchWithTimeout(url, false); }
 async function fetchJson(url){ return await fetchWithTimeout(url, true); }
 
 
@@ -148,6 +158,8 @@ export async function bootCityApp(){
   const logoEl = $("#cityLogo");
   const titleEl = $("#cityTitle");
 
+  function setStep(s){ if(status) status.textContent = s; }
+
   // SW register je v city app.js (kvůli scope ./)
   // tady jen UI + data
 
@@ -157,8 +169,12 @@ export async function bootCityApp(){
   // Load city.json relative to /<city>/
   const cityJson = await fetchJson("./city.json");
 
+  setStep("Načítám logo…");
+
   if(titleEl && cityJson?.name) titleEl.textContent = `72 hodin – ${cityJson.name}`;
   if(logoEl && cityJson?.logo) logoEl.src = cityJson.logo;
+
+  setStep("Načítám znalosti (KB + scénáře)…");
 
   if(offBtn){
     offBtn.addEventListener("click", async ()=>{
@@ -172,7 +188,7 @@ export async function bootCityApp(){
     });
   }
 
-  if(status) status.textContent = "Načítám znalosti…";
+  setStep("Načítám city.json…");
 
   // Fetch v1 data (paths come from city.json)
   const kbUrl = cityJson?.knowledge_base;
