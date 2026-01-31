@@ -1,3 +1,8 @@
+
+// cache-bust propagation: carry ?v... from app.v2.js into shared/app-core.js
+const __APP_V2_QS__ = (typeof import !== "undefined" && import.meta && import.meta.url)
+  ? (new URL(import.meta.url).search || "")
+  : "";
 /* TABOR_BOOT_DIAG_v2
  * Cíl: aby se chyba VŽDY ukázala ve statusu (i když selže import).
  * Pozn.: žádné eval/new Function/setTimeout("string") -> CSP safe.
@@ -71,7 +76,7 @@ if ("serviceWorker" in navigator) {
   // dynamický import, aby při failu šel vypsat status
   let mod;
   try{
-    mod = await import("../shared/app-core.js");
+    mod = await import("../shared/app-core.js" + __APP_V2_QS__);
   }catch(e){
     setStatus("Chyba startu: nelze načíst app-core.js — " + (e?.message || String(e)));
     return;
