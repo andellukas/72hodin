@@ -1,6 +1,8 @@
 
 // cache-bust propagation: carry ?v... from app.v2.js into shared/app-core.js
 const __APP_V2_QS__ = (new URL(import.meta.url).search || "");
+
+const __TABOR_BUILD__ = "ts=20260131_194446 sha=76652a6";
 let changed = false;
 
       for (const r of regs){
@@ -93,7 +95,7 @@ if ("serviceWorker" in navigator) {
 
 (async ()=>{
   wireButtons();
-  __mark("M1 app.v2 start");
+  __mark("M1 app.v2 start " + __TABOR_BUILD__);
 
   // dynamický import, aby při failu šel vypsat status
   let mod;
