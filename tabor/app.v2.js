@@ -1,22 +1,7 @@
 
 // cache-bust propagation: carry ?v... from app.v2.js into shared/app-core.js
-const __APP_V2_QS__ = (typeof import !== "undefined" && import.meta && import.meta.url)
-  ? (new URL(import.meta.url).search || "")
-  : "";
-/* TABOR_BOOT_DIAG_v2
- * Cíl: aby se chyba VŽDY ukázala ve statusu (i když selže import).
- * Pozn.: žádné eval/new Function/setTimeout("string") -> CSP safe.
- */
-
-/* TABOR_SW_SCOPE_LOCK_v2
- * Cíl: /tabor/ nesmí ovládat cizí SW. 1× per session odregistruj SW mimo /tabor/ + clear caches, pak reload.
- */
-(async ()=>{
-  try{
-    const FLAG = "tabor_sw_nuked_v2";
-    if (!sessionStorage.getItem(FLAG) && ("serviceWorker" in navigator)){
-      const regs = await navigator.serviceWorker.getRegistrations();
-      let changed = false;
+const __APP_V2_QS__ = (new URL(import.meta.url).search || "");
+let changed = false;
 
       for (const r of regs){
         const scope = String(r.scope || "").toLowerCase();
