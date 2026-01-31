@@ -8,7 +8,7 @@
  *      * cache-first pro ostatní statické assety
  */
 
-const CACHE_NAME = "tabor-v3-cache-2026-01-31-150812";
+const CACHE_NAME = "tabor-v3-cache-2026-01-31-175936";
 const CORE_URLS = [
   "./",
   "./index.html",
@@ -50,6 +50,34 @@ function isCritical(reqUrl){
 }
 
 self.addEventListener("fetch", (event) => {
+
+  // NAVIGATION_NETWORK_FIRST_v1:
+  // - nikdy nedržet starý HTML v cache-first (typicky způsobí "furt stejně" i po deploy)
+  // - pro navigaci / dokumenty vždy zkus síť, teprve pak fallback cache/offline
+  const req = event.request;
+  const isNav = (req.mode === "navigate") || (req.destination === "document");
+  if(isNav){
+    event.respondWith((async ()=>{
+      try{
+        const fresh = await fetch(req, { cache: "no-store" });
+        // opportunistic cache update
+        try{
+          const cache = await caches.open(CACHE_NAME);
+          cache.put(req, fresh.clone());
+        }catch(e){}
+        return fresh;
+      }catch(e){
+        // fallback: cache -> offline
+        try{
+          const cached = await caches.match(req);
+          if(cached) return cached;
+        }catch(e2){}
+        return caches.match("./offline.html") || Response.error();
+      }
+    })());
+    return;
+  }
+
   const req = event.request;
   const url = new URL(req.url);
 
