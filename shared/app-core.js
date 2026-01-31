@@ -12,18 +12,28 @@ function escapeHtml(s){
   return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
-async function fetchText(url){
-  const r = await fetch(url, { cache: "no-store" });
-  if(!r.ok) throw new Error(`HTTP ${r.status} for ${url}`);
-  return await r.text();
+/* APP_CORE_FETCH_TIMEOUT_v1
+ * Cíl: fetch nesmí viset -> timeout + jasná chyba do UI.
+ */
+const FETCH_TIMEOUT_MS = 12000;
+
+async function fetchWithTimeout(url, asJson){
+  const ctrl = ("AbortController" in window) ? new AbortController() : null;
+  const t = setTimeout(()=>{ try{ ctrl && ctrl.abort(); }catch(e){} }, FETCH_TIMEOUT_MS);
+  try{
+    const r = await fetch(url, { cache: "no-store", signal: ctrl ? ctrl.signal : undefined });
+    if(!r.ok) throw new Error(`HTTP ${r.status} for ${url}`);
+    return asJson ? await r.json() : await r.text();
+  }catch(e){
+    const msg = (e && (e.message || String(e))) || "fetch failed";
+    throw new Error(`Fetch selhal: ${url} — ${msg}`);
+  }finally{
+    clearTimeout(t);
+  }
 }
-async function fetchJson(url){
-  const r = await fetch(url, { cache: "no-store" });
-  if(!r.ok) throw new Error(`HTTP ${r.status} for ${url}`);
-  return await r.json();
-}function norm(s){
-  return String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
-}
+
+async function fetchText(url){ return await fetchWithTimeout(url, false); }
+async function fetchJson(url){ return await fetchWithTimeout(url, true); }
 
 
 
