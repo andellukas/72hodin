@@ -184,3 +184,35 @@ body{
 @media (max-width: 520px){
   .logo{ width:110px; height:70px; }
 }
+
+
+/* TABOR_LOGO_NOFRAME_BIG_v1 */
+
+/* požadavky:
+ - žádný rámeček kolem loga
+ - logo větší
+ - celé vidět (contain)
+ - bez rozbití zbytku layoutu
+*/
+.top{ gap: 12px; }
+.logo{
+  width: 86px;
+  height: 56px;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+}
+.logo img{
+  width: 86px;
+  height: 56px;
+  object-fit: contain !important;
+  display:block;
+}
+@media (max-width: 420px){
+  .logo{ width: 78px; height: 52px; }
+  .logo img{ width: 78px; height: 52px; }
+}
