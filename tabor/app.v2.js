@@ -49,6 +49,40 @@ function setStatus(msg){
   if (s) s.textContent = msg;
 }
 
+
+async function hardResetCachesAndSW(){
+  try{
+    setStatus("RESET: mažu cache + odregistruju SW…");
+    if("serviceWorker" in navigator){
+      const regs = await navigator.serviceWorker.getRegistrations();
+      for(const r of regs){ try{ await r.unregister(); }catch(e){} }
+    }
+    if("caches" in window){
+      const keys = await caches.keys();
+      for(const k of keys){ try{ await caches.delete(k); }catch(e){} }
+    }
+    const u = new URL(location.href);
+    u.searchParams.set("v", String(Date.now()));
+    location.replace(u.toString());
+  }catch(e){
+    setStatus("RESET selhal: " + (e?.message || String(e)));
+  }
+}
+
+function hardReload(){
+  const u = new URL(location.href);
+  u.searchParams.set("v", String(Date.now()));
+  location.replace(u.toString());
+}
+
+function wireButtons(){
+  const r = document.getElementById("resetCacheBtn");
+  const h = document.getElementById("hardReloadBtn");
+  if(r) r.addEventListener("click", (e)=>{ e.preventDefault(); hardResetCachesAndSW(); });
+  if(h) h.addEventListener("click", (e)=>{ e.preventDefault(); hardReload(); });
+}
+
+
 window.addEventListener("error", (ev)=>{
   try{
     const msg = ev?.message || "Neznámá chyba";
@@ -67,10 +101,11 @@ window.addEventListener("unhandledrejection", (ev)=>{
 
 /* SW_REGISTER_CITY_v1 */
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("./sw.js", { scope: "./" }).catch(()=>{});
+  navigator.serviceWorker.register("./sw.js" + __APP_V2_QS__, { scope: "./" }).catch(()=>{});
 }
 
 (async ()=>{
+  wireButtons();
   setStatus("Startuji…");
 
   // dynamický import, aby při failu šel vypsat status
@@ -89,6 +124,16 @@ if ("serviceWorker" in navigator) {
 
   try{
     setStatus("Načítám data…");
+
+  // WATCHDOG_15S: pokud visíme, nabídni reset (typicky SW/cache stav)
+  setTimeout(()=>{
+    const el = document.getElementById("status");
+    const cur = (el && el.textContent) ? el.textContent.trim() : "";
+    if(cur === "Načítám data…" || cur === "Startuji…"){
+      setStatus("Visí načítání. Klikni RESET CACHE. (SW/cache stav)");
+    }
+  }, 15000);
+
     await mod.bootCityApp();
   }catch(e){
     setStatus("Chyba startu: " + (e?.message || String(e)));
