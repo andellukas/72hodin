@@ -8,7 +8,7 @@
  *      * cache-first pro ostatní statické assety
  */
 
-const CACHE_NAME = "tabor-v3-cache-2026-01-31";
+const CACHE_NAME = "tabor-v3-cache-2026-01-31-144750";
 const CORE_URLS = [
   "./",
   "./index.html",

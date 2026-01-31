@@ -76,15 +76,36 @@ function parseKB(txt){
 
 function parseScenarios(json){
   // podporujeme více možných tvarů (fail-soft)
-  // 1) { scenarios:[{title,text|body|steps...}] }
+  // 1) { scenarios:[{title,text|body|steps|sections...}] }
   // 2) [{...}]
   const arr = Array.isArray(json) ? json : (Array.isArray(json?.scenarios) ? json.scenarios : []);
   const items = [];
+
+  function sectionsToText(sections){
+    if(!Array.isArray(sections)) return "";
+    const parts = [];
+    for(const sec of sections){
+      const st = (sec?.title || sec?.heading || "").toString().trim();
+      let sc = sec?.content;
+      if(Array.isArray(sc)) sc = sc.join("\n");
+      sc = (sc || "").toString().trim();
+      if(st) parts.push(st);
+      if(sc) parts.push(sc);
+      parts.push(""); // spacer
+    }
+    return parts.join("\n").trim();
+  }
+
   for(const s of arr){
     const title = (s.title || s.name || s.heading || "").toString().trim();
-    const body =
+    let body =
       (s.text || s.body || s.content || "").toString().trim() ||
       (Array.isArray(s.steps) ? s.steps.join("\n") : "").trim();
+
+    if(!body){
+      body = sectionsToText(s.sections);
+    }
+
     if(title && body) items.push({ type:"scenario", title, body });
   }
   return items;
@@ -163,12 +184,26 @@ export async function bootCityApp(){
     fetchJson(scUrl),
   ]);
 
+  const kbItems = parseKB(kbTxt);
+  const scItems = parseScenarios(scJson);
+
   const items = [
-    ...parseKB(kbTxt),
-    ...parseScenarios(scJson),
+    ...kbItems,
+    ...scItems,
   ];
 
-  if(status) status.textContent = `Připraveno. Záznamů: ${items.length}.`;
+  // diagnostics (fail-closed visibility)
+  const kbBytes = (kbTxt || "").length;
+  const scCount = Array.isArray(scJson) ? scJson.length : (Array.isArray(scJson?.scenarios) ? scJson.scenarios.length : -1);
+
+  if(status){
+    status.textContent = `Připraveno. KB_BYTES=${kbBytes} KB_ITEMS=${kbItems.length} SC_ITEMS=${scItems.length} SC_RAWCOUNT=${scCount} TOTAL=${items.length}`;
+  }
+
+  if(items.length === 0){
+    throw new Error("Načteno, ale 0 záznamů po parsování (zkontroluj formát knowledge_base.txt).");
+  }
+
 
   function runSearch(query){
     const tokens = tokenize(query);
@@ -203,12 +238,6 @@ export async function bootCityApp(){
       if(e.key === "Enter"){
         runSearch(q.value || "");
       }
-else{
-          runSearch(q.value || "");
-        }
-      }
     });
-
-
   }
 }
