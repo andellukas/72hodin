@@ -35,6 +35,10 @@ function setStatus(msg){
 }
 
 
+
+function __mark(step){
+  try{ setStatus(step + " " + __APP_V2_QS__); }catch(e){}
+}
 async function hardResetCachesAndSW(){
   try{
     setStatus("RESET: mažu cache + odregistruju SW…");
@@ -61,7 +65,6 @@ function hardReload(){
 }
 
 function wireButtons(){
-  const h = document.getElementById("hardReloadBtn");
   if(r) r.addEventListener("click", (e)=>{ e.preventDefault(); hardResetCachesAndSW(); });
   if(h) h.addEventListener("click", (e)=>{ e.preventDefault(); hardReload(); });
 }
@@ -90,12 +93,14 @@ if ("serviceWorker" in navigator) {
 
 (async ()=>{
   wireButtons();
-  setStatus("Startuji…");
+  __mark("M1 app.v2 start");
 
   // dynamický import, aby při failu šel vypsat status
   let mod;
   try{
+    __mark("M2 before import app-core");
     mod = await import("../shared/app-core.js" + __APP_V2_QS__);
+    __mark("M3 after import app-core");
   }catch(e){
     setStatus("Chyba startu: nelze načíst app-core.js — " + (e?.message || String(e)));
     return;
@@ -107,7 +112,7 @@ if ("serviceWorker" in navigator) {
   }
 
   try{
-    setStatus("Načítám data…");
+    __mark("M4a app.v2 says nacitam data");
 
   setTimeout(()=>{
     const el = document.getElementById("status");
@@ -117,7 +122,9 @@ if ("serviceWorker" in navigator) {
     }
   }, 15000);
 
+    __mark("M4 before bootCityApp");
     await mod.bootCityApp();
+    __mark("M5 bootCityApp resolved");
   }catch(e){
     setStatus("Chyba startu: " + (e?.message || String(e)));
   }
