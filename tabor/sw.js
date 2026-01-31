@@ -8,10 +8,12 @@
  *      * cache-first pro ostatní statické assety
  */
 
-const CACHE_NAME = "tabor-v3-cache-2026-01-31-180516";
+const CACHE_NAME = "tabor-v3-cache-2026-01-31-201300";
 const CORE_URLS = [
   "./",
   "./index.html",
+  "../shared/app-core.20260131_201300.js",
+  "./app.v2.20260131_201300.js",
   "./app.v2.js",
   "./city.json",
   "../shared/ui.css",
