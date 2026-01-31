@@ -8,7 +8,7 @@
  *      * cache-first pro ostatní statické assety
  */
 
-const CACHE_NAME = "tabor-v3-cache-2026-01-31-175936";
+const CACHE_NAME = "tabor-v3-cache-2026-01-31-180516";
 const CORE_URLS = [
   "./",
   "./index.html",
@@ -78,8 +78,8 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  const req = event.request;
-  const url = new URL(req.url);
+    // (dedup) req already declared above for NAV block
+const url = new URL(req.url);
 
   // jen GET
   if (req.method !== "GET") return;
