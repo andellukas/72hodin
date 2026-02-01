@@ -8,7 +8,29 @@
   <meta name="theme-color" content="#071521">
   <link rel="stylesheet" href="./shared/ui.css">
 </head>
-<body>
+\1
+<!-- test-v3-debug-panel -->
+<div id="topbar" style="max-width:980px;margin:16px auto 8px;padding:12px 14px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(0,0,0,.25);backdrop-filter: blur(8px);">
+  <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;">
+    <div>
+      <div style="font-size:18px;font-weight:700;line-height:1.2">Tábor</div>
+      <div style="opacity:.8;font-size:12px;margin-top:2px">/test v3 • offline-ready debug</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+      <button id="reset_sw" type="button" style="cursor:pointer;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:#fff;padding:8px 10px;border-radius:10px;font-weight:600">
+        Reset cache / SW
+      </button>
+      <span id="sw_status" style="font-size:12px;opacity:.85">SW: (zjišťuju…)</span>
+    </div>
+  </div>
+  <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;font-size:12px;opacity:.9">
+    <div>KB: <span id="kb_path">(loading)</span></div>
+    <div>Řádky: <span id="kb_lines">-</span></div>
+    <div>Byty: <span id="kb_bytes">-</span></div>
+    <div>Položky: <span id="kb_items">-</span></div>
+  </div>
+</div>
+<!-- /test-v3-debug-panel -->
   <div class="wrap">
     <div class="top">
       <div class="logo"><img id="cityLogo" alt="Logo města"></div>
