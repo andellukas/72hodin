@@ -3,11 +3,13 @@
   "use strict";
   const $ = (sel) => document.querySelector(sel);
 
-  const KB_URL = "./data/knowledge_base.txt?v=1769959730"; // cache-bust for GH Pages + SW weirdness
+  const BUILD = Date.now(); // cache-bust without involving bash expansion
+  const KB_URL = "./data/knowledge_base.txt?v=" + BUILD;
+
   const state = { raw: "", items: [] };
 
   function log(...args){ console.log("[72H/test]", ...args); }
-  function setText(id, txt){ const el = $(id); if (el) el.textContent = String(txt); }
+  function setText(sel, txt){ const el = $(sel); if (el) el.textContent = String(txt); }
   function escapeHtml(s){
     return String(s||"").replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
   }
@@ -16,15 +18,12 @@
     if (!window.SearchCore) throw new Error("SearchCore missing (search-core.js not loaded)");
     log("Loading KB:", KB_URL);
 
-    // 1) fetch KB
     const raw = await window.SearchCore.loadKB(KB_URL);
     state.raw = raw;
 
-    // 2) parse
     const items = window.SearchCore.parseKB(raw);
     state.items = items;
 
-    // 3) show counters
     const lines = raw.split("\n").length;
     const bytes = new TextEncoder().encode(raw).length;
 
@@ -33,7 +32,6 @@
     setText("#kb_bytes", bytes);
     setText("#kb_items", items.length);
 
-    // quick delimiter stats
     const scenario = (raw.match(/^@@SCENARIO:\s+/gm) || []).length;
     const section  = (raw.match(/^@@SECTION:\s+/gm)  || []).length;
     setText("#kb_scen", scenario);
@@ -44,7 +42,7 @@
   }
 
   function renderResults(list) {
-    const box = ;
+    const box = $("#results");
     if (!box) return;
     box.innerHTML = list.map(it => {
       const preview = (it.text || "").slice(0, 220).replace(/\s+/g, " ").trim();
@@ -59,20 +57,18 @@
   }
 
   function onSearch() {
-    const q = (?.value || "").trim();
+    const q = ($("#q")?.value || "").trim();
     const out = window.SearchCore.search(state.items, q);
     renderResults(out.slice(0, 50));
     setText("#match", out.length);
   }
 
   window.addEventListener("DOMContentLoaded", () => {
-    // wire
-    ?.addEventListener("input", () => onSearch());
-    ?.addEventListener("click", async () => {
+    $("#q")?.addEventListener("input", () => onSearch());
+    $("#reload")?.addEventListener("click", async () => {
       try { await load(); } catch (e) { console.error(e); alert(String(e)); }
     });
 
-    // start
     load().catch(e => {
       console.error(e);
       setText("#kb_items", "ERROR");
