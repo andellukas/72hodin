@@ -8,9 +8,10 @@
   }
 
   function render(items){
-    const box=$("#results"); if(!box) return;
-    box.innerHTML = items.map(it=>`
-      <div class="card">
+    const box = $("#results");
+    if(!box) return;
+    box.innerHTML = items.map(it => `
+      <div class="item">
         <div class="t">${esc(it.title||"")}</div>
         <div class="p">${esc(it.text||"")}</div>
       </div>
@@ -20,15 +21,18 @@
   async function boot(){
     if(!window.SearchCore) throw new Error("SearchCore missing");
     const raw = await window.SearchCore.loadKB(KB_URL);
-    const items = window.SearchCore.parseKB(raw);
+    const all = window.SearchCore.parseKB(raw);
 
-    const q=$("#q");
-    const run=()=>{
-      const v=(q.value||"").trim();
-      const out = window.SearchCore.search(items, v);
-      render(out.slice(0, 50));
+    const q = $("#q");
+    const run = () => {
+      const v = (q.value || "").trim();
+      const out = window.SearchCore.search(all, v);
+      render(out.slice(0, 30));
     };
+
     q.addEventListener("input", run);
+    // nic nehledáme defaultně (prázdno), aby to bylo čisté jako předtím
+    render([]);
   }
 
   window.addEventListener("DOMContentLoaded", ()=>boot().catch(e=>console.error(e)));

@@ -4,29 +4,53 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Tábor</title>
+
+  <!-- pokud existuje společné UI, necháme ho (ale design držíme tady) -->
   <link rel="stylesheet" href="../shared/ui.css">
+
   <style>
-    body{background:#0b0f14;color:#e6edf3;font-family:system-ui,-apple-system,Segoe UI,Roboto}
-    .wrap{max-width:900px;margin:24px auto;padding:0 16px}
-    .logo{display:flex;justify-content:center;margin:24px 0}
-    .logo img{max-width:520px;width:100%;height:auto}
-    .search{margin-top:16px}
-    .search input{width:100%;padding:16px 18px;border-radius:16px;border:1px solid #1f2937;background:#0f1623;color:#fff;font-size:18px}
-    .results{margin-top:18px}
-    .card{padding:14px 16px;border-radius:16px;border:1px solid #1f2937;background:#0f1623;margin:12px 0}
-    .card .t{font-weight:800;margin-bottom:6px}
-    .card .p{white-space:pre-wrap;opacity:.92}
+    :root{
+      --bg:#0b0f14; --panel:#0f1623; --line:#1f2937; --txt:#e6edf3; --muted:#a9b4c0;
+    }
+    body{margin:0;background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,Segoe UI,Roboto}
+    .wrap{max-width:920px;margin:0 auto;padding:22px 16px 42px}
+    .hero{display:flex;gap:16px;align-items:center;justify-content:center;margin:18px 0 10px}
+    .logo img{width:min(640px, 92vw);height:auto;display:block}
+    .title{margin:10px 0 0;text-align:center;font-weight:900;letter-spacing:.2px;font-size:40px;line-height:1.05}
+    .subtitle{margin:6px 0 0;text-align:center;color:var(--muted);font-size:16px}
+    .search{margin:18px auto 0;max-width:720px}
+    .search input{
+      width:100%; box-sizing:border-box;
+      padding:18px 18px; border-radius:18px;
+      border:1px solid var(--line); background:var(--panel); color:var(--txt);
+      font-size:18px; outline:none;
+    }
+    .search input:focus{border-color:#2a3a52}
+    .results{margin:16px auto 0;max-width:720px}
+    .item{padding:10px 2px;border-bottom:1px solid rgba(31,41,55,.6)}
+    .item:last-child{border-bottom:none}
+    .item .t{font-weight:800;margin:0 0 4px}
+    .item .p{margin:0;color:rgba(230,237,243,.88);white-space:pre-wrap}
+    .hint{margin:10px auto 0;max-width:720px;color:var(--muted);font-size:13px;text-align:center}
   </style>
 </head>
+
 <body>
   <div class="wrap">
-    <div class="logo">
-      <img src="../assets/cities/tabor/logo.jpg" alt="Tábor">
+    <div class="hero">
+      <div class="logo">
+        <img src="../assets/cities/tabor/logo.jpg" alt="Tábor">
+      </div>
     </div>
+
+    <h1 class="title">72 hodin</h1>
+    <div class="subtitle">Offline vyhledávač</div>
 
     <div class="search">
       <input id="q" type="search" placeholder="Hledej…" autocomplete="off" />
     </div>
+
+    <div class="hint">Piš bez diakritiky i s diakritikou. Enter není potřeba.</div>
 
     <div id="results" class="results"></div>
   </div>
