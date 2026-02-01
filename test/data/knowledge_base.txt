@@ -1,0 +1,6 @@
+# knowledge_base.txt (v3)
+# Zdroj pravdy: sem budeš vkládat obsah (tvůj @@SCENARIO / @@SECTION formát je podporovaný).
+#
+# TIP: vlož sem celý obsah beze změn. Aplikace nebude zobrazovat oddělovače @@SCENARIO / @@SECTION,
+# použije je jen jako strukturu pro rozsekání na položky.
+
