@@ -152,12 +152,6 @@ body {
   opacity: 0.92 !important;
 }
 
-/* keep header top row intact, just allow subtitle to sit below */
-.__app_header_wrap_v1 {
-  display: block !important;
-  width: 100% !important;
-}
-
 </style>
 
 </head>
@@ -190,9 +184,12 @@ body {
 <script>
 //__UI_HOTFIX_JS_V1__
 (function() {
+  const SLOGAN = "Jedno pole. Jedno hledání. Nic navíc.";
+  const SUB_PHRASE = "Offline krizový vyhledávač";
+
   function textIncludes(el, needle) {
     try {
-      return (el && el.textContent && el.textContent.toLowerCase().includes(needle.toLowerCase()));
+      return !!(el && el.textContent && el.textContent.toLowerCase().includes(needle.toLowerCase()));
     } catch (e) {
       return false;
     }
@@ -210,65 +207,78 @@ body {
   }
 
   function closestHeaderRoot(el) {
+    // headerRoot = nejbližší container, který obsahuje obrázek (logo) + text "72 hodin"
     let n = el;
-    for (let i = 0; i < 10 && n; i++) {
+    for (let i = 0; i < 12 && n; i++) {
       const hasImg = !!(n.querySelector && n.querySelector("img"));
-      const has72 = textIncludes(n, "72 hodin");
+      const has72  = textIncludes(n, "72 hodin");
       if (hasImg && has72) return n;
       n = n.parentElement;
     }
     return null;
   }
 
-  function removeSlogan() {
+  function removeSloganIfAny() {
     const root = document.body || document.documentElement;
-    const el = findFirstByText(root, "");
-    if (el) {
-      // remove the smallest element that contains the slogan (prefer leaf)
-      let target = el;
-      // try to walk down to a leaf that still contains it
-      for (let i = 0; i < 6; i++) {
-        const child = Array.from(target.children || []).find(c => textIncludes(c, ""));
-        if (!child) break;
-        target = child;
-      }
-      target.remove();
+    const el = findFirstByText(root, SLOGAN);
+    if (!el) return;
+    // remove the smallest descendant that still contains slogan
+    let target = el;
+    for (let i = 0; i < 8; i++) {
+      const child = Array.from(target.children || []).find(c => textIncludes(c, SLOGAN));
+      if (!child) break;
+      target = child;
     }
+    try { target.remove(); } catch(e){}
   }
 
-  function placeSubtitleCentered() {
+  function injectCenteredSubtitle() {
     const root = document.body || document.documentElement;
-    // find element that contains the subtitle phrase
-    const subtitleEl = findFirstByText(root, "Offline krizový vyhledávač");
-    if (!subtitleEl) return;
 
-    // choose the tightest element containing the phrase
-    let sub = subtitleEl;
-    for (let i = 0; i < 6; i++) {
-      const child = Array.from(sub.children || []).find(c => textIncludes(c, "Offline krizový vyhledávač"));
+    const subEl0 = findFirstByText(root, SUB_PHRASE);
+    if (!subEl0) return;
+
+    // tighten to smallest element still containing SUB_PHRASE
+    let subEl = subEl0;
+    for (let i = 0; i < 8; i++) {
+      const child = Array.from(subEl.children || []).find(c => textIncludes(c, SUB_PHRASE));
       if (!child) break;
-      sub = child;
+      subEl = child;
     }
 
-    const headerRoot = closestHeaderRoot(sub) || closestHeaderRoot(findFirstByText(root, "72 hodin"));
+    // find header root starting from subtitle or from "72 hodin"
+    const headerRoot =
+      closestHeaderRoot(subEl) ||
+      closestHeaderRoot(findFirstByText(root, "72 hodin"));
+
     if (!headerRoot) return;
 
-    // Ensure wrapper class exists (doesn't change sizes)
-    headerRoot.classList.add("__app_header_wrap_v1");
-    sub.classList.add("__app_subtitle_v1");
-
-    // Move subtitle to be the last child of headerRoot (under logo+title row)
-    if (sub.parentElement !== headerRoot) {
-      headerRoot.appendChild(sub);
-    } else {
-      // already inside headerRoot; ensure it is last
-      headerRoot.appendChild(sub);
+    // avoid duplicates if already injected
+    if (headerRoot.querySelector && headerRoot.querySelector(".__app_subtitle_v1[data-injected='1']")) {
+      // ensure original subtitle is hidden
+      try { subEl.style.display = "none"; } catch(e){}
+      return;
     }
+
+    // create new subtitle node
+    const injected = document.createElement("div");
+    injected.className = "__app_subtitle_v1";
+    injected.setAttribute("data-injected", "1");
+    injected.textContent = (subEl.textContent || "").trim();
+
+    // place AFTER headerRoot (not inside; no impact on logo/title layout)
+    const parent = headerRoot.parentElement;
+    if (parent) {
+      parent.insertBefore(injected, headerRoot.nextSibling);
+    }
+
+    // hide original subtitle to prevent duplicate text (but DO NOT move/remove)
+    try { subEl.style.display = "none"; } catch(e){}
   }
 
   document.addEventListener("DOMContentLoaded", function() {
-    try { removeSlogan(); } catch(e){}
-    try { placeSubtitleCentered(); } catch(e){}
+    try { removeSloganIfAny(); } catch(e){}
+    try { injectCenteredSubtitle(); } catch(e){}
   });
 })();
 
