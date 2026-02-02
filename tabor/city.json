@@ -1,6 +1,7 @@
 {
-  "name": "Tábor",
-  "logo": "../assets/cities/tabor/logo.jpg",
-  "knowledge_base": "../cities/tabor/knowledge_base.txt",
-  "scenarios": "../cities/tabor/scenarios.json"
+  "city": "Tábor (TEST v3)",
+  "subtitle": "Offline krizový vyhledávač",
+  "logo": "./assets/logo.jpg",
+  "knowledge_base": "./data/knowledge_base.txt",
+  "version": "v3-test"
 }

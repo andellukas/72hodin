@@ -1,47 +1,53 @@
-/* TABOR_SW_SCOPE_LOCK_v2
- * Cíl: /tabor/ nesmí ovládat cizí Service Worker.
- * Strategie: 1× v session odregistrovat SW mimo /tabor/ + smazat caches, pak reload.
- */
-(async ()=>{
-  try{
-    const FLAG = "tabor_sw_nuked_v2";
-    if (!sessionStorage.getItem(FLAG) && ("serviceWorker" in navigator)){
-      const regs = await navigator.serviceWorker.getRegistrations();
-      let changed = false;
+(() => {
+  "use strict";
 
-      for (const r of regs){
-        const scope = String(r.scope || "").toLowerCase();
-        if (!scope.includes("/tabor/")){
-          try{ await r.unregister(); changed = true; }catch(e){}
-        }
-      }
+  const $ = (s) => document.querySelector(s);
+  const KB_URL = "./data/knowledge_base.txt";
 
-      if ("caches" in window){
-        try{
-          const keys = await caches.keys();
-          for (const k of keys){
-            try{ await caches.delete(k); changed = true; }catch(e){}
-          }
-        }catch(e){}
-      }
+  function esc(s){
+    return String(s ?? "").replace(/[&<>"]/g, c => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"
+    }[c]));
+  }
 
-      sessionStorage.setItem(FLAG, "1");
-      if (changed){
-        location.reload();
-        return;
-      }
+  function render(items){
+    const box = $("#results");
+    if(!box) return;
+
+    if(!items || items.length === 0){
+      box.innerHTML = "";
+      return;
     }
-  }catch(e){}
+
+    box.innerHTML = items.slice(0, 40).map(it => `
+      <div class="item">
+        <div class="t">${esc(it.title || "")}</div>
+        <div class="p">${esc(it.text || "")}</div>
+      </div>
+    `).join("");
+  }
+
+  async function boot(){
+    if(!window.SearchCore) throw new Error("SearchCore missing");
+
+    const q = $("#q");
+    if(!q) throw new Error("Missing #q input");
+
+    const raw = await window.SearchCore.loadKB(KB_URL);
+    const all = window.SearchCore.parseKB(raw);
+
+    const run = () => {
+      const term = (q.value || "").trim();
+      const out = window.SearchCore.search(all, term);
+      render(out);
+    };
+
+    q.addEventListener("input", run);
+    // čistý start – nic neukazovat, dokud uživatel nepíše
+    render([]);
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    boot().catch(err => console.error(err));
+  });
 })();
-
-/* SW_REGISTER_CITY_v1 */
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js', { scope: './' }).catch(()=>{});
-}
-
-import { bootCityApp } from "../shared/app-core.js";
-
-bootCityApp().catch((e)=>{
-  const s = document.getElementById('status');
-  if (s) s.textContent = "Chyba startu: " + (e?.message || String(e));
-});
