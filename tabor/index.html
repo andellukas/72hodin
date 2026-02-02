@@ -154,6 +154,54 @@ body {
 
 </style>
 
+
+<style>
+
+/*__COLOR_LOCK_V1__*/
+:root {
+  /* OFFICIAL MUNICIPAL CRISIS PALETTE */
+  --bg-main: #07131f;
+  --bg-gradient-top: #0b2236;
+  --bg-gradient-bottom: #07131f;
+
+  --panel-bg: rgba(255,255,255,0.06);
+  --panel-border: rgba(255,255,255,0.08);
+
+  --text-main: rgba(255,255,255,0.94);
+  --text-secondary: rgba(255,255,255,0.78);
+  --text-muted: rgba(255,255,255,0.62);
+
+  --accent-soft: rgba(120,200,220,0.35);
+}
+
+body {
+  background-color: var(--bg-main) !important;
+  background-image:
+    radial-gradient(1200px 600px at 50% -120px, var(--accent-soft), transparent 60%),
+    linear-gradient(180deg, var(--bg-gradient-top) 0%, var(--bg-gradient-bottom) 100%) !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+  color: var(--text-main) !important;
+}
+
+.panel, .card, .search-box {
+  background: var(--panel-bg) !important;
+  border-color: var(--panel-border) !important;
+}
+
+h1, h2, h3 {
+  color: var(--text-main) !important;
+}
+
+p, li {
+  color: var(--text-secondary) !important;
+}
+
+small, .muted {
+  color: var(--text-muted) !important;
+}
+
+</style>
 </head>
 
 <body>
