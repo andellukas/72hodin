@@ -1,139 +1,278 @@
 <!doctype html>
 <html lang="cs">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Tábor</title>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+ <title>Tábor</title>
 
-  <style>
-    :root{
-      --bg:#070b12;
-      --line:rgba(255,255,255,.10);
-      --txt:#eaf0f7;
-      --muted:rgba(234,240,247,.70);
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      background:
-        radial-gradient(1200px 700px at 50% -10%, rgba(120,180,255,.18), transparent 55%),
-        radial-gradient(900px 600px at 20% 10%, rgba(80,255,200,.08), transparent 55%),
-        var(--bg);
-      color:var(--txt);
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-    }
-    .wrap{max-width:980px;margin:0 auto;padding:28px 16px 56px}
+ <style>
+ :root{
+ --bg:#070b12;
+ --line:rgba(255,255,255,.10);
+ --txt:#eaf0f7;
+ --muted:rgba(234,240,247,.70);
+ --shadow: 0 18px 60px rgba(0,0,0,.55);
+ }
+ *{box-sizing:border-box}
+ body{
+ margin:0;
+ background:
+ radial-gradient(1200px 700px at 50% -10%, rgba(120,180,255,.18), transparent 55%),
+ radial-gradient(900px 600px at 20% 10%, rgba(80,255,200,.08), transparent 55%),
+ var(--bg);
+ color:var(--txt);
+ font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+ }
+ .wrap{max-width:980px;margin:0 auto;padding:28px 16px 56px}
 
-    .hero{
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      border:1px solid var(--line);
-      border-radius:28px;
-      padding:18px 16px 16px;
-      box-shadow:var(--shadow);
-      backdrop-filter: blur(10px);
-    }
+ .hero{
+ background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+ border:1px solid var(--line);
+ border-radius:28px;
+ padding:18px 16px 16px;
+ box-shadow:var(--shadow);
+ backdrop-filter: blur(10px);
+ }
 
-    /* ROW: logo vlevo + text vpravo (mobile-fit) */
-    .topRow{
-      display:flex;
-      align-items:center;
-      gap:14px;
-      justify-content:space-between;
-      padding:6px 4px 10px;
-    }
-    .logo{
-      flex:0 0 auto;
-      width:min(44vw, 240px);
-      max-width:240px;
-    }
-    .logo img{
-      width:100%;
-      height:auto;
-      max-height:86px;
-      object-fit:contain;
-      display:block;
-      filter: drop-shadow(0 10px 26px rgba(0,0,0,.55));
-    }
-    .titleBox{
-      flex:1 1 auto;
-      min-width:0;
-      text-align:left;
-    }
-    .title{
-      margin:0;
-      font-weight:950;
-      letter-spacing:.2px;
-      font-size:clamp(28px, 5.6vw, 46px);
-      line-height:1.02;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .subtitle{
-      margin:6px 0 0;
-      color:var(--muted);
-      font-size:clamp(12.5px, 2.4vw, 16px);
-      line-height:1.25;
-    }
+ /* ROW: logo vlevo + text vpravo (mobile-fit) */
+ .topRow{
+ display:flex;
+ align-items:center;
+ gap:14px;
+ justify-content:space-between;
+ padding:6px 4px 10px;
+ }
+ .logo{
+ flex:0 0 auto;
+ width:min(44vw, 240px);
+ max-width:240px;
+ }
+ .logo img{
+ width:100%;
+ height:auto;
+ max-height:86px;
+ object-fit:contain;
+ display:block;
+ filter: drop-shadow(0 10px 26px rgba(0,0,0,.55));
+ }
+ .titleBox{
+ flex:1 1 auto;
+ min-width:0;
+ text-align:left;
+ }
+ .title{
+ margin:0;
+ font-weight:950;
+ letter-spacing:.2px;
+ font-size:clamp(28px, 5.6vw, 46px);
+ line-height:1.02;
+ white-space:nowrap;
+ overflow:hidden;
+ text-overflow:ellipsis;
+ }
+ .subtitle{
+ margin:6px 0 0;
+ color:var(--muted);
+ font-size:clamp(12.5px, 2.4vw, 16px);
+ line-height:1.25;
+ }
 
-    .search{margin:10px auto 0;max-width:820px;display:flex;flex-direction:column;gap:10px}
-    .input{
-      width:100%;
-      padding:18px 18px;
-      border-radius:18px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      color:var(--txt);
-      font-size:18px;
-      outline:none;
-    }
-    .input:focus{
-      border-color:rgba(120,180,255,.55);
-      box-shadow:0 0 0 4px rgba(120,180,255,.12);
-    }
-    .hint{text-align:center;color:var(--muted);font-size:13px}
+ .search{margin:10px auto 0;max-width:820px;display:flex;flex-direction:column;gap:10px}
+ .input{
+ width:100%;
+ padding:18px 18px;
+ border-radius:18px;
+ border:1px solid var(--line);
+ background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+ color:var(--txt);
+ font-size:18px;
+ outline:none;
+ }
+ .input:focus{
+ border-color:rgba(120,180,255,.55);
+ box-shadow:0 0 0 4px rgba(120,180,255,.12);
+ }
+ .hint{text-align:center;color:var(--muted);font-size:13px}
 
-    .results{margin:18px auto 0;max-width:820px}
-    .item{padding:14px 6px;border-bottom:1px solid rgba(255,255,255,.08)}
-    .item:last-child{border-bottom:none}
-    .item .t{font-weight:900;margin:0 0 6px;font-size:16px;letter-spacing:.1px}
-    .item .p{margin:0;color:rgba(234,240,247,.86);white-space:pre-wrap;line-height:1.45}
+ .results{margin:18px auto 0;max-width:820px}
+ .item{padding:14px 6px;border-bottom:1px solid rgba(255,255,255,.08)}
+ .item:last-child{border-bottom:none}
+ .item .t{font-weight:900;margin:0 0 6px;font-size:16px;letter-spacing:.1px}
+ .item .p{margin:0;color:rgba(234,240,247,.86);white-space:pre-wrap;line-height:1.45}
 
-    @media (max-width:520px){
-      .wrap{padding:22px 14px 44px}
-      .hero{padding:16px 14px 14px}
-      .logo{width:42vw;max-width:210px}
-      .logo img{max-height:78px}
-      .input{padding:16px 16px}
-      .subtitle{margin-top:4px}
-    }
-  </style>
+ @media (max-width:520px){
+ .wrap{padding:22px 14px 44px}
+ .hero{padding:16px 14px 14px}
+ .logo{width:42vw;max-width:210px}
+ .logo img{max-height:78px}
+ .input{padding:16px 16px}
+ .subtitle{margin-top:4px}
+ }
+ </style>
+
+<style>
+/*__UI_HOTFIX_V1__*/
+:root {
+  /* municipal / official dark palette */
+  --bg0: #07111b;
+  --bg1: #0a1a2a;
+  --bg2: #081623;
+  --card: rgba(255,255,255,0.06);
+  --card2: rgba(255,255,255,0.08);
+  --text: rgba(255,255,255,0.92);
+  --muted: rgba(255,255,255,0.78);
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--bg0) !important;
+  /* NO repeat, NO pattern, only layered gradients */
+  background-image:
+    radial-gradient(1200px 600px at 50% -120px, rgba(58, 141, 255, 0.18), rgba(58, 141, 255, 0) 60%),
+    radial-gradient(900px 500px at 15% 10%, rgba(0, 210, 255, 0.08), rgba(0, 210, 255, 0) 55%),
+    linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 45%, var(--bg0) 100%) !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+  color: var(--text) !important;
+}
+
+/* subtitle centered under logo+title */
+.__app_subtitle_v1 {
+  display: block !important;
+  width: 100% !important;
+  text-align: center !important;
+  font-size: 12px !important;
+  line-height: 1.25 !important;
+  letter-spacing: 0.2px !important;
+  color: var(--muted) !important;
+  margin-top: 6px !important;
+  opacity: 0.92 !important;
+}
+
+/* keep header top row intact, just allow subtitle to sit below */
+.__app_header_wrap_v1 {
+  display: block !important;
+  width: 100% !important;
+}
+
+</style>
+
 </head>
 
 <body>
-  <div class="wrap">
-    <section class="hero">
-      <div class="topRow">
-        <div class="logo">
-          <img src="../assets/cities/tabor/logo.jpg" alt="Město Tábor">
-        </div>
-        <div class="titleBox">
-          <h1 class="title">72 hodin</h1>
-          <p class="subtitle">Offline krizový vyhledávač pro občany města Tábor</p>
-        </div>
-      </div>
+ <div class="wrap">
+ <section class="hero">
+ <div class="topRow">
+ <div class="logo">
+ <img src="../assets/cities/tabor/logo.jpg" alt="Město Tábor">
+ </div>
+ <div class="titleBox">
+ <h1 class="title">72 hodin</h1>
+ <p class="subtitle">Offline krizový vyhledávač pro občany města Tábor</p>
+ </div>
+ </div>
 
-      <div class="search">
-        <input id="q" class="input" type="search" placeholder="Hledej… (např. voda, blackout, evakuace)" autocomplete="off" />
-        <div class="hint">Jedno pole. Jedno hledání. Nic navíc.</div>
-      </div>
-    </section>
+ <div class="search">
+ <input id="q" class="input" type="search" placeholder="Hledej… (např. voda, blackout, evakuace)" autocomplete="off" />
+ <div class="hint"></div>
+ </div>
+ </section>
 
-    <div id="results" class="results"></div>
-  </div>
+ <div id="results" class="results"></div>
+ </div>
 
-  <script src="./search-core.js"></script>
-  <script src="./app.js"></script>
+ <script src="./search-core.js"></script>
+ <script src="./app.js"></script>
+
+<script>
+//__UI_HOTFIX_JS_V1__
+(function() {
+  function textIncludes(el, needle) {
+    try {
+      return (el && el.textContent && el.textContent.toLowerCase().includes(needle.toLowerCase()));
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function findFirstByText(root, needle) {
+    if (!root) return null;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT, null);
+    let node = walker.currentNode;
+    while (node) {
+      if (textIncludes(node, needle)) return node;
+      node = walker.nextNode();
+    }
+    return null;
+  }
+
+  function closestHeaderRoot(el) {
+    let n = el;
+    for (let i = 0; i < 10 && n; i++) {
+      const hasImg = !!(n.querySelector && n.querySelector("img"));
+      const has72 = textIncludes(n, "72 hodin");
+      if (hasImg && has72) return n;
+      n = n.parentElement;
+    }
+    return null;
+  }
+
+  function removeSlogan() {
+    const root = document.body || document.documentElement;
+    const el = findFirstByText(root, "");
+    if (el) {
+      // remove the smallest element that contains the slogan (prefer leaf)
+      let target = el;
+      // try to walk down to a leaf that still contains it
+      for (let i = 0; i < 6; i++) {
+        const child = Array.from(target.children || []).find(c => textIncludes(c, ""));
+        if (!child) break;
+        target = child;
+      }
+      target.remove();
+    }
+  }
+
+  function placeSubtitleCentered() {
+    const root = document.body || document.documentElement;
+    // find element that contains the subtitle phrase
+    const subtitleEl = findFirstByText(root, "Offline krizový vyhledávač");
+    if (!subtitleEl) return;
+
+    // choose the tightest element containing the phrase
+    let sub = subtitleEl;
+    for (let i = 0; i < 6; i++) {
+      const child = Array.from(sub.children || []).find(c => textIncludes(c, "Offline krizový vyhledávač"));
+      if (!child) break;
+      sub = child;
+    }
+
+    const headerRoot = closestHeaderRoot(sub) || closestHeaderRoot(findFirstByText(root, "72 hodin"));
+    if (!headerRoot) return;
+
+    // Ensure wrapper class exists (doesn't change sizes)
+    headerRoot.classList.add("__app_header_wrap_v1");
+    sub.classList.add("__app_subtitle_v1");
+
+    // Move subtitle to be the last child of headerRoot (under logo+title row)
+    if (sub.parentElement !== headerRoot) {
+      headerRoot.appendChild(sub);
+    } else {
+      // already inside headerRoot; ensure it is last
+      headerRoot.appendChild(sub);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    try { removeSlogan(); } catch(e){}
+    try { placeSubtitleCentered(); } catch(e){}
+  });
+})();
+
+</script>
+
 </body>
 </html>
