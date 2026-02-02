@@ -165,41 +165,76 @@ body {
   --bg-gradient-bottom: #07131f;
 
   --panel-bg: rgba(255,255,255,0.06);
-  --panel-border: rgba(255,255,255,0.08);
+  --panel-bg-2: rgba(255,255,255,0.08);
+  --panel-border: rgba(255,255,255,0.10);
 
   --text-main: rgba(255,255,255,0.94);
   --text-secondary: rgba(255,255,255,0.78);
   --text-muted: rgba(255,255,255,0.62);
 
   --accent-soft: rgba(120,200,220,0.35);
+  --accent-line: rgba(120,200,220,0.22);
+
+  --input-bg: rgba(0,0,0,0.18);
+  --input-border: rgba(255,255,255,0.10);
+  --input-border-focus: rgba(120,200,220,0.35);
+  --placeholder: rgba(255,255,255,0.40);
 }
 
 body {
   background-color: var(--bg-main) !important;
   background-image:
     radial-gradient(1200px 600px at 50% -120px, var(--accent-soft), transparent 60%),
+    radial-gradient(900px 520px at 10% 10%, rgba(120,200,220,0.12), transparent 55%),
     linear-gradient(180deg, var(--bg-gradient-top) 0%, var(--bg-gradient-bottom) 100%) !important;
   background-repeat: no-repeat !important;
   background-attachment: fixed !important;
   color: var(--text-main) !important;
 }
 
-.panel, .card, .search-box {
+/* TOP PANEL (the main rounded header container) */
+.hero {
   background: var(--panel-bg) !important;
-  border-color: var(--panel-border) !important;
+  border: 1px solid var(--panel-border) !important;
 }
 
-h1, h2, h3 {
+/* subtle separation line / accents */
+.topRow {
+  border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+}
+
+/* Titles */
+.title { color: var(--text-main) !important; }
+.subtitle { color: var(--text-secondary) !important; }
+
+/* Search input */
+.search {
+  border-top: 1px solid rgba(255,255,255,0.06) !important;
+}
+
+.input {
+  background: var(--input-bg) !important;
+  border: 1px solid var(--input-border) !important;
   color: var(--text-main) !important;
 }
 
-p, li {
+.input::placeholder { color: var(--placeholder) !important; }
+
+.input:focus {
+  outline: none !important;
+  border-color: var(--input-border-focus) !important;
+}
+
+/* Hint + results */
+.hint { color: var(--text-muted) !important; }
+
+.results {
   color: var(--text-secondary) !important;
 }
 
-small, .muted {
-  color: var(--text-muted) !important;
-}
+/* Links (if any) */
+a { color: rgba(180,230,240,0.92) !important; }
+
 
 </style>
 </head>
