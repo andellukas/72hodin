@@ -1517,3 +1517,86 @@ MIKRO-SCÉNÁŘ: Konflikt při dopravním kolapsu
 - Odchod z místa konfliktu je vždy legální.
 
 
+
+@@SECTION: ZÁKLADNÍ KONTAKTY – TÁBOR (KRIZE)
+
+=== KRIZOVÉ KONTAKTY – TELEFONY – TÁBOR (ORP) + ČR ===
+
+=== 1) TÍSŇOVÉ SLUŽBY (okamžitá pomoc – život, zdraví, majetek) ===
+112  – Evropské tísňové číslo (IZS) – non-stop, zdarma
+150  – Hasiči (HZS) – non-stop, zdarma
+155  – Záchranná služba (ZZS) – non-stop, zdarma
+158  – Policie ČR – non-stop, zdarma
+156  – Městská/obecní policie (pokud existuje) – typicky non-stop
+603 111 158 – SMS tísňová linka pro neslyšící – non-stop
+
+--- TÁBOR: rychlé lokální kontakty pro první hodiny ---
+Město Tábor – ústředna: 381 486 111
+Město Tábor – krizová/povodňová linka: 381 486 363
+Městská policie Tábor (služebna / operační): 381 253 008
+Policie ČR – ÚO/OO Tábor (ústředna/pevná linka): 974 238 111
+HZS Jihočeského kraje – ÚO/stanice Tábor (pevná linka): 950 221 111
+
+=== 2) KRIZOVÉ LINKY – PSYCHICKÁ / SOCIÁLNÍ POMOC (ČR) ===
+116 123 – Linka první psychické pomoci – non-stop, zdarma
+116 111 – Linka bezpečí (děti + studenti do 26 let) – non-stop, zdarma
+116 000 – Linka pro rodinu a školu – non-stop, zdarma
+800 157 157 – Senior telefon – non-stop, zdarma
+800 200 007 – Linka seniorů Elpida (8:00–20:00)
+
+--- TÁBOR: sociální pomoc, ubytování, humanitární pomoc ---
+OS ČČK Tábor (Český červený kříž – humanitární pomoc): 774 253 515
+Charita Tábor – info/ústředna: 381 255 998
+Charita Tábor – ředitelka: 736 256 987
+Azylový dům pro ženy a matky (G-centrum Tábor): 381 271 109 / 776 381 240
+
+=== 3) OBĚTI NÁSILÍ / TRESTNÉ ČINNOSTI (ČR) ===
+116 006 – Linka pomoci obětem kriminality / domácího násilí – non-stop, zdarma
+257 317 110 – Bílý kruh bezpečí (oběti TČ)
+222 717 171 / 800 077 777 – La Strada – pomoc obětem obchodování s lidmi
+283 892 772 – ACORUS – pomoc obětem násilí
+773 177 636 / 800 922 922 – In IUSTITIA / Poradna Justýna – násilí z nenávisti
+
+--- TÁBOR: když jde o akutní násilí / rabování / hrozby ---
+112 (akutní ohrožení)
+158 (Policie ČR)
+156 (Městská policie Tábor): 381 253 008
+974 238 111 (Policie ČR Tábor – neurgentní pevná linka)
+
+=== 4) DALŠÍ KRIZOVÉ, SPECIFICKÉ LINKY (ČR) ===
+606 021 021 – Rodičovská linka – poradenství rodičům
++420 775 22 33 11 / +420 568 44 33 11 – Linka důvěry STŘED (09:00–21:00)
+585 414 600 – Krizová linka IPoradna.cz (18:00–06:00 všední, nonstop víkendy)
+227 272 225 – Krizová linka pomoci pro blízké pacientů – psychosociální podpora
+800 144 444 – Národní linka pomoci AIDS (pracovní doba)
+800 800 980 – Linka AIDS pomoci – nonstop
+
+=== 5) ENERGETIKA / INFRASTRUKTURA – PORUCHY A OHROŽENÍ (TÁBOR) ===
+--- PLYN ---
+1239 – Havárie / únik plynu – neodkladný zásah (GasNet)
+
+--- ELEKTŘINA (Jihočeský kraj = EG.D) ---
+800 22 55 77 – EG.D poruchy elektřiny – nonstop
+
+--- VODA / KANALIZACE (Tábor) ---
+VSTAB – havárie/poruchy: 722 933 636
+
+--- TEPLÁRNA / DÁLKOVÉ TEPLO (Tábor) ---
+Teplárna Tábor / C-energy – hlášení: 381 417 202
+
+=== 6) ÚŘADY A SPRÁVA – KRIZOVÉ ROZHODOVÁNÍ (TÁBOR) ===
+Město Tábor – ústředna: 381 486 111
+Město Tábor – krizová/povodňová linka: 381 486 363
+
+=== 7) ZDRAVOTNICTVÍ – TÁBOR ===
+Nemocnice Tábor – ústředna: 381 608 111
+
+=== 8) HYGIENA / EPIDEMIE (TÁBOR) ===
+KHS JčK – ÚP Tábor: 387 712 410
+
+=== 9) INFORMACE V KRIZI ===
+Obecní rozhlas / hlášení města – PRIORITA
+Český rozhlas – radio fallback
+
+Pravidlo:
+„Když nevíš, kdo to říká → ignoruj.“
