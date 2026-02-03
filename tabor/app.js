@@ -51,3 +51,42 @@
     boot().catch(err => console.error(err));
   });
 })();
+
+
+/*__CONTACTS_PANEL_V1__*/
+(function () {
+  const panel = document.getElementById("contactsPanel");
+  const body  = document.getElementById("contactsBody");
+  const q     = document.getElementById("q");
+  if (!panel || !body || !q) return;
+
+  function extractContacts(text) {
+    const lines = String(text || "").split(/\r?\n/);
+    let start = -1;
+    for (let i = 0; i < lines.length; i++) {
+      const t = lines[i].trim().toUpperCase();
+      if (t.startsWith("@@SECTION") && t.includes("KONTAKT")) { start = i + 1; break; }
+    }
+    if (start < 0) return "";
+    const out = [];
+    for (let i = start; i < lines.length; i++) {
+      const t = lines[i].trim();
+      if (t.startsWith("@@SECTION") || t.startsWith("@@SCENARIO")) break;
+      out.push(lines[i]);
+    }
+    return out.join("\n").trim();
+  }
+
+  fetch("./knowledge_base.txt")
+    .then(r => r.ok ? r.text() : "")
+    .then(txt => {
+      const c = extractContacts(txt);
+      if (!c) return;
+      body.textContent = c;
+      panel.hidden = false;
+      q.addEventListener("input", () => {
+        panel.hidden = q.value.trim().length > 0;
+      }, { passive: true });
+    })
+    .catch(() => {});
+})();
