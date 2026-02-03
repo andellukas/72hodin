@@ -1,4 +1,1519 @@
-{
-  "version": "v2",
-  "items": []
-}
+@@SCENARIO: PRVNÍ HODINY KRIZE – STABILIZACE OSOBY VE MĚSTĚ TÁBOR
+
+@@SECTION: SMYSL
+Cílem první fáze krize není „řešit všechno“.
+Cílem je:
+1) nezranit se hloupou chybou,
+2) nezpanikařit,
+3) správně se ROZHODNOUT, KDE ZŮSTAT,
+4) připravit se na následující hodiny.
+
+Ve městě Tábor je největším rizikem:
+- chaos,
+- falešné informace,
+- zbytečný pohyb,
+- odchod z bezpečného místa do horšího.
+
+@@SECTION: OKAMŽITÉ ZASTAVENÍ PANIKY (PRVNÍ 1–3 MINUTY)
+Tahle fáze rozhoduje, jestli situaci zvládneš, nebo ji zhoršíš.
+
+PŘESNÝ POSTUP:
+- ZASTAV SE. Fyzicky se posaď nebo opři o pevný bod.
+- DÝCHÁNÍ:
+  - nádech nosem na 4 sekundy
+  - výdech pusou na 6 sekund
+  - minimálně 5 opakování
+- ROZHLEDNI SE:
+  - nehoří?
+  - necítíš plyn?
+  - nehrozí pád věcí?
+- RYCHLÁ SEBEKONTROLA:
+  - krev?
+  - silná bolest?
+  - motání hlavy?
+  - dezorientace?
+
+Pokud ano → okamžitě 112 nebo 155.
+Neváhej. Váhání v krizi zabíjí.
+
+@@SECTION: ROZHODOVACÍ BOD – KDE SE NACHÁZÍŠ
+Tohle je KLÍČOVÉ rozhodnutí.
+
+A) JSEM DOMA / V BYTĚ (NEJČASTĚJŠÍ SCÉNÁŘ V TÁBOŘE)
+Základní pravidlo:
+POKUD TI NIC BEZPROSTŘEDNĚ NEHROZÍ → ZŮSTAŇ.
+
+Konkrétně zůstaň doma, pokud:
+- nehoří
+- necítíš plyn
+- dům není staticky narušený
+- nepřišel pokyn k evakuaci
+
+Typické chyby v Táboře:
+- lidé opouštějí byt při blackoutu „aby se podívali“
+- lidé jdou ven shánět informace
+→ zvyšují riziko úrazu, prochladnutí, zmatku
+
+PRAKTICKÝ POSTUP:
+- vyber jednu místnost jako základnu (chodba, pokoj bez oken)
+- zavři okna
+- zavři dveře
+- vypni ventilaci / digestoř / klimatizaci
+- pod dveře dej ručník nebo deku
+- připrav si:
+  - oblečení
+  - vodu
+  - léky
+  - mobil
+  - hotovost
+  - baterku
+
+Poznámka pro Tábor:
+Panelové domy (Nad Lužnicí, Pražské sídliště) poskytují dobrou ochranu při větru, mrazu i chemickém riziku.
+
+B) JSEM VENKU NA ULICI
+Cíl:
+CO NEJRYCHLEJI SE DOSTAT DO PEVNÉHO OBJEKTU.
+
+Bezpečné cíle v Táboře:
+- nemocnice Tábor
+- městský úřad
+- školy
+- větší obchody
+- nádraží
+
+NEBEZPEČNÉ ROZHODNUTÍ:
+- zůstat venku „jen chvíli“
+- jít pěšky přes celé město bez cíle
+- zůstávat v autě při mrazu, horku nebo kouři
+
+Pokud není kam jít:
+- stůj v závětří
+- izoluj se od země (batoh, karton, oblečení)
+- omez pohyb
+- šetři síly
+
+C) JSEM VE VEŘEJNÉ BUDOVĚ / OBCHODĚ
+- řiď se pokyny personálu
+- neodcházej bez jasného důvodu
+- sleduj hlášení
+- nevyvolávej paniku
+
+@@SECTION: TEPLO A PODCHLAZENÍ – REÁLNÉ RIZIKO V TÁBOŘE
+Tábor = vítr, vlhko, zima.
+Podchlazení je častější než přehřátí.
+
+KDYŽ JE ZIMA:
+- obleč všechno, co máš
+- zakryj hlavu, krk, ruce, nohy
+- vrstvi (i papír, igelit izoluje)
+- seď nebo lež NA IZOLACI
+- pohyb jen mírný
+
+VAROVNÉ SIGNÁLY:
+- třes
+- apatie
+- zmatenost
+→ při podezření volej 155
+
+ALKOHOL:
+- NEZAHŘÍVÁ
+- zhoršuje úsudek
+- zrychluje kolaps
+
+@@SECTION: TELEFON A INFORMACE – JAK NEZŮSTAT S VYBITÝM MOBILEM
+První chyba lidí:
+neustále volají a refreshují sítě.
+
+Správně:
+- sniž jas displeje
+- vypni mobilní data
+- používej SMS místo volání
+- volej jen v nutných případech
+
+Pamatuj:
+při větší krizi může mobilní síť v Táboře fungovat jen omezeně.
+
+@@SECTION: CO ROZHODNĚ NEDĚLAT V PRVNÍCH HODINÁCH
+- neběhat bez cíle
+- neopouštět bezpečné místo bez důvodu
+- nevěřit „zaručeným zprávám“
+- nešířit paniku
+- neplýtvat vodou a energií
+
+@@SECTION: KDY OKAMŽITĚ VOLAT POMOC
+- ohrožení života → 112
+- kolaps, silná slabost → 155
+- požár, kouř → 150
+- násilí → 158
+
+Pokud si nejsi jistý → 112
+
+@@SECTION: ZÁKLADNÍ KONTAKTY – TÁBOR (PRVNÍ FÁZE KRIZE)
+• Integrovaný záchranný systém: 112
+• ZZS Jihočeského kraje: 155
+• Hasiči: 150
+• Policie ČR: 158
+• Město Tábor – ústředna: 381 486 111
+
+@@SCENARIO: PRVNÍ HODINY AŽ 24 HODIN KRIZE – PRAKTICKÉ ŘÍZENÍ SITUACE (TÁBOR)
+
+@@SECTION: REALITA PO PRVNÍM ŠOKU
+Po prvních minutách přijde fáze:
+- „Co teď?“
+- „Jak dlouho to bude trvat?“
+- „Mám někam jít, nebo zůstat?“
+
+V této fázi lidé v Táboře nejčastěji:
+- dělají zbytečné přesuny,
+- vyčerpají se,
+- pohádají se v rodině,
+- zničí si zásoby první den.
+
+Cílem této fáze je:
+1) stabilizovat místo,
+2) nastavit režim,
+3) připravit se na HORŠÍ VARIANTU, ne na nejlepší.
+
+@@SECTION: ROZHODNUTÍ „ZŮSTÁVÁM VS. ODCHÁZÍM“
+Základní pravidlo krizového řízení města:
+KDO MÁ STŘECHU NAD HLAVOU, TEN JI DRŽÍ.
+
+ZŮSTAŇ, POKUD:
+- nejsi vyzván k evakuaci,
+- nehrozí požár, plyn, kolaps domu,
+- máš alespoň minimum vody / tepla / oblečení.
+
+ODEJDI, POKUD:
+- úřady nařídí evakuaci,
+- objekt je neobyvatelný,
+- hrozí bezprostřední nebezpečí.
+
+Typická chyba v Táboře:
+Lidé jdou „k příbuzným přes celé město“ bez informace → uvíznou, vyčerpají se, zhorší situaci.
+
+@@SECTION: STABILIZACE DOMÁCÍHO PROSTORU (BYT / DŮM)
+Teď se z bytu stává „mikro-úkryt“.
+
+KROK 1 – JEDNA ZÁKLADNA:
+- vyber jednu místnost
+- ideálně bez oken nebo s malými okny
+- zavři ostatní místnosti
+
+KROK 2 – TEPLO A IZOLACE:
+- zavři dveře
+- pod dveře ručníky / deky
+- obleč se, i když „ještě není zima“
+- izoluj podlahu (koberec, deky, matrace)
+
+KROK 3 – SVĚTLO:
+- baterka / čelovka
+- svíčky pouze s dohledem a stabilním podkladem
+- nikdy nenechávej hořící svíčku bez dozoru
+
+KROK 4 – BEZPEČÍ:
+- uklidni volně položené věci
+- sundej těžké předměty z polic
+- připrav lékárničku
+
+@@SECTION: VODA – PRAKTICKÝ MANAGEMENT
+Voda je první kritický zdroj.
+
+POKUD VODA TEČE:
+- okamžitě napusť vše, co máš
+- odděl pitnou a technickou vodu
+- nečekej „až večer“
+
+POKUD VODA NETEČE:
+- sleduj informace města
+- cisterny mají přednost pro:
+  děti, seniory, nemocné
+- nechoď „naslepo“ po městě
+
+REÁLNÁ SPOTŘEBA:
+- pití: minimum 2–3 litry / osoba / den
+- hygiena: jen nutné minimum
+
+@@SECTION: JÍDLO – JAK SE NEVYŽRAT PRVNÍ DEN
+Největší chyba:
+„Dáme si dnes normálně, zítra uvidíme.“
+
+SPRÁVNÝ POSTUP:
+- hned první den rozděl jídlo na dávky
+- jez méně, ale pravidelně
+- šetři energii – hlad + pohyb = kolaps
+
+PRIORITA:
+1) děti
+2) senioři
+3) nemocní
+4) ostatní
+
+Pokud máš málo:
+- malé porce
+- pomalu jíst
+- teplé jídlo = psychická stabilita
+
+@@SECTION: RODINA A VZTAHY – NEJVĚTŠÍ VNITŘNÍ RIZIKO
+Krize ničí vztahy rychleji než hlad.
+
+CO DĚLAT:
+- mluv klidně
+- nerozhoduj ve vzteku
+- rozděl role (kdo hlídá info, kdo vaří, kdo se stará o děti)
+
+DĚTI:
+- nepotřebují detaily
+- potřebují klid
+- dej jim úkol (hlídat batoh, baterku)
+
+HÁDKY:
+- odlož
+- neřeš „kdo za to může“
+- řeš „co děláme teď“
+
+@@SECTION: INFORMACE – KDE ZÍSKÁVAT REÁLNÁ DATA V TÁBOŘE
+DŮVĚRYHODNÉ:
+- obecní rozhlas
+- město Tábor
+- hasiči, policie
+- Český rozhlas
+
+NEDŮVĚRYHODNÉ:
+- hlasovky
+- anonymní zprávy
+- sociální sítě bez zdroje
+
+Pravidlo:
+KDYŽ NEVÍŠ, KDO TO ŘÍKÁ → IGNORUJ.
+
+@@SECTION: POHYB PO MĚSTĚ – KDY A KDY NE
+NECHOĎ VEN, POKUD:
+- nemusíš
+- nemáš jasný cíl
+- nehrozí bezprostřední nebezpečí
+
+KDY JÍT VEN:
+- pro vodu na oficiální místo
+- na pokyn úřadů
+- pro pomoc zraněnému
+
+VŽDY:
+- teplé oblečení
+- pevné boty
+- telefon / lístek s kontaktem
+- vědět, kam se vracíš
+
+@@SECTION: KDY SE SITUACE LÁME K HORŠÍ VARIANTĚ
+VAROVNÉ SIGNÁLY:
+- dlouhodobý výpadek proudu
+- nedostatek vody
+- chaos ve městě
+- agresivní chování lidí
+- žádné oficiální informace
+
+V TÉ CHVÍLI:
+- zůstaň na místě
+- připrav se na delší režim
+- šetři vše
+
+@@SECTION: ZÁKLADNÍ KONTAKTY – PRO DALŠÍ HODINY (TÁBOR)
+• Město Tábor – ústředna: 381 486 111
+• Městská policie Tábor: 381 253 008
+• Policie ČR (neurgentní): 974 238 111
+• HZS JčK – Tábor: 950 221 111
+• Tísňové volání: 112
+
+@@SCENARIO: BLACKOUT + ZIMA – NEJHORŠÍ KOMBINACE PRO OBYVATELE TÁBORA
+
+@@SECTION: PROČ JE TAHLE KOMBINACE KRITICKÁ
+Tábor má:
+- sídliště s centrálním vytápěním,
+- panelové domy s rychlým únikem tepla,
+- kopcovitý terén → náročný pohyb v zimě,
+- starší populaci v některých částech města.
+
+Výpadek elektřiny + mráz = problém během hodin, ne dnů.
+
+@@SECTION: OKAMŽITÉ KROKY PO VÝPADKU PROUDU
+PRVNÍCH 15 MINUT:
+- vypni spotřebiče ze zásuvek (ochrana při návratu proudu)
+- ověř, zda jde o:
+  a) byt
+  b) dům
+  c) celé okolí
+
+POKUD JE TMA I VENKU:
+→ počítej s delším výpadkem
+
+@@SECTION: TOPENÍ – CO FUNGUJE A CO NE
+NEFUNGUJE:
+- centrální topení bez elektřiny
+- elektrické přímotopy
+- plynový kotel bez elektřiny
+
+FUNGUJE:
+- lidské teplo
+- izolace
+- malé uzavřené prostory
+
+ZÁSADNÍ CHYBA:
+„Otevřeme okno, ať vyvětráme.“
+→ ZTRÁTA TEPLA, KTEROU UŽ NEZÍSKÁŠ ZPĚT.
+
+@@SECTION: JAK SE NEPODCHLADIT V BYTĚ
+REŽIM:
+- obléct se do vrstev
+- čepice i doma
+- suché ponožky (kritické)
+- nesedět na studené podlaze
+
+JEDNA MÍSTNOST:
+- všichni dohromady
+- zavřené dveře
+- pod dveře deky / ručníky
+
+SPÁNEK:
+- v oblečení
+- ideálně společně
+- podložka pod tělem (karimatka, matrace)
+
+@@SECTION: OHEŇ A SVÍČKY – RIZIKO POŽÁRU
+POVOLENO:
+- svíčka na nehořlavém podkladu
+- vždy s dohledem
+
+ZAKÁZÁNO:
+- vaření na svíčce
+- improvizované hořáky
+- otevřený plamen u záclon
+
+V TÁBOŘE:
+HZS má při blackoutu plné ruce práce.
+→ požár = extrémní riziko, pomoc může přijít pozdě.
+
+@@SECTION: JÍDLO A TEPLO – JAK TO KOMBINOVAT
+PRAVIDLO:
+TEPLÉ JÍDLO = PSYCHICKÁ STABILITA
+
+POKUD NELZE VAŘIT:
+- studené jídlo
+- ale pravidelně
+- malé dávky
+
+NEJHORŠÍ VARIANTA:
+hlad + zima + pohyb → vyčerpání
+
+@@SECTION: POHYB VENKU V MRAZU
+NECHOĎ VEN, POKUD:
+- není nutné
+- nemáš jasný cíl
+
+POKUD MUSÍŠ:
+- vrstvy
+- pevné boty
+- čepice, rukavice
+- telefon šetřit (režim letadlo)
+
+POZOR:
+Kluzké chodníky, tma, omezená pomoc.
+
+@@SECTION: SENIOŘI A NEMOCNÍ (KRITICKÁ SKUPINA)
+RIZIKO:
+- rychlé podchlazení
+- dehydratace
+- zmatenost
+
+CO DĚLAT:
+- kontroluj je pravidelně
+- přidej vrstvy
+- nabídni teplý nápoj, pokud lze
+
+NIKDY:
+- nenechávej seniora samotného v chladném bytě
+
+@@SECTION: KDY UŽ JDE O ZDRAVÍ
+VAROVNÉ SIGNÁLY PODCHLAZENÍ:
+- třes
+- zmatenost
+- apatie
+- modré rty
+
+V TÉ CHVÍLI:
+- zahřát tělo
+- suché oblečení
+- přivolat pomoc (112)
+
+@@SECTION: INFORMACE V BLACKOUTU
+CO FUNGUJE:
+- bateriové rádio
+- obecní rozhlas
+- auta se zapnutým rádiem (krátce)
+
+CO NEFUNGUJE:
+- internet
+- mobilní data (brzy)
+- sociální sítě
+
+@@SECTION: PSYCHIKA – NEVIDITELNÝ PROBLÉM
+Ticho, tma a zima:
+- zvyšují úzkost
+- vyvolávají konflikty
+
+CO POMÁHÁ:
+- rutina
+- rozdělení rolí
+- jednoduché úkoly
+
+KLID = ÚSPORA ENERGIE.
+
+@@SECTION: KDY SE PŘIPRAVIT NA 48+ HODIN
+SIGNÁLY:
+- žádné oficiální info
+- pokračující mráz
+- vyčerpané zásoby
+
+V TÉ CHVÍLI:
+- přísný režim
+- minimální pohyb
+- šetřit vše
+
+@@SECTION: KONTAKTY PRO BLACKOUT (TÁBOR)
+• Tísňové volání: 112  
+• HZS Tábor: 950 221 111  
+• Městská policie Tábor: 381 253 008  
+• Město Tábor – ústředna: 381 486 111
+
+@@SCENARIO: EVAKUACE A POHYB PO MĚSTĚ TÁBOR – KDY UŽ DOMA ZŮSTAT NEJDE
+
+@@SECTION: KDY SE VŮBEC ROZHODOVAT O ODCHODU
+EVAKUACE JE KRAJNÍ ŘEŠENÍ.
+Neodcházej jen proto, že je to nepohodlné.
+
+ODCHOD DÁVÁ SMYSL, KDYŽ:
+- byt je dlouhodobě neobyvatelný (extrémní zima, kouř, havárie),
+- máš potvrzené místo, kam jít,
+- někdo v domácnosti je zdravotně ohrožen.
+
+NEODCHÁZEJ, KDYŽ:
+- nemáš cíl,
+- venku je mráz / tma / chaos,
+- jen „chceš něco dělat“.
+
+@@SECTION: NEJČASTĚJŠÍ CHYBA OBYVATEL
+„Jdeme se jen podívat, co se děje.“
+→ ztráta tepla
+→ vyčerpání
+→ zbytečné riziko
+
+V krizi:
+POHYB = SPOTŘEBA ENERGIE.
+
+@@SECTION: JAK SE PŘIPRAVIT NA ODCHOD (MINIMUM)
+PŘED ODCHODEM:
+- obléct vrstvy (ne styl, funkce)
+- pevné boty
+- batoh / taška přes rameno
+- doklady (alespoň občanka)
+- telefon + powerbanka (pokud máš)
+- voda / jídlo na cestu
+
+NIKDY NEODCHÁZEJ:
+- nalehko
+- v pantoflích
+- bez informace, kam jdeš
+
+@@SECTION: KAM SE V TÁBOŘE POHYBOVAT (OBECNÁ LOGIKA)
+BEZPEČNĚJŠÍ:
+- otevřené prostory
+- širší ulice
+- místa, kde je přirozený pohyb lidí
+
+RIZIKOVÉ:
+- úzké uličky Starého Města ve tmě
+- opuštěné průmyslové zóny
+- mosty a lávky při náledí
+
+@@SECTION: POHYB V TÁBOŘE V ZIMĚ A TMĚ
+POHYBOVAT SE:
+- pomalu
+- ve skupině
+- viditelně (světlo, reflex)
+
+POZOR NA:
+- led na chodnících
+- neosvětlené přechody
+- padající sníh / led ze střech
+
+@@SECTION: EVAKUAČNÍ CENTRA – REALITA
+OFICIÁLNÍ CENTRA:
+- nemusí být hned otevřená
+- mohou být přeplněná
+- základní komfort, ne pohodlí
+
+POČÍTEJ S TÍM:
+- čekání
+- hluk
+- stres
+- cizí lidé
+
+@@SECTION: KDY JE LEPŠÍ JÍT K LIDEM, NE DO CENTRA
+LEPŠÍ VARIANTA:
+- rodina
+- známí
+- sousedé
+
+DŮVOD:
+- méně stresu
+- větší kontrola
+- rychlejší adaptace
+
+@@SECTION: DĚTI PŘI EVAKUACI
+PRAVIDLO:
+DÍTĚ SE NESMÍ ZTRATIT.
+
+CO DĚLAT:
+- držet za ruku
+- domluvit jednoduché pravidlo („když se ztratíme, stojíš“)
+- jméno a kontakt u sebe
+
+NIKDY:
+- nenechávat dítě jít „napřed“
+- nepouštět z dohledu v davu
+
+@@SECTION: SENIOŘI A IMOBILNÍ OSOBY
+REALITA:
+Evakuace je pro ně extrémně náročná.
+
+POKUD NEMUSÍ:
+→ NEODCHÁZET
+
+POKUD MUSÍ:
+- pomoc druhých
+- časté pauzy
+- teplo důležitější než rychlost
+
+@@SECTION: PSYCHICKÉ REAKCE LIDÍ VENKU
+OČEKÁVEJ:
+- nervozitu
+- hádky
+- chaotické chování
+
+NEZAPOJUJ SE:
+- do konfliktů
+- do hádek
+- do „davové hysterie“
+
+KLID = BEZPEČÍ.
+
+@@SECTION: KDY SE RADĚJI VRÁTIT DOMŮ
+POKUD:
+- nemáš jasný cíl
+- venku je horší situace než doma
+- zhoršuje se počasí
+
+NÁVRAT DOMŮ:
+není selhání, ale správné rozhodnutí.
+
+@@SECTION: PO EVAKUACI
+PO PŘÍCHODU:
+- zahřát se
+- hydratace
+- klid
+
+NEDĚLEJ:
+- hned rozhodnutí
+- unáhlené kroky
+
+NEJDŘÍV STABILIZACE.
+
+@@SECTION: ZÁKLADNÍ KONTAKTY PRO POHYB A EVAKUACI (TÁBOR)
+• Tísňové volání: 112  
+• HZS Tábor: 950 221 111  
+• Městská policie Tábor: 381 253 008  
+• Policie ČR Tábor: 974 238 111
+@@SCENARIO: KONFLIKTY, AGRESE A CHAOS MEZI LIDMI – JAK SE NEZAPLET A PŘEŽÍT
+
+@@SECTION: PROČ KE KONFLIKTŮM V KRIZI DOCHÁZÍ
+V krizových situacích se rychle aktivují:
+- strach o zdroje (jídlo, voda, teplo),
+- pocit nespravedlnosti („někdo má víc“),
+- únava, chlad, hlad.
+
+Ve městě jako Tábor:
+- lidé jsou blízko u sebe,
+- informace jsou neúplné,
+- emoce se šíří rychle.
+
+@@SECTION: ZÁKLADNÍ PRAVIDLO
+NEBUĎ VIDITELNÝ PROBLÉM.
+
+To znamená:
+- nekřičet,
+- nevyčnívat,
+- nekomentovat,
+- „nebýt chytrý“.
+
+@@SECTION: NEJČASTĚJŠÍ SPARKY KONFLIKTU
+Vyhni se:
+- frontám s nervózními lidmi,
+- debatám o vině („za to může vláda / město / soused“),
+- alkoholu v kombinaci s davem,
+- lidem, kteří „organizují ostatní“ bez autority.
+
+@@SECTION: JAK SE CHOVAT MEZI CIZÍMI LIDMI
+DOPORUČENÉ CHOVÁNÍ:
+- klidný hlas
+- krátké věty
+- neutrální postoj těla
+- ruce viditelné
+
+NEVYVOLÁVEJ DOJEM:
+- že něco skrýváš
+- že něco víš navíc
+- že máš plán, který ostatní nemají
+
+@@SECTION: KDY OKAMŽITĚ ODEJÍT
+OKAMŽITĚ ZMĚŇ PROSTOR, KDYŽ:
+- někdo začíná křičet na cizí lidi,
+- objevuje se alkohol nebo drogy,
+- lidé se začínají shlukovat proti někomu,
+- někdo vyhrožuje.
+
+NEČEKEJ, „JAK TO DOPADNE“.
+
+@@SECTION: CO DĚLAT, KDYŽ SE TĚ NĚKDO SNAŽÍ ZATÁHNOUT
+TYPICKÉ VĚTY:
+- „pojď s náma“
+- „musíme něco udělat“
+- „tohle si nenecháme líbit“
+
+SPRÁVNÁ ODPOVĚĎ:
+- „nevím“
+- „nemám informace“
+- „musím se vrátit“
+
+A ODEJÍT.
+
+@@SECTION: FYZICKÝ KONFLIKT – REALITA
+Ve městě:
+- fyzický konflikt = vysoké riziko zranění
+- pomoc může nepřijít
+- svědci se neangažují
+
+PRAVIDLO:
+ÚTĚK JE VÍTĚZSTVÍ.
+
+@@SECTION: OBRANA NENÍ BOJ
+OBRANA = vytvořit prostor a zmizet.
+
+Použij:
+- změnu směru
+- překážky (auto, dveře, roh)
+- hlas k přivolání pozornosti jen při úniku
+
+NE:
+- nepronásleduj
+- nezůstávej dokazovat pravdu
+
+@@SECTION: OCHRANA DĚTÍ PŘI CHAOSU
+DÍTĚ:
+- vždy blízko
+- ideálně před tebou
+- jasné instrukce („drž se mě“)
+
+V DAVU:
+- zvedni dítě do náruče
+- nenech ho mluvit s cizími
+
+@@SECTION: SENIOŘI A ZRANITELNÍ
+Senioři často:
+- nerozumí situaci
+- reagují pomalu
+- panikaří potichu
+
+POMOC:
+- klidným hlasem
+- jednoduché věty
+- žádné vysvětlování „proč“
+
+@@SECTION: DOMOV JAKO BEZPEČNÁ ZÓNA
+POKUD:
+- je doma teplo (nebo izolace),
+- nehrozí bezprostřední nebezpečí,
+- máš základní zásoby,
+
+→ ZŮSTAŇ DOMA.
+
+Většina konfliktů vzniká VENKU.
+
+@@SECTION: KDY VOLAT POMOC
+VOLEJ:
+- 112 – akutní ohrožení
+- 158 – násilí, rabování
+- 156 – městská policie (pokud funguje)
+
+ALE:
+nečekej, že přijedou hned.
+
+@@SECTION: PSYCHICKÁ HYGIENA
+ABY SES NEZLOMIL:
+- omez zprávy
+- nemluv pořád o krizi
+- drž rutinu (jídlo, spánek, pohyb)
+
+KRIZE JE MARATON, NE SPRINT.
+
+@@SECTION: PAMATUJ
+Největší hrozba ve městě nejsou události.
+Jsou to LIDÉ V PANICE.
+
+Klidný člověk má výhodu.
+
+@@SCENARIO: KONFLIKTY, NAPĚTÍ A AGRESE MEZI LIDMI – KDYŽ KRIZE UŽ PROBÍHÁ
+
+@@SECTION: PROČ V KRIZI VZNIKAJÍ KONFLIKTY
+Při delší krizi ve městě jako Tábor se zvyšuje:
+- strach o zdroje (voda, jídlo, teplo),
+- únava a vyčerpání,
+- nejistota z nedostatku informací,
+- podrážděnost z chladu a hladu.
+
+Lidé reagují impulzivněji a méně racionálně než v běžném stavu.
+
+@@SECTION: KDE KONFLIKTY VZNIKAJÍ NEJČASTĚJI
+Typická místa konfliktů:
+- společné prostory domů (chodby, sklepy),
+- fronty na vodu nebo potraviny,
+- ulice a veřejná prostranství,
+- evakuační nebo výdejní místa,
+- mezi sousedy v jednom domě.
+
+@@SECTION: PRVNÍ ROZHODNUTÍ – ZAPOJIT SE NEBO ODEJÍT
+Základní pravidlo:
+KONFLIKT NEŘEŠÍŠ, POKUD SE TÝKÁ CIZÍCH LIDÍ.
+
+Správná reakce:
+- nezapojovat se,
+- nekomentovat,
+- změnit prostor,
+- vrátit se do bezpečí.
+
+Zapojení se do konfliktu výrazně zvyšuje riziko zranění.
+
+@@SECTION: JAK SE CHOVAT MEZI NERVÓZNÍMI LIDMI
+Doporučené chování:
+- klidný hlas,
+- krátké odpovědi,
+- žádné vysvětlování,
+- neutrální výraz.
+
+Vyhýbej se:
+- hlasitým debatám,
+- ironii,
+- obviňování,
+- „řešením spravedlnosti“.
+
+@@SECTION: VAROVNÉ SIGNÁLY, ŽE SITUACE ESKALUJE
+Okamžitě odejdi, pokud:
+- někdo začne křičet,
+- padnou výhrůžky,
+- objevuje se alkohol,
+- lidé se shlukují proti jedné osobě,
+- někdo přebírá „velení“ bez autority.
+
+Tyto situace se zhoršují velmi rychle.
+
+@@SECTION: CO ŘÍCT, KDYŽ JSI VTÁHNUT DO KONFLIKTU
+Používej krátké, neutrální věty:
+- „Nevím.“
+- „Nemám informace.“
+- „Nechci problém.“
+- „Musím jít.“
+
+Po odpovědi okamžitě změň směr a odejdi.
+
+@@SECTION: FYZICKÝ KONFLIKT – REALITA VE MĚSTĚ
+Ve městě:
+- fyzický konflikt má vysoké riziko vážného zranění,
+- pomoc může přijít pozdě,
+- svědci se často nezapojují.
+
+Základní pravidlo:
+ÚTĚK JE SPRÁVNÉ ŘEŠENÍ.
+
+@@SECTION: JAK SE DOSTAT Z NEBEZPEČNÉ SITUACE
+Postup:
+- vytvoř odstup,
+- změň směr pohybu,
+- využij překážky (auta, dveře, rohy),
+- vstup do budovy je bezpečnější než otevřený prostor.
+
+Neotáčej se zpět, nečekej na vývoj situace.
+
+@@SECTION: OCHRANA DĚTÍ A SLABŠÍCH OSOB
+Děti:
+- vždy u sebe,
+- fyzický kontakt (ruka, oblečení),
+- jednoduché pokyny.
+
+Senioři a nemocní:
+- nechoď s nimi do davu,
+- vyhýbej se konfliktům úplně,
+- návrat domů je často nejlepší volba.
+
+@@SECTION: DOMOV JAKO BEZPEČNÁ ZÓNA
+Pokud:
+- byt není ohrožen,
+- nehrozí požár nebo plyn,
+- máš základní podmínky,
+
+→ zůstaň doma.
+
+Většina konfliktů vzniká mimo domov.
+
+@@SECTION: KDY VOLAT POMOC
+Volej 112 nebo 158, pokud:
+- hrozí fyzické napadení,
+- dochází k rabování,
+- je někdo zraněn,
+- situace je neovladatelná.
+
+Nečekej, že pomoc přijede okamžitě – chovej se podle toho.
+
+@@SECTION: CO NEDĚLAT
+- neřešit konflikty cizích lidí,
+- nevyvolávat pozornost,
+- neukazovat zásoby,
+- nešířit neověřené informace,
+- nepodléhat davové panice.
+
+@@SECTION: DLOUHODOBÉ PRAVIDLO
+V krizové situaci ve městě:
+klidný, nenápadný člověk má výrazně vyšší šanci zvládnout situaci bez zranění.
+
+@@SCENARIO: ZDRAVOTNÍ KOLAPSY A LÉKY – KDYŽ KRIZE TRVÁ A POMOC JE OMEZENÁ
+
+@@SECTION: PROČ SE ZDRAVOTNÍ STAVY ZHORŠUJÍ
+Při delší krizi v Táboře se kombinuje:
+- chlad,
+- stres,
+- nedostatek spánku,
+- omezený přístup k lékům,
+- vyčerpání organismu.
+
+I běžné potíže se mohou rychle změnit ve vážný stav.
+
+@@SECTION: PRVNÍ ROZHODNUTÍ – JE TO NA TÍSŇOVÉ VOLÁNÍ
+OKAMŽITĚ VOLEJ 155 nebo 112, pokud:
+- člověk ztrácí vědomí,
+- má silnou bolest na hrudi,
+- má potíže s dýcháním,
+- silně krvácí,
+- je dezorientovaný nebo nereaguje.
+
+Pokud žádný z bodů nenastává:
+→ řeš stav doma a sleduj vývoj.
+
+@@SECTION: PODCHLAZENÍ – NEJČASTĚJŠÍ ZDRAVOTNÍ PROBLÉM
+Typické příznaky:
+- třes,
+- únava,
+- apatie,
+- studené končetiny,
+- zpomalené reakce.
+
+Postup:
+- přesunout do tepla,
+- suché oblečení,
+- vrstvy a deky,
+- teplý nápoj, pokud je při vědomí.
+
+Nikdy:
+- nedávat alkohol,
+- nezahřívat prudce (horká sprcha).
+
+@@SECTION: DEHYDRATACE A CELKOVÁ SLABOST
+Příznaky:
+- bolest hlavy,
+- sucho v ústech,
+- tmavá moč,
+- závratě.
+
+Řešení:
+- malé doušky vody,
+- pravidelně během dne,
+- i bez pocitu žízně.
+
+Dehydratace výrazně zhoršuje psychiku i rozhodování.
+
+@@SECTION: CHRONICKÉ NEMOCI – CO SE ZHORŠUJE NEJRYCHLEJI
+Rizikové stavy:
+- vysoký krevní tlak,
+- cukrovka,
+- astma,
+- srdeční onemocnění,
+- epilepsie.
+
+Postup:
+- dodržuj dávkování léků,
+- šetři fyzickou zátěž,
+- sleduj varovné příznaky zhoršení.
+
+Nikdy:
+- neexperimentuj s dávkami,
+- nekombinuj léky bez znalosti účinku.
+
+@@SECTION: BOLEST, TEPLOTA A INFEKCE
+Běžné problémy:
+- bolesti hlavy,
+- bolesti zad z chladu,
+- zvýšená teplota.
+
+Postup:
+- klid,
+- teplo,
+- dostatek tekutin,
+- běžná analgetika podle návodu, pokud je máš.
+
+Pokud teplota nebo bolest narůstá:
+→ zvaž kontakt se zdravotní službou.
+
+@@SECTION: ÚRAZY V DOMÁCNOSTI
+Nejčastější úrazy:
+- pády ve tmě,
+- říznutí,
+- popáleniny.
+
+Základ:
+- očistit ránu,
+- zastavit krvácení,
+- zakrýt čistým obvazem.
+
+Infekce je v krizi větší riziko než samotné poranění.
+
+@@SECTION: PSYCHICKÉ KOLAPSY A PANIKA
+Příznaky:
+- silná úzkost,
+- třes,
+- pláč,
+- neschopnost se soustředit.
+
+Co pomáhá:
+- klidný hlas,
+- pomalé dýchání,
+- ticho,
+- teplo.
+
+Nepodceňuj psychické zhroucení – vede k chybám.
+
+@@SECTION: SENIOŘI A ZRANITELNÍ OSOBY
+U seniorů sleduj:
+- zmatenost,
+- apatii,
+- odmítání jídla a pití.
+
+Postup:
+- častý dohled,
+- jednoduché pokyny,
+- teplo a tekutiny.
+
+Nenechávej seniora dlouho samotného.
+
+@@SECTION: KDY STAV UŽ NEZVLÁDNEŠ DOMA
+Volej pomoc, pokud:
+- stav se rychle zhoršuje,
+- dochází k opakovaným kolapsům,
+- nezabírají základní opatření.
+
+Raději zavolat zbytečně než pozdě.
+
+@@SECTION: ZÁKLADNÍ KONTAKTY PRO ZDRAVOTNÍ SITUACE (TÁBOR)
+• Tísňové volání: 112  
+• Zdravotnická záchranná služba: 155  
+• HZS: 150  
+• Policie: 158
+
+@@SCENARIO: DĚTI VE ŠKOLE / ŠKOLCE – KDYŽ KRIZE PŘIJDE PŘES DEN
+
+@@SECTION: PROČ JE TENTO SCÉNÁŘ KRITICKÝ
+V Táboře jsou děti přes den:
+- ve školách,
+- školkách,
+- družinách,
+- na kroužcích,
+- na cestě MHD.
+
+Při krizi:
+- rodiče nejsou nablízku,
+- sítě nemusí fungovat,
+- vzniká panika u dospělých i dětí.
+
+Cílem je:
+1) nedělat unáhlené kroky,
+2) neztratit kontakt,
+3) dostat děti bezpečně pod dohled.
+
+@@SECTION: PRVNÍ ROZHODNUTÍ – JÍT PRO DÍTĚ, NEBO NE
+NEODCHÁZEJ AUTOMATICKY pro dítě, pokud:
+- škola funguje,
+- nejsou pokyny k evakuaci,
+- nehrozí bezprostřední nebezpečí.
+
+DŮVOD:
+Hromadný pohyb rodičů zvyšuje chaos a riziko.
+
+PRO DÍTĚ JDI, pokud:
+- je vyhlášena evakuace,
+- škola oznámí vyzvednutí,
+- hrozí přímé ohrožení (požár, chemie, povodeň).
+
+@@SECTION: JAK ŠKOLY A ŠKOLKY V KRIZI POSTUPUJÍ
+Veřejná zařízení mají:
+- krizové plány,
+- dohled pedagogů,
+- kontakt s městem a IZS.
+
+Děti NEJSOU ponechány bez dozoru.
+Nešíř domněnky typu „děti pustili domů samy“.
+
+@@SECTION: KDYŽ SE NEMŮŽEŠ DOVOLAT
+Pokud:
+- telefon nefunguje,
+- linky jsou přetížené,
+- internet je nedostupný,
+
+UDĚLEJ:
+- vyčkej,
+- sleduj oficiální informace města,
+- nezatěžuj školu opakovaným voláním.
+
+Panika rodičů = zbytečné kolapsy.
+
+@@SECTION: POKUD MUSÍŠ DÍTĚ VYZVEDNOUT
+Postup:
+- jdi pěšky, pokud je to možné,
+- vyhýbej se davům a uzávěrám,
+- řiď se pokyny policie a hasičů.
+
+U školy:
+- respektuj organizaci,
+- nestrkej se,
+- sděl jméno dítěte,
+- buď trpělivý.
+
+@@SECTION: KDYŽ SE DÍTĚ NEDÁ OKAMŽITĚ VYZVEDNOUT
+Dítě:
+- zůstává pod dohledem,
+- má zajištěné základní potřeby,
+- čeká na další pokyny.
+
+Tvoje role:
+- zůstaň v bezpečí,
+- připrav se na delší oddělení,
+- zachovej klid.
+
+Dítě potřebuje klidné dospělé.
+
+@@SECTION: DĚTI, KTERÉ SE VRACEJÍ SAMY
+Pokud dítě běžně chodí samo:
+- sleduj oficiální pokyny,
+- nesnaž se ho „honit po městě“.
+
+V krizi:
+- doprava kolabuje,
+- pohyb po městě je nebezpečný.
+
+@@SECTION: CO DĚTEM ŘÍKAT PO NÁVRATU
+Říkej:
+- „Teď už jsme spolu.“
+- „Udělali jsme, co bylo správné.“
+- „Situace je pod kontrolou.“
+
+Neříkej:
+- „Měl jsem strach, že tě ztratím.“
+- „Byl chaos.“
+- „Nevěděl jsem, co dělat.“
+
+Děti si nesmí nést tvůj stres.
+
+@@SECTION: DĚTI SE SPECIÁLNÍMI POTŘEBAMI
+Zvýšená pozornost:
+- zdravotní omezení,
+- poruchy autistického spektra,
+- úzkosti.
+
+Postup:
+- drž rutinu,
+- jednoduché věty,
+- fyzická blízkost,
+- minimum informací.
+
+@@SECTION: KDY VOLAT ODBORNOU POMOC
+Volej pomoc, pokud:
+- dítě má panickou reakci,
+- nereaguje,
+- je v šoku,
+- má zdravotní obtíže.
+
+Raději řešit dřív než pozdě.
+
+@@SECTION: KONTAKTY PRO SITUACE S DĚTMI (TÁBOR)
+• Tísňové volání: 112  
+• Zdravotnická záchranná služba: 155  
+• Město Tábor – ústředna: 381 486 111  
+• Odbor sociálních věcí / SPOD: 381 486 420–426  
+• Linka bezpečí (děti): 116 111
+
+@@SCENARIO: POHYB PO MĚSTĚ – KDYŽ DOPRAVA KOLABUJE
+
+@@SECTION: SMYSL A RIZIKO
+V krizi se z běžného pohybu po Táboře stává riziko.
+Kolabuje:
+- MHD,
+- křižovatky,
+- mosty,
+- navigace,
+- komunikace.
+
+Cílem je:
+1) nezůstat uvězněný,
+2) nezranit se,
+3) dostat se do bezpečí nebo zůstat na místě.
+
+@@SECTION: PRVNÍ OTÁZKA – MUSÍM SE VŮBEC POHYBOVAT?
+NECHOĎ NIKAM, pokud:
+- nejsi v ohrožení,
+- máš přístřeší,
+- máš vodu a teplo.
+
+Pohyb v krizi zvyšuje riziko úrazu a ztráty kontaktu.
+
+POHYBUJ SE JEN, POKUD:
+- hrozí bezprostřední nebezpečí,
+- je vyhlášena evakuace,
+- musíš za dětmi / zraněným.
+
+@@SECTION: PĚŠKY JE ČASTO NEJBEZPEČNĚJŠÍ
+Výhody pěšího pohybu:
+- nejsi závislý na palivu,
+- obejdeš kolony,
+- můžeš měnit trasu.
+
+Zásady:
+- pevná obuv,
+- batoh místo tašky,
+- ruce volné,
+- pohybuj se při kraji.
+
+@@SECTION: KRITICKÁ MÍSTA V TÁBOŘE
+Vyšší riziko:
+- Švehlův most,
+- Lužnická ulice,
+- Údolní ulice,
+- okolí Jordánu,
+- podjezdy a mosty,
+- historické centrum (úzké ulice).
+
+Při povodni nebo evakuaci:
+- vyhýbej se údolím,
+- jdi do výšky,
+- nespoléhej na zkratky.
+
+@@SECTION: POHYB AUTEM – KDYŽ UŽ MUSÍŠ
+Auto používej jen pokud:
+- je průjezdné,
+- víš kam jedeš,
+- máš plán B.
+
+NEDĚLEJ:
+- nenajížděj do vody,
+- neblokuj křižovatky,
+- nejezdi podle navigace naslepo.
+
+POČÍTEJ:
+- semafory nefungují,
+- nehody zablokují tahy,
+- palivo rychle dojde.
+
+@@SECTION: KDY AUTO OPUSTIT
+Opusť vozidlo, pokud:
+- stojíš dlouho bez pohybu,
+- hrozí povodeň,
+- auto blokuje záchranáře,
+- pokračování je nebezpečné.
+
+Auto zamkni, klíče si vezmi.
+Pokračuj pěšky.
+
+@@SECTION: MHD A HROMADNÁ DOPRAVA
+Počítej s tím, že:
+- MHD se zastaví jako první,
+- autobusy mohou sloužit k evakuaci,
+- řidiči čekají na pokyny.
+
+Nevyžaduj od řidiče rozhodnutí.
+On není krizový štáb.
+
+@@SECTION: POHYB V NOCI A ZA TMY
+Rizika:
+- pády,
+- krádeže,
+- dezorientace.
+
+Postup:
+- pohybuj se ve dvojici nebo skupině,
+- vyhýbej se temným místům,
+- použij světlo jen krátce,
+- sleduj okolí.
+
+@@SECTION: KDY SE RADĚJI ZASTAVIT A ČEKAT
+Zastav se, pokud:
+- jsi vyčerpaný,
+- ztrácíš orientaci,
+- nevíš, kam jít,
+- situace se rychle mění.
+
+Čekání v bezpečí je lepší než špatný pohyb.
+
+@@SECTION: DĚTI, SENIOŘI A POHYB
+- tempo přizpůsob nejslabšímu,
+- časté zastávky,
+- kontrola tepla a pití,
+- děti drž fyzicky u sebe.
+
+Nenech nikoho zaostávat.
+
+@@SECTION: KDY VOLAT POMOC
+Volej, pokud:
+- jsi uvězněný,
+- zraněný,
+- dezorientovaný,
+- hrozí okamžité nebezpečí.
+
+@@SECTION: KONTAKTY – POHYB A BEZPEČNOST (TÁBOR)
+• Tísňové volání: 112  
+• Zdravotnická záchranná služba: 155  
+• Městská policie Tábor: 381 253 008  
+• Policie ČR – Tábor: 974 238 111  
+• Město Tábor – ústředna: 381 486 111
+
+@@SCENARIO: KONFLIKTY MEZI LIDMI – KDYŽ STRES PŘERŮSTÁ V AGRESI
+
+@@SECTION: PROČ KONFLIKTY V KRIZI VZNIKAJÍ
+V krizových situacích lidé:
+- mají strach,
+- jsou vyčerpaní,
+- cítí ztrátu kontroly,
+- bojují o zdroje (voda, teplo, informace).
+
+Agrese často není „zlá vůle“, ale reakce nervového systému.
+
+@@SECTION: NEJČASTĚJŠÍ KONFLIKTNÍ SITUACE V TÁBOŘE
+- fronty na vodu nebo potraviny,
+- přeplněné obchody,
+- hádky v domech bez elektřiny,
+- konflikty mezi sousedy,
+- silniční incidenty,
+- panika v MHD nebo na shromaždištích.
+
+@@SECTION: ZÁKLADNÍ PRAVIDLO – KONFLIKTU SE VYHNI
+Cílem není vyhrát hádku.
+Cílem je **přežít bez zranění**.
+
+Pokud můžeš:
+- ustup,
+- změň místo,
+- mlč,
+- odejdi.
+
+Ego v krizi zabíjí.
+
+@@SECTION: JAK POZNAT, ŽE SITUACE ESKALUJE
+Varovné signály:
+- zvýšený hlas,
+- gestikulace,
+- zatnuté pěsti,
+- osobní útoky,
+- nerespektování prostoru.
+
+Jakmile tohle vidíš, **přestaň řešit obsah sporu**.
+
+@@SECTION: DEESKALAČNÍ POSTUP (PRAKTICKY)
+1) Zpomal hlas.
+2) Mluv krátce.
+3) Používej „já“ věty:
+   - „Já nechci konflikt.“
+   - „Já ustupuju.“
+4) Udržuj odstup.
+5) Dívej se bokem, ne přímo do očí.
+
+@@SECTION: CO NIKDY NEDĚLAT
+- nevyhrožuj,
+- nesnižuj druhého,
+- nedotýkej se ho,
+- nezvyšuj hlas,
+- neobklopuj ho skupinou.
+
+Tohle spouští násilí.
+
+@@SECTION: KONFLIKTY V RODINĚ A DOMÁCNOSTI
+V bytě:
+- horko / zima,
+- hlad,
+- únava,
+- tma.
+
+Postup:
+- rozděl prostor (každý má „své místo“),
+- stanov tichý režim,
+- jasně rozděl role,
+- pravidelně dělej pauzy.
+
+@@SECTION: KONFLIKTY MEZI SOUSEDY
+Typické spory:
+- hluk,
+- generátory,
+- nabíjení telefonů,
+- voda.
+
+Doporučení:
+- mluv klidně,
+- navrhuj výměnu, ne požadavek,
+- domlouvej se dopředu,
+- zapisuj dohody.
+
+@@SECTION: KDY SE OKAMŽITĚ STÁHNOUT
+Stáhni se, pokud:
+- někdo sahá po zbrani,
+- je pod vlivem alkoholu,
+- je skupina proti tobě,
+- ztrácíš kontrolu nad emocemi.
+
+@@SECTION: KDY VOLAT AUTORITY
+Volej, pokud:
+- hrozí fyzické násilí,
+- někdo je zraněný,
+- dochází k rabování,
+- situace je neudržitelná.
+
+@@SECTION: KONTAKTY – KONFLIKTY A BEZPEČNOST (TÁBOR)
+• Tísňové volání: 112  
+• Policie ČR – Tábor: 974 238 111  
+• Městská policie Tábor: 381 253 008  
+• Zdravotnická záchranná služba: 155
+
+@@SECTION: PSYCHOLOGICKÁ POZNÁMKA
+Agrese je nakažlivá.
+Klid taky.
+
+Jeden klidný člověk může uklidnit prostor.
+
+@@SCENARIO: KONFLIKTY A AGRESE – KDYŽ SE LIDÉ DOSTÁVAJÍ POD TLAK
+
+@@SECTION: RYCHLÉ MIKRO-SCÉNÁŘE – JSEM TADY, CO MÁM DĚLAT TEĎ
+
+MIKRO-SCÉNÁŘ: Konflikt ve frontě na vodu / potraviny
+- Zůstaň bokem, nestůj čelem k agresorovi.
+- Nemluv první, nereaguj na urážky.
+- Pokud někdo zvyšuje hlas → ustup o krok.
+- Pokud se lidé začnou shlukovat → odejdi z fronty.
+- Voda/jídlo nestojí za zranění.
+
+MIKRO-SCÉNÁŘ: Agresivní soused v domě
+- Zůstaň na veřejném místě (chodba, venek).
+- Nevstupuj do jeho bytu ani ho nepouštěj k sobě.
+- Drž odstup minimálně na délku paží.
+- Pokud blokuje průchod → volej 158 / 112.
+- Zavři dveře, i kdyby křičel.
+
+MIKRO-SCÉNÁŘ: Konflikt s cizím člověkem v noci
+- Nezastavuj se.
+- Odpovídej krátce nebo vůbec.
+- Jdi ke světlu, ne do tmy.
+- Pokud mění směr podle tebe → přejdi ulici.
+- Pokud se přibližuje → hlasitě řekni „NECHTE MĚ“.
+
+MIKRO-SCÉNÁŘ: Konflikt s osobou pod vlivem alkoholu / drog
+- Neargumentuj, logika nefunguje.
+- Neměň téma, nemoralizuj.
+- Drž ruce viditelné, pomalu couvej.
+- Pokud má v ruce předmět → okamžitě pryč.
+- Nikdy se ho nedotýkej.
+
+MIKRO-SCÉNÁŘ: Konflikt kvůli generátoru / hluku
+- Neřeš to v afektu.
+- Pokud je noc → konflikt eskaluje rychleji.
+- Domluv se přes třetí osobu nebo vůbec.
+- Pokud hrozí fyzický střet → vypni zařízení a odejdi.
+- Technika je nahraditelná, zdraví ne.
+
+MIKRO-SCÉNÁŘ: Konflikt při dopravním kolapsu
+- Nevystupuj z auta, pokud nemusíš.
+- Zamkni vozidlo.
+- Neukazuj gesty, nekřič.
+- Pokud někdo mlátí do auta → volej 158.
+- Ujeď, jakmile to jde, i pomalu.
+
+@@SECTION: JEDNOŘÁDKOVÁ ROZHODOVACÍ PRAVIDLA (KRIZOVÉ UX)
+
+- Pokud zvyšuje hlas → ustup.
+- Pokud se přibližuje → odejdi.
+- Pokud má v ruce předmět → volej 112.
+- Pokud jsi v menšině → neřeš.
+- Pokud máš děti → okamžitě pryč.
+- Pokud je noc → buď dvojnásobně opatrný.
+- Pokud cítíš strach → poslechni ho.
+
+@@SECTION: FYZICKÁ BEZPEČNOST – JAK STÁT, KDE STÁT, JAK SE HÝBAT
+
+- Stůj bokem, ne čelem.
+- Měj únikovou cestu za zády.
+- Nestůj v rohu bez úniku.
+- Ruce měj viditelné, dlaně otevřené.
+- Ruce nedávej do kapes.
+- Pohybuj se pomalu, bez trhání.
+- Oční kontakt krátký, ne vyzývavý.
+
+@@SECTION: DĚTI A SENIOŘI – PRIORITA OCHRANY
+
+- Konflikt před dětmi neřeš, okamžitě je odváděj.
+- Mluv klidně, krátké věty: „Jdeme pryč.“
+- Děti netahej, ale veď je tělem.
+- Seniory postav za sebe, kryj prostor.
+- Po konfliktu dětem vysvětli, že odejít bylo správné.
+
+@@SECTION: NOČNÍ REŽIM – ZVÝŠENÉ RIZIKO
+
+- V noci konflikty eskalují rychleji.
+- Choď jen po osvětlených místech.
+- Vyhýbej se parkům, zkratkám, podchodům.
+- Noste světlo (mobil, baterka).
+- Pokud musíš ven → jdi ve dvojici.
+
+@@SECTION: KDY SE NEHRÁT NA HRDINU
+
+- Nejsi policie.
+- Nejsi vyjednavač.
+- Nejsi povinen nic dokazovat.
+- Odchod není prohra.
+- Ustoupení není slabost.
+- Přežití má přednost.
+
+@@SECTION: PO-KONFLIKTNÍ FÁZE – CO DĚLAT POTOM
+
+- Odejděte do bezpečí.
+- Sedněte si, dýchejte pomalu.
+- Třes je normální reakce.
+- Pokud cítíš bolest → řeš zdravotně.
+- Pokud šlo o útok → zvaž nahlášení (158).
+- Nevyčítej si, že jsi odešel.
+
+@@SECTION: PRÁVNÍ MINI-RÁMEC (ZÁKLAD)
+
+- Fyzický útok je trestný čin.
+- Sebeobrana slouží k odvrácení útoku, ne k pomstě.
+- Nepřiměřená obrana může být problém.
+- Odchod z místa konfliktu je vždy legální.
+
+
