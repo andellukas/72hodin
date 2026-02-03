@@ -239,6 +239,13 @@ a{ color:rgba(185,235,245,0.92)!important; }
 
 
 </style>
+<style>
+/*__CONTACTS_PANEL_CSS_V1__*/
+.contactsPanel{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06);}
+.contactsPanel[hidden]{display:none!important;}
+.contactsTitle{font-size:12px;letter-spacing:.2px;opacity:.92;margin:0 0 6px 0;color:var(--text-muted,rgba(255,255,255,0.62));}
+.contactsBody{margin:0;white-space:pre-wrap;font-size:13px;line-height:1.35;color:var(--text-secondary,rgba(255,255,255,0.78));}
+</style>
 </head>
 
 <body>
@@ -256,6 +263,12 @@ a{ color:rgba(185,235,245,0.92)!important; }
 
  <div class="search">
  <input id="q" class="input" type="search" placeholder="Hledej… (např. voda, blackout, evakuace)" autocomplete="off" />
+  <!--__CONTACTS_PANEL_HTML_V1__-->
+  <div id="contactsPanel" class="contactsPanel" hidden>
+    <div class="contactsTitle">Kontakty</div>
+    <pre id="contactsBody" class="contactsBody"></pre>
+  </div>
+
  <div class="hint"></div>
  </div>
  </section>
