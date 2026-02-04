@@ -243,6 +243,18 @@ a{ color:rgba(185,235,245,0.92)!important; }
 /*__CONTACTS_PANEL_CSS_V1__*/
 .contactsPanel{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06);}
 .contactsPanel[hidden]{display:none!important;}
+
+/* THEME_A_STATE_BLACK_SILVER_BEGIN */
+/* Variant A — State Black / Silver (colors only) */
+:root{--bg:#0E0F12;--panel:#15171C;--panel2:#111317;--text:#E6E8EB;--text2:#A9AFB7;--div:#2A2E36;--focus:#C9CCD2;}
+html,body{background:var(--bg)!important;color:var(--text)!important;}
+a,a:visited{color:var(--focus)!important;}
+input,textarea,select,button{background:var(--panel)!important;color:var(--text)!important;border-color:var(--div)!important;}
+button:hover{background:var(--panel2)!important;}
+#contactsPanel{border-top-color:var(--div)!important;}
+#contactsBody{color:var(--text2)!important;}
+/* THEME_A_STATE_BLACK_SILVER_END */
+
 .contactsTitle{font-size:12px;letter-spacing:.2px;opacity:.92;margin:0 0 6px 0;color:var(--text-muted,rgba(255,255,255,0.62));}
 .contactsBody{margin:0;white-space:pre-wrap;font-size:13px;line-height:1.35;color:var(--text-secondary,rgba(255,255,255,0.78));}
 </style>
