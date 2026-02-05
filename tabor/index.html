@@ -292,6 +292,33 @@ pre#contactsBody::selection{
 }
 /* CONTACTS_TYPO_A_END */
 
+/* CONTACTS_FMT_V1_BEGIN */
+/* Contacts headings 1–10 — unify with knowledge results (colors only unchanged) */
+#contactsBody{
+  font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
+  font-size:14px !important;      /* match #results .p */
+  line-height:1.5 !important;     /* match #results .p */
+  white-space:normal !important;  /* now HTML lines */
+}
+#contactsBody .cLine{margin:0; padding:0;}
+#contactsBody .cGap{height:8px;}
+#contactsBody .cSep{
+  height:1px;
+  margin:10px 0;
+  background:rgba(255,255,255,0.10);
+}
+/* match #results .item .t (your audit): weight/letter-spacing/line-height */
+#contactsBody .cH{
+  display:block;
+  font-weight:800 !important;
+  letter-spacing:.2px !important;
+  line-height:1.2 !important;
+  margin:0 0 6px 0;
+  color:var(--text, rgba(255,255,255,0.92));
+}
+/* CONTACTS_FMT_V1_END */
+
+
 
 
 
