@@ -261,35 +261,34 @@ button:hover{background:var(--panel2)!important;}
 /* THEME_A_STATE_BLACK_SILVER_END */
 
 /* CONTACTS_TYPO_A_BEGIN */
-/* Contacts — unify typography with results; CSS-only; NO content/JS change */
-#contactsBody{
-  /* kill monospace feel from <pre> */
-  font-family: inherit;
-  font-size:14px;                 /* align with results body */
-  line-height:1.55;
-  font-weight:500;
-  letter-spacing:.12px;
+/* Contacts — FORCE unify typography (override any monospace); CSS-only; NO content/JS change */
 
-  /* keep line breaks, but allow wrapping on small screens */
-  white-space:pre-wrap;
-  overflow-wrap:anywhere;
-  word-break:break-word;
+/* cover both: <pre id="contactsBody" class="contactsBody"> and any inherited styles */
+pre#contactsBody,
+#contactsPanel pre#contactsBody,
+#contactsBody.contactsBody{
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
+  font-size: 14px !important;
+  line-height: 1.55 !important;
+  font-weight: 500 !important;
+  letter-spacing: .12px !important;
 
-  /* match palette */
-  color:var(--text-secondary, rgba(255,255,255,.78));
+  /* keep line breaks but allow wrap */
+  white-space: pre-wrap !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+
+  color: var(--text-secondary, rgba(255,255,255,.78)) !important;
 }
 
-/* keep title subtle and consistent */
+/* title stays subtle */
 #contactsPanel .contactsTitle{
-  font-family: inherit;
-  font-size:12px;
-  letter-spacing:.2px;
-  color:var(--text-muted, rgba(255,255,255,.62));
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
 }
 
-/* selection readability */
-#contactsBody::selection{
-  background:rgba(201,204,210,.18);
+/* selection */
+pre#contactsBody::selection{
+  background: rgba(201,204,210,.18) !important;
 }
 /* CONTACTS_TYPO_A_END */
 
