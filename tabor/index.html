@@ -263,22 +263,17 @@ button:hover{background:var(--panel2)!important;}
 /* CONTACTS_TYPO_A_BEGIN */
 /* Contacts — unified typography with results (CSS only) */
 #contactsBody{
-  font-size:14px;            /* same as results .p */
-  line-height:1.5;
-  color:var(--text-secondary, rgba(255,255,255,.78));
-  letter-spacing:.1px;
+  font-size:15px;              /* visible test (was 14) */
+  line-height:1.55;
+  color:var(--text, rgba(230,232,235,.92));
+  letter-spacing:.12px;
 }
-#contactsBody strong{font-weight:800;}
-#contactsBody em{font-style:italic;}
-/* section spacing */
-#contactsBody{white-space:pre-wrap;}
-#contactsBody::selection{background:rgba(201,204,210,.18);}
-/* visual separators */
-#contactsBody{ }
-#contactsBody{
-  /* improve separator contrast */
+#contactsPanel .contactsTitle{
+  color:var(--text2, rgba(169,175,183,.92));
 }
+/* make separators readable (works because textContent preserves them) */
 #contactsBody{
+  text-shadow: 0 0 0 transparent; /* deterministic no-op, keeps block stable */
 }
 /* CONTACTS_TYPO_A_END */
 
