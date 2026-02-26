@@ -1,0 +1,10 @@
+{
+  "name": "72 hodin – TEST v3",
+  "short_name": "72h TEST",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#071521",
+  "theme_color": "#071521",
+  "icons": []
+}

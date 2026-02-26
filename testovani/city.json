@@ -1,0 +1,7 @@
+{
+  "city": "Tábor (TEST v3)",
+  "subtitle": "Offline krizový vyhledávač",
+  "logo": "./assets/logo.jpg",
+  "knowledge_base": "./data/knowledge_base.txt",
+  "version": "v3-test"
+}
